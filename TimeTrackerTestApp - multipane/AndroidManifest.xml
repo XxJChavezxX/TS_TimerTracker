@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.tricellsoftware.timetrackertestappv2"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="14"
+        android:targetSdkVersion="18" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+   	<uses-permission android:name="android.permission.INTERNET" />
+    <supports-screens android:largeScreens="true" />
+    <supports-screens android:normalScreens="true" />
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/app_logo"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name="com.tricellsoftware.timetrackertestappv2.SplashScreenActivity"
+            android:label="@string/app_name">
+             <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            </activity>
+        <activity
+            
+            android:name="com.tricellsoftware.timetrackertestappv2.MainActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="com.tricellsoftware.timetrackertestappv2.ClocksActivity"
+            android:label="@string/app_name"
+            android:parentActivityName="com.tricellsoftware.timetrackertestappv2.MainActivity"  >
+        </activity>
+        <activity
+            android:name="com.tricellsoftware.timetrackertestappv2.ProfileActivity"
+            android:label="@string/app_name"
+            android:parentActivityName="com.tricellsoftware.timetrackertestappv2.MainActivity"  >
+        </activity>
+        <activity
+            android:name="com.tricellsoftware.timetrackertestappv2.CompanyMainActivity"
+            android:label="@string/app_name"
+            android:parentActivityName="com.tricellsoftware.timetrackertestappv2.MainActivity" >
+        </activity>
+        <activity
+            android:name="com.tricellsoftware.timetrackertestappv2.CompanyActivity"
+            android:label="@string/app_name"
+            android:parentActivityName="com.tricellsoftware.timetrackertestappv2.CompanyRatesActivity"
+             >
+        </activity>
+        <activity
+            android:name="com.tricellsoftware.timetrackertestappv2.CompanyRatesActivity"
+            android:label="@string/app_name"
+            android:parentActivityName="com.tricellsoftware.timetrackertestappv2.MainActivity" 
+            >
+        </activity>
+        <activity
+            android:name="com.tricellsoftware.timetrackertestappv2.TimeLogListActivity"
+            android:label="@string/app_name"
+            android:parentActivityName="com.tricellsoftware.timetrackertestappv2.MainActivity" >
+        </activity>
+        <activity
+            android:name="com.tricellsoftware.timetrackertestappv2.CalendarViewActivity"
+            android:label="@string/app_name"
+            android:parentActivityName="com.tricellsoftware.timetrackertestappv2.TimeLogListActivity" >
+        </activity>
+      <!--  <activity
+            android:name="com.example.timetrackertestapp.CurrentTimeSheetLog"
+            android:label="@string/app_name"
+            android:parentActivityName="com.example.timetrackertestapp.MainActivity" 
+            android:screenOrientation="portrait">
+        </activity>
+        -->
+        <activity
+            android:name="com.tricellsoftware.timetrackertestappv2.SummaryActivity"
+            android:label="@string/app_name"
+            android:parentActivityName="com.tricellsoftware.timetrackertestappv2.MainActivity" >
+        </activity>
+        <activity
+            android:name="com.tricellsoftware.timetrackertestappv2.EditTimeActivity"
+            android:label="@string/app_name">
+            <!--android:parentActivityName="com.example.timetrackertestapp.TimeLogListActivity" -->
+            
+        </activity>
+        
+        <activity
+            android:name="com.tricellsoftware.timetrackertestappv2.TimeLogMainActivity"
+            android:label="@string/app_name"
+            android:parentActivityName="com.example.timetrackertestapp.SummaryActivity">
+            
+        </activity>
+
+        
+        <provider
+            android:name="com.tricellsoftware.timetrackertestapp.contentproviderv2.TimeTrackerContentProvider"
+            android:authorities="com.example.timetrackertestapp.contentproviderv2" >
+        </provider>
+    </application>
+
+</manifest>

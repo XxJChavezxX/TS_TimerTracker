@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
+    tools:context=".ProfileActivity" >
+
+    <TextView
+        android:id="@+id/dateview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:text="@string/profile"
+        android:textSize="@dimen/font_title_size"
+           android:fontFamily="@style/font_family" />
+
+     <View
+         android:id="@+id/view1"
+         android:layout_width="fill_parent"
+         android:layout_height="2dp"
+         android:layout_alignBottom="@+id/dateview"
+         android:layout_alignParentLeft="true"
+         android:background="@android:color/darker_gray" />
+
+     <TextView
+         android:id="@+id/datetxt"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_alignParentLeft="true"
+         android:layout_below="@+id/view1"
+         android:text="@string/datetxt"
+          android:textSize="@dimen/font_title_size"
+           android:fontFamily="@style/font_family" />
+
+     <Button
+         android:id="@+id/checkbttn"
+         android:layout_width="96dp"
+         android:layout_height="96dp"
+         android:layout_alignParentBottom="true"
+         android:layout_alignRight="@+id/view1"
+         android:layout_marginBottom="14dp"
+         android:background="@drawable/check_bttn" />
+
+     <EditText
+         android:id="@+id/editText1"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_alignLeft="@+id/datetxt"
+         android:layout_below="@+id/datetxt"
+         android:layout_marginTop="67dp"
+         android:ems="10"
+         android:fontFamily="@style/font_family"
+         android:hint="@string/first_name"
+         android:inputType="textPersonName"
+         android:textSize="@dimen/font_title_size" />
+
+     <EditText
+         android:id="@+id/editText3"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_alignLeft="@+id/editText2"
+         android:layout_below="@+id/editText2"
+         android:layout_marginTop="88dp"
+         android:ems="10"
+         android:fontFamily="@style/font_family"
+         android:hint="@string/email"
+         android:inputType="textEmailAddress"
+         android:textSize="@dimen/font_title_size" >
+
+         <requestFocus />
+     </EditText>
+
+     <EditText
+         android:id="@+id/editText2"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_alignLeft="@+id/editText1"
+         android:layout_below="@+id/editText1"
+         android:layout_marginTop="91dp"
+         android:ems="10"
+         android:fontFamily="@style/font_family"
+         android:hint="@string/last_name"
+         android:inputType="textPersonName"
+         android:textSize="@dimen/font_title_size" />
+
+"
+    
+</RelativeLayout>

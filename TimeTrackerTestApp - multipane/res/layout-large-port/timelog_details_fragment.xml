@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    		android:layout_width="match_parent"
+		    android:layout_height="match_parent" >
+		
+		<LinearLayout
+		    android:layout_width="match_parent"
+		    android:layout_height="match_parent"
+		    android:background="@color/lightgrey"
+		    android:orientation="vertical"
+		    android:paddingBottom="@dimen/activity_vertical_margin"
+		    android:paddingLeft="@dimen/activity_horizontal_margin"
+		    android:paddingRight="@dimen/activity_horizontal_margin"
+		    android:paddingTop="@dimen/activity_vertical_margin" >
+		
+		    <!-- android:background="@android:color/darker_gray" -->
+		
+		    <RelativeLayout
+		        android:id="@+id/relativeLayout2"
+		        android:layout_width="match_parent"
+		        android:layout_height="match_parent"
+		        android:background="@android:color/white"
+		        android:paddingBottom="@dimen/activity_vertical_margin"
+		        android:paddingLeft="@dimen/activity_horizontal_margin"
+		        android:paddingRight="@dimen/activity_horizontal_margin"
+		        android:paddingTop="@dimen/activity_vertical_margin" >
+		
+		        <View
+		            android:id="@+id/view1"
+		            android:layout_width="fill_parent"
+		            android:layout_height="5dp"
+		            android:layout_alignBottom="@+id/clockintv"
+		            android:layout_alignParentRight="true"
+		            android:layout_alignParentTop="true"
+		            android:background="@color/lightgrey" />
+		
+		        <TextView
+		            android:id="@+id/clockintv"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:layout_alignParentTop="true"
+		            android:layout_centerHorizontal="true"
+		            android:text="Start Time"
+		            android:textAppearance="?android:attr/textAppearanceSmall" />
+		
+		        <TimePicker
+		            android:id="@+id/StartTimePicker"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:layout_below="@+id/view1"
+		            android:layout_centerHorizontal="true"
+		            android:layout_marginTop="5dp" />
+		
+		    </RelativeLayout>
+		
+		    <View
+		        android:id="@+id/View02"
+		        android:layout_width="0.1dp"
+		        android:layout_height="match_parent"
+		        android:layout_weight="0.02"
+		        android:background="@color/lightgrey"
+		        android:orientation="vertical" />
+
+		    <View
+		        android:id="@+id/View03"
+		        android:layout_width="fill_parent"
+		        android:layout_height="1dp"
+		        android:background="@color/lightgrey" />
+			
+			    <RelativeLayout
+			        android:id="@+id/relativeLayout1"
+			        android:layout_width="match_parent"
+			         android:layout_height="match_parent"
+			        android:background="@android:color/white"
+			        android:paddingBottom="@dimen/activity_vertical_margin"
+			        android:paddingLeft="@dimen/activity_horizontal_margin"
+			        android:paddingRight="@dimen/activity_horizontal_margin"
+			        android:paddingTop="@dimen/activity_vertical_margin" >
+			
+			        <TimePicker
+			            android:id="@+id/EndTimePicker"
+			            android:layout_width="wrap_content"
+			            android:layout_height="wrap_content"
+			            android:layout_below="@+id/clockouttv"
+			            android:layout_centerHorizontal="true"
+			            android:layout_marginTop="5dp" />
+			
+			        <View
+			            android:id="@+id/View01"
+			            android:layout_width="fill_parent"
+			            android:layout_height="match_parent"
+			            android:layout_alignBottom="@+id/clockouttv"
+			            android:layout_alignParentRight="true"
+			            android:layout_alignParentTop="true"
+			            android:background="@color/lightgrey" />
+			
+			        <TextView
+			            android:id="@+id/clockouttv"
+			            android:layout_width="wrap_content"
+			            android:layout_height="wrap_content"
+			            android:layout_alignParentTop="true"
+			            android:layout_centerHorizontal="true"
+			            android:text="End Time"
+			            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+			        <Button
+			            android:id="@+id/checkbttn"
+			            android:layout_width="64dp"
+			            android:layout_height="64dp"
+			            android:layout_alignBottom="@+id/EndTimePicker"
+			            android:layout_alignRight="@+id/View01"
+			            android:background="@drawable/check_bttn" />
+		
+			    </RelativeLayout>
+		    
+		
+		</LinearLayout>
+</ScrollView>

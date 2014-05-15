@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Time Tracker V1.5</string>
+    <string name="action_settings">Profile Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="datetxt">Date Goes Here</string>
+    <string name="schedulestxt">Schedules</string>
+    <string name="timesheettxt">Timesheet Summary</string>
+    <string name="clockstxt">Clock in/out</string>
+    <string name="ratestxt">Companies</string>
+    <string name="wtxt">WELCOME</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="email">Email</string>
+    <string name="profile">Enter User Information</string>
+    <string name="company">COMPANY</string>
+    <string name="company_name">Company Name</string>
+    <string name="street_address">Street Address</string>
+    <string name="city">City</string>
+    <string name="state">State</string>
+    <string name="zipcode">Zipcode</string>
+    <string name="clockin">CLOCK IN</string>
+    <string name="clockout">CLOCK OUT</string>
+    <string name="dialog_message">Record will be deleted</string>
+    <string name="ok">Yes</string>
+    <string name="no">No</string>
+    <string name="no_itemtv">No Item Selected</string>
+
+</resources>

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".ClocksActivity" >
+
+    <TextView
+        android:id="@+id/dateview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:fontFamily="@style/font_family"
+        android:text="@string/wtxt"
+        android:textSize="@dimen/font_size" />
+
+    <View
+        android:id="@+id/view1"
+        android:layout_width="fill_parent"
+        android:layout_height="2dp"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/dateview"
+        android:background="@android:color/darker_gray" />
+
+    <TextView
+        android:id="@+id/vDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/view1"
+        android:fontFamily="@style/font_family"
+        android:text="@string/datetxt"
+        android:textSize="@dimen/font_size" />
+
+    <TextView
+        android:id="@+id/textStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/view1"
+        android:fontFamily="@style/font_family"
+        android:text="Status: "
+        android:textSize="@dimen/font_size" />
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/vDate"
+        android:layout_alignRight="@+id/view1"
+        android:layout_below="@+id/vDate" >
+
+        <Button
+            android:id="@+id/timesheetbttn"
+            android:layout_width="92dp"
+            android:layout_height="92dp"
+            android:layout_below="@+id/txtDatelog"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/timesheet_bttn" />
+
+        <Button
+            android:id="@+id/clockoutbttn"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="100dp"
+            android:layout_toRightOf="@+id/timesheetbttn"
+            android:background="@drawable/clock_out_bttn" />
+
+        <Button
+            android:id="@+id/clockinbttn"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="81dp"
+            android:layout_toLeftOf="@+id/timesheetbttn"
+            android:background="@drawable/clock_in_bttn" />
+
+        <TextView
+            android:id="@+id/txtStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/txtDatelog"
+            android:layout_alignBottom="@+id/txtDatelog"
+            android:layout_alignRight="@+id/clockoutbttn"
+            android:fontFamily="@style/font_family"
+            android:text="@string/clockout"
+            android:textSize="@dimen/font_size" />
+
+        <TextView
+            android:id="@+id/txtDatelog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@+id/clockinbttn"
+            android:layout_below="@+id/clockinbttn"
+            android:layout_marginRight="27dp"
+            android:layout_marginTop="30dp"
+            android:fontFamily="@style/font_family"
+            android:text="@string/clockin"
+            android:textSize="@dimen/font_size" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/relativeLayout1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@style/font_family"
+        android:text="@string/timesheettxt"
+        android:textSize="@dimen/font_size" />
+
+</RelativeLayout>
