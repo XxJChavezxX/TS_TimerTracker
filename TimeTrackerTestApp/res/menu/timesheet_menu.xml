@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+        <item android:id="@+id/action_edit"
+        android:icon="@drawable/calendar_icon"
+        android:title="Edit Start Date/End Date"
+        android:actionViewClass=""
+        android:showAsAction="ifRoom"></item>
+
+</menu>
