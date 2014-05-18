@@ -26,5 +26,9 @@
     <string name="ok">Yes</string>
     <string name="no">No</string>
     <string name="no_itemtv">No Item Selected</string>
+    <string name="selected_date"></string>
+    <string name="pref_data_key">prefData</string>
+    <string name="timelog_id">TimeLogID</string>
+    <string name="company_id">CompanyID</string>
 
 </resources>

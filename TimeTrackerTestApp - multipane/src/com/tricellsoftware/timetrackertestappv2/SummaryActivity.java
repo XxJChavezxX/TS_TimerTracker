@@ -54,9 +54,9 @@ public class SummaryActivity extends Activity {
 		setContentView(R.layout.summary_layout);
 		
 		
-		pd = new ProgressDialog(this);
-		pd.show();
-		pd.setMessage("Loading..");
+//		pd = new ProgressDialog(this);
+//		pd.show();
+//		pd.setMessage("Loading..");
 		//action bar
 		ActionBar actionBar = getActionBar();
 		actionBar.setTitle("TimeSheet Log - Summary");
@@ -77,7 +77,7 @@ public class SummaryActivity extends Activity {
 		catch(Exception e){
 			Toast.makeText(this, "Error Ocurred" + e.toString(), Toast.LENGTH_LONG).show();
 		}
-		pd.hide();
+		//pd.hide();
 		timeLogsBttn.setOnClickListener(new View.OnClickListener(){
 
 			@Override
@@ -153,9 +153,9 @@ public class SummaryActivity extends Activity {
     @Override
 	protected void onRestart(){
     	super.onRestart();
-    	pd.show();
+//    	pd.show();
     	GetData();
-    	pd.hide();
+//    	pd.hide();
     }
     @Override
 	protected void onResume(){

@@ -7,6 +7,7 @@ import com.tricellsoftware.timetrackertestapp.DTOsv2.Status_Enum;
 import com.tricellsoftware.timetrackertestapp.DTOsv2.TimeLogDTO;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,7 +50,7 @@ public class CustomArrayAdapter extends ArrayAdapter<TimeLogDTO>{
         
         TimeLogDTO item = itemsArrayList.get(position);
         
-        //split the start time to just display the hours 
+        //split the start time to just display the hours also avaliable item.getStartTime().substring()
         String[] startTimes = item.getStartTime().split(" ");
         String strTime = null;
         if(startTimes.length > 2){

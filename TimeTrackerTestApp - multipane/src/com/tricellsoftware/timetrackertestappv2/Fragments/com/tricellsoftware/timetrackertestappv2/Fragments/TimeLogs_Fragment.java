@@ -9,20 +9,29 @@ import java.util.List;
 
 
 
+
+
+
+
 import com.tricellsoftware.timetrackertestapp.DTOsv2.TimeLogDTO;
 import com.tricellsoftware.timetrackertestapp.businessLogicv2.BusinessLogic;
 import com.tricellsoftware.timetrackertestapp.databasev2.TimeLogTable;
 import com.tricellsoftware.timetrackertestapp.helperv2.CustomArrayAdapter;
 import com.tricellsoftware.timetrackertestappv2.CalendarViewActivity;
+import com.tricellsoftware.timetrackertestappv2.CompanyActivity;
 import com.tricellsoftware.timetrackertestappv2.EditTimeActivity;
 import com.tricellsoftware.timetrackertestappv2.R;
+
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.content.res.Configuration;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -74,6 +83,12 @@ public class TimeLogs_Fragment extends ListFragment {
 	
 	TextView tv; //dynamically added textview
 	
+	boolean land; //landscape
+	boolean sharedPrefFound; 
+	
+	SharedPreferences sharedPref;
+
+	
 	 @Override
 	 public void onCreate(Bundle savedInstanceState) {
 	  super.onCreate(savedInstanceState);
@@ -90,11 +105,19 @@ public class TimeLogs_Fragment extends ListFragment {
 		actionBar.setTitle("Time Logs");
 		
 		setHasOptionsMenu(true);
+		
 	
 	 }
 	  @Override
 	  public View onCreateView(LayoutInflater inflater, ViewGroup container,
 	      Bundle savedInstanceState) {
+		  
+			if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
+				land = true;
+			}
+			else
+				land = false;
+			
 	    View view = inflater.inflate(R.layout.list_view_container, //loads the view list container that holder the custom array adapter, the adapter loads the fragment
 	        container, false);
 	    
@@ -109,32 +132,71 @@ public class TimeLogs_Fragment extends ListFragment {
 		    getListView();
 		    
 			GetTimeLogData();
+			
+			if(EditTimeActivity.id > 0){
+				_id = EditTimeActivity.id;
+				EditTimeActivity.id  = 0;
+			}
+//			/**check for shared preferences, 
+//			 * We passed the Timelog id from the EditTimelog Activity class and we retrieve by using the getSharedPreferences
+//			 * method. This was the only way to pass the id from an activity that does not have direct contact with this fragment.
+//			 * **/
+//			sharedPref = getActivity().getSharedPreferences(getString(R.string.pref_data_key),getActivity().MODE_PRIVATE);
+//			if(sharedPref != null){
+//				if(sharedPref.contains(getString(R.string.timelog_id))){
+//					_id = Integer.parseInt(sharedPref.getString(getString(R.string.timelog_id), ""));
+//					sharedPrefFound = true;
+//				}
+//			}
+			
+			if(_id <= 0) {  
+			  //Get Fragment Container if it's present on the Activity
+				 if (land){
+				
+					FragmentTransaction ft = getFragmentManager().beginTransaction();
+					//check of the framelayout is present on the Activity associated with this ListFragment
+					if(getView().findViewById(R.id.fragment_timelog_container) != null){
+						
+					}// However, if we're being restored from a previous state,
+		            // then we don't need to do anything and should return or else
+		            // we could end up with overlapping fragments.
+		            if (savedInstanceState != null) {
+		                return;
+		            }
+		            //Creates Company Fragment to be held in the Activity layout using the FrameLayout
+		            NoResults_Fragment nr = new NoResults_Fragment();
+		            // In case this activity was started with special instructions from an
+		            // Intent, pass the Intent's extras to the fragment as arguments
+		            //cf.setArguments(getActivity().getIntent().getExtras());
+		
+		            //Add the fragment to the 'fragment_container' FrameLayout
+		            ft.add(R.id.fragment_timelog_container, nr).commit();
+				
+				 }
+			}
+			else{
+		    	// Create fragment and give it an argument specifying the item it should show
+		    	  newTF = new TimeLogDetails_Fragment(); // new company fragment
+	        	  Bundle args = new Bundle();
+	        	  args.putInt(TimeLogTable.COLUMN_ID, _id);
+	        	  newTF.setArguments(args);
+	        	  FragmentTransaction transaction = getFragmentManager().beginTransaction();
 
-		    
-		    
-		  //Get Fragment Container if it's present on the Activity
-			 if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE ){
-			
-				FragmentTransaction ft = getFragmentManager().beginTransaction();
-				//check of the framelayout is present on the Activity associated with this ListFragment
-				if(getView().findViewById(R.id.fragment_timelog_container) != null){
-					
-				}// However, if we're being restored from a previous state,
-	            // then we don't need to do anything and should return or else
-	            // we could end up with overlapping fragments.
-	            if (savedInstanceState != null) {
-	                return;
-	            }
-	            //Creates Company Fragment to be held in the Activity layout using the FrameLayout
-	            NoResults_Fragment nr = new NoResults_Fragment();
-	            // In case this activity was started with special instructions from an
-	            // Intent, pass the Intent's extras to the fragment as arguments
-	            //cf.setArguments(getActivity().getIntent().getExtras());
-	
-	            //Add the fragment to the 'fragment_container' FrameLayout
-	            ft.add(R.id.fragment_timelog_container, nr).commit();
-			
-			 }
+
+		         //Begin fragment transaction to show the new fragment and replace the old one 
+	        	 transaction.setCustomAnimations(R.anim.slide_down, R.anim.slide_up);
+	        	 transaction.replace(R.id.fragment_timelog_container, newTF);
+			     
+	        	 transaction.commit();
+			}
+			//clear data from shared pref file
+	       	 if(sharedPrefFound){
+		 			/**Clear Timelog value from shared pref**/
+			    	SharedPreferences.Editor editor = sharedPref.edit();
+			    	editor.clear();
+					editor.commit();
+					sharedPrefFound = false;
+	       	 }
 		   
 	  }
 	    // Container Activity must implement this interface
@@ -154,8 +216,6 @@ public class TimeLogs_Fragment extends ListFragment {
 	  
 		@SuppressLint("NewApi")
 		public void GetTimeLogData(){
-			
-			
 
 			Bundle extras = getActivity().getIntent().getExtras();
 			
@@ -212,7 +272,7 @@ public class TimeLogs_Fragment extends ListFragment {
 		@Override
 		public void onListItemClick(ListView l, View v, int position, long id) {
 		  super.onListItemClick(l, v, position, id);
-		  
+
 		  if(timelogs.get(position).getEndTime().equals("--")){
 				Toast.makeText(getActivity(), "Please Clock Out before trying to modify the Times", Toast.LENGTH_LONG).show();
 			}
@@ -223,7 +283,7 @@ public class TimeLogs_Fragment extends ListFragment {
 			   //i.putExtra(CompanyTable.COLUMN_ID, _id);
 	
 				//if screen is large (7 inches)
-			    if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE ){
+			    if (land){
 			    		//&& (getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_LARGE) {
 			    	 mListener.onLogSelected(String.valueOf(_id));
 			    	 
@@ -320,5 +380,21 @@ public class TimeLogs_Fragment extends ListFragment {
 		public void onPause(){
 	    	super.onPause();
 	    }
-
+	    @Override
+		public void onDestroy(){
+	    	super.onDestroy();
+//	    	
+//	    	if(sharedPref != null){
+//		       	 if(sharedPrefFound){
+//			 			/**Clear Timelog value from shared pref**/
+//				    	SharedPreferences.Editor editor = sharedPref.edit();
+//				    	editor.clear();
+//						editor.commit();
+//						sharedPrefFound = false;
+//		       	 }
+//	    	}
+	    	//pd.show();
+	    	//GetTimeLogData();
+	    	//pd.hide();
+	    }
 }

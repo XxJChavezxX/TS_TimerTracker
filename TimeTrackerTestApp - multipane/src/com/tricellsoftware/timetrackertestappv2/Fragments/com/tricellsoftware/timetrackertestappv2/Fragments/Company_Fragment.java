@@ -52,15 +52,16 @@ public class Company_Fragment extends Fragment {
 	  @Override
 	  public View onCreateView(LayoutInflater inflater, ViewGroup container,
 	      Bundle savedInstanceState) {
-		 Bundle extras = getArguments(); 
+		 Bundle args = getArguments(); 
+		 //Bundle extras = getActivity().getIntent().getExtras();
 
-	    View view = inflater.inflate(R.layout.company_fragment,
-	        container, false);
 	    //Get arguments passed from an activity or another fragment
-		 if(extras != null){
+		 if(args != null){
 			 id = getArguments().getInt(CompanyTable.COLUMN_ID);
 		 }
 
+	    View view = inflater.inflate(R.layout.company_fragment,
+	        container, false);
 	    ctx = getActivity();
 	    
 	    return view;

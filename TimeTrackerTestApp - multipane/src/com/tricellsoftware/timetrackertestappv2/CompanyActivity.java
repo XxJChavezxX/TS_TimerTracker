@@ -8,16 +8,23 @@ import com.tricellsoftware.timetrackertestapp.DTOsv2.CompanyDTO;
 import com.tricellsoftware.timetrackertestapp.DTOsv2.DummyData;
 import com.tricellsoftware.timetrackertestapp.businessLogicv2.BusinessLogic;
 import com.tricellsoftware.timetrackertestapp.databasev2.CompanyTable;
+import com.tricellsoftware.timetrackertestappv2.Fragments.Companies_Fragment;
+import com.tricellsoftware.timetrackertestappv2.Fragments.Company_Fragment;
+import com.tricellsoftware.timetrackertestappv2.Fragments.Companies_Fragment.OnItemSelectedListener;
 
 import android.app.ActionBar;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -29,7 +36,7 @@ import android.widget.Toast;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 
-public class CompanyActivity extends FragmentActivity {
+public class CompanyActivity extends FragmentActivity implements Companies_Fragment.OnItemSelectedListener{
 	
 	/**
 	 * The dummy content this fragment is presenting.
@@ -49,7 +56,7 @@ public class CompanyActivity extends FragmentActivity {
 	
 	private ScrollView sv;
 	
-	private int id;
+	public static int id;
 	private String _id;
 	
 	boolean land; 
@@ -58,12 +65,23 @@ public class CompanyActivity extends FragmentActivity {
 	protected void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
 	
-		 // Need to check if Activity has been switched to landscape mode
+		// Need to check if Activity has been switched to landscape mode
 	    // If yes, finished and go back to the start Activity
 		//if screen is large (7 inches)
 	    if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE ){
 	    		//&& (getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_LARGE) {
 	    	land = true;
+	      /** Sending ID back to the Companies fragment if this activity is in landscape mode**/	
+	      if(id > 0){
+				/** Share id with other activities or fragments by using sharedPref method
+				 * **/
+	    	  SharedPreferences sharedPref = getApplicationContext().getSharedPreferences(getString(R.string.pref_data_key), getApplicationContext().MODE_PRIVATE);
+	    	  SharedPreferences.Editor editor = sharedPref.edit();
+	    	  editor.putInt(getString(R.string.company_id), id);
+	    	  editor.commit();
+	      }
+	      
+      	  /** Kills the Activity **/
 	      finish();
 	      return;
 	    }//checking for the Orientation must be before defining the content view
@@ -190,7 +208,7 @@ public class CompanyActivity extends FragmentActivity {
 				//new item
 				logic.addNewCompany(tempCompany);
 				//companyUri = getContentResolver().insert(TimeTrackerContentProvider.Content_URI, Values);
-				Toast.makeText(this, "New Record has been added successfully", Toast.LENGTH_LONG).show();
+				Toast.makeText(this, "New Company/Project: " + tempCompany.getName() + " has been added successfully", Toast.LENGTH_LONG).show();
 				finish();
 			}
 			else
@@ -225,7 +243,7 @@ public class CompanyActivity extends FragmentActivity {
 				logic.updateCompanyById(tempCompany);
 				
 				//getContentResolver().update(companyUri, Values, null, null);
-				Toast.makeText(this, "Selected Record has been updated successfully", Toast.LENGTH_LONG).show();
+				Toast.makeText(this, "The seleted Company: " + tempCompany.getName() + " has been updated successfully", Toast.LENGTH_LONG).show();
 				
 				finish();
 			}
@@ -306,6 +324,14 @@ public class CompanyActivity extends FragmentActivity {
 		      cursor.close();
 		    }
 	 }
+	@Override
+	public void onItemSelected(String item) {
+		// TODO Auto-generated method stub
+		
+	}
+//	public static int returnCompID(){
+//		return id;
+//	}
 	
 
 }

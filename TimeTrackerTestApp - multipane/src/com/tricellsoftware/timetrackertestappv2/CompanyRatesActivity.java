@@ -37,9 +37,9 @@ public class CompanyRatesActivity extends ListActivity{ //implements LoaderManag
 		
 		setContentView(R.layout.company_rates_fragment);
 		registerForContextMenu(getListView());
-		pd = new ProgressDialog(this);
-		pd.show();
-		pd.setMessage("Loading..");
+//		pd = new ProgressDialog(this);
+//		pd.show();
+//		pd.setMessage("Loading..");
 		
 		
 		
@@ -51,7 +51,7 @@ public class CompanyRatesActivity extends ListActivity{ //implements LoaderManag
 		actionBar.setTitle("Companies");
 		
 		//GetCompaniesData();
-		pd.hide();
+		//pd.hide();
 		
 	}
 //	// Opens the second activity if an entry is clicked

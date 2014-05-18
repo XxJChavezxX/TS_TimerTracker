@@ -15,7 +15,9 @@ public class CalendarViewActivity extends Activity{
 	
 	long miliseconds;
 	String date;
+
 	
+	boolean land; 
 	//action bar
 	private ActionBar actionBar;
 	
@@ -52,7 +54,7 @@ public class CalendarViewActivity extends Activity{
 			@Override
 			public void onSelectedDayChange(CalendarView view, int year,
 					int month, int dayOfMonth) {
-				
+				 
 				// TODO Auto-generated method stub
 					miliseconds = calendar.getDate();
 					date = TimeHelper.getDateFromLong(miliseconds);

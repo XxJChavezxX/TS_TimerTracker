@@ -8,6 +8,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -51,6 +52,7 @@ public class Companies_Fragment extends ListFragment {
 	ActionBar actionBar;
 	
 	private String _id;
+	private int id;
 	private int position;
 	
 	ProgressDialog pd = null;
@@ -68,23 +70,45 @@ public class Companies_Fragment extends ListFragment {
 	ListView lv;
 	
 	View Mainview; //view to add other widgets
-	
+
 	TextView tv; //dynamically added textview
 	
 	boolean largeScreen;
 	
+	boolean land; //landscape
+	boolean sharedPrefFound = false;
+	
+	SharedPreferences sharedPref;
+	
 	  @Override
 	  public View onCreateView(LayoutInflater inflater, ViewGroup container,
 	      Bundle savedInstanceState) {
+		
+//		//check for data passed by an Activity, this case Company Activity when landscape
+//		Bundle args1 = getArguments();
+//		if(args1 != null){
+//			id = Integer.parseInt(getArguments().getString(CompanyTable.COLUMN_ID));
+//			
+//		}
+		if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
+			land = true;
+		}
+		else
+			land = false;
+		
 	    View view = inflater.inflate(R.layout.company_rates_fragment,
 	        container, false);
+	    
+	    //ctx = getActivity();
+	    
 	    
 		if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE 
 	    		&& (getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_LARGE){
 			largeScreen = true;
 		}
 	   
-	    Mainview = view;
+		Mainview = view;
+	   
 	     //init Business logic
 		logic = new BusinessLogic(getActivity());
 		//Button addNewBttn = (Button) findViewById(R.id.addnewbttn);
@@ -103,49 +127,103 @@ public class Companies_Fragment extends ListFragment {
 		    super.onActivityCreated(savedInstanceState);
 		    //get list view
 			registerForContextMenu(getListView());
-			pd = new ProgressDialog(getActivity());
-			pd.show();
-			pd.setMessage("Loading..");
 			
-			//Get Fragment Container if it's present on the Activity
-			 if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE ){
+//			if(pd != null){
+//				pd = null;
+//			}
+//			pd = new ProgressDialog(getActivity());
+//			pd.show();
+//			pd.setMessage("Loading..");
 			
-				FragmentTransaction ft = getFragmentManager().beginTransaction();
-				//check of the framelayout is present on the Activity associated with this ListFragment
-				if(getView().findViewById(R.id.fragment_container) != null){
+			
+//			
+//			if(CompanyActivity.id > 0){
+//				id = CompanyActivity.id;
+//				 CompanyActivity.id  = 0;
+//			}
+		    
+			/**check for shared preferences, 
+			 * We passed the Company id from the Company Activity class and we retrieve by using the getSharedPreferences
+			 * method. This was the only way to pass the id from an activity that does not have direct contact with this fragment.
+			 * **/
+			sharedPref = getActivity().getSharedPreferences(getString(R.string.pref_data_key),getActivity().MODE_PRIVATE);
+			if(sharedPref != null){
+				if(sharedPref.contains(getString(R.string.company_id)) && land)
+					id = sharedPref.getInt(getString(R.string.company_id), 0);
+					sharedPref.edit().remove(getString(R.string.company_id)).clear().commit();
 					
-				}// However, if we're being restored from a previous state,
-	            // then we don't need to do anything and should return or else
-	            // we could end up with overlapping fragments.
-	            if (savedInstanceState != null) {
-	                return;
-	            }
-	            //Creates Company Fragment to be held in the Activity layout using the FrameLayout
-	            NoResults_Fragment nr = new NoResults_Fragment();
-	            // In case this activity was started with special instructions from an
-	            // Intent, pass the Intent's extras to the fragment as arguments
-	            //cf.setArguments(getActivity().getIntent().getExtras());
-	
-	            //Add the fragment to the 'fragment_container' FrameLayout
-	            ft.add(R.id.fragment_container, nr).commit();
-			
-			 }
+					//sharedPrefFound = true;
+//					SharedPreferences.Editor editor = sharedPref.edit();
+//					editor.remove(getString(R.string.pref_data_key));
+//					sharedPref.getAll();
+//					editor.clear();
+//					editor.commit();
+//					sharedPref.getAll();
+			}
+
 
 			
-			GetCompaniesData();
-			pd.hide();
+			//if id is or less 0 meaning no id was returned, display the no results fragment
+			if(id <= 0){
+				//Get Fragment Container if it's present on the Activity
+				 if (land){
+				
+					FragmentTransaction ft = getFragmentManager().beginTransaction();
+					//check of the framelayout is present on the Activity associated with this ListFragment
+					if(getView().findViewById(R.id.fragment_container) == null){
+						//return;
+					}// However, if we're being restored from a previous state,
+		            // then we don't need to do anything and should return or else
+		            // we could end up with overlapping fragments.
+		            if (savedInstanceState != null) {
+		                return;
+		            }
+		            //Creates Company Fragment to be held in the Activity layout using the FrameLayout
+		            NoResults_Fragment nr = new NoResults_Fragment();
+		            // In case this activity was started with special instructions from an
+		            // Intent, pass the Intent's extras to the fragment as arguments
+		            //cf.setArguments(getActivity().getIntent().getExtras());
+		
+		            //Add the fragment to the 'fragment_container' FrameLayout
+		            ft.add(R.id.fragment_container, nr).commit();
+				
+				 }
+			}
+			//launch the Company Fragment 
+			else{
+				
+				  newCF = new Company_Fragment(); // new company fragment
+				  //set data to pass to the company fragment
+	        	  Bundle args = new Bundle();
+	        	  args.putInt(CompanyTable.COLUMN_ID,id);
+	        	  newCF.setArguments(args);
+	        	  FragmentTransaction transaction = getFragmentManager().beginTransaction();
+
+
+		         //Begin fragment transaction to show the new fragment and replace the old one 
+	        	 transaction.setCustomAnimations(R.anim.slide_down, R.anim.slide_up);
+	        	 transaction.replace(R.id.fragment_container, newCF);
+			     
+	        	 transaction.commit();	 
+
+			}
+			id = 0;
+			
+
+			//pd.hide();
 	  }
 	  
 		@SuppressLint("NewApi")
 		public void GetCompaniesData(){
 			
+			 
 			//gets all companies from the db and add them to the listl
 			
 			companies = logic.getAllCompanies();
 			
 			if(companies.size() <= 0){
 				//text view is dynamically added to display the messag below
-				tv = new TextView(getActivity());
+				tv = new TextView(ctx);
 				
 				tv.setText("No Companies/Projects have been added");
 				tv.setPaddingRelative(20, 20, 20, 20);
@@ -157,15 +235,19 @@ public class Companies_Fragment extends ListFragment {
 			}
 			else{
 				
+				//Mainview = getListView();
+				 
 				if(tv != null){
+					//tv.setVisibility(View.INVISIBLE);
 					tv.setVisibility(View.GONE);
-					((RelativeLayout)Mainview).removeView((View)tv.getParent());
+					((RelativeLayout)Mainview).removeView((View)tv);
+					
 				}
 				
 			}
 			
 			if (largeScreen) {
-	    			
+				
 	    			//lv = (ListView) getView().findViewById(R.layout.large_company_custom_list);
 	    			//if screen is 7 inch use a custom layout to display the list of companies
 	    			adapter = new ArrayAdapter<CompanyDTO>(getActivity(), R.layout.large_company_custom_list, companies);
@@ -174,6 +256,7 @@ public class Companies_Fragment extends ListFragment {
 				    adapter.notifyDataSetChanged();
 		    }
 			else{
+				
 				//use the default list provided by android
 				adapter = new ArrayAdapter<CompanyDTO>(getActivity(), android.R.layout.simple_list_item_1, companies);
 			    setListAdapter(adapter);
@@ -188,13 +271,15 @@ public class Companies_Fragment extends ListFragment {
 		  @Override
 		  public void onListItemClick(ListView l, View v, int position, long id){
 			  super.onListItemClick(l, v, position, id);
-			   
+			  if(sharedPref != null){
+				  sharedPref.edit().remove(getString(R.string.pref_data_key)).clear().commit();
+			  }
 			   //get id of the selected item
 			   _id = String.valueOf(companies.get(position).getID());
 			   //i.putExtra(CompanyTable.COLUMN_ID, _id);
 
 				//if screen is large (7 inches)
-			    if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE ){
+			    if (land){
 			    		//&& (getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_LARGE) {
 			    	 mListener.onItemSelected(String.valueOf(_id));
 			    	 
@@ -243,12 +328,13 @@ public class Companies_Fragment extends ListFragment {
 	    @Override
 		public void onStart(){
 	    	super.onStart();
+	    	
 	    }
 	    ///Refreshes the List View
 	    @Override
 		public void onResume(){
 	    	super.onResume();
-	    	pd.show();
+	    	//pd.show();
 	    	GetCompaniesData();
 			
 	    	if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE && newCF == null){
@@ -274,7 +360,7 @@ public class Companies_Fragment extends ListFragment {
 	            ft.replace(R.id.fragment_container, nr).commit();
 			
 			 }
-	    	pd.hide();
+	    	//pd.hide();
 	    }
 
 
@@ -342,7 +428,20 @@ public class Companies_Fragment extends ListFragment {
 				 // Need to check if Activity has been switched to landscape mode
 			    // If yes, finished and go back to the start Activity
 			    if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-			    	mListener.onItemSelected(String.valueOf(0));
+			    	//mListener.onItemSelected(String.valueOf(0));
+			    	
+			    	//creates an empty fragment to add a new company
+		        	  Company_Fragment CF = new Company_Fragment(); // new company fragment
+		        	  FragmentTransaction transaction = getFragmentManager().beginTransaction();
+
+
+			         //Begin fragment transaction to show the new fragment and replace the old one 
+		        	 transaction.setCustomAnimations(R.anim.slide_down, R.anim.slide_up);
+		        	 transaction.replace(R.id.fragment_container, CF);
+				     
+		        	 transaction.commit();
+			    	
+			    	
 			      //return;
 			    }//checking for the Orientation must be before defining the content view
 			    else{
@@ -372,5 +471,30 @@ public class Companies_Fragment extends ListFragment {
 		   }
 		   return super.onOptionsItemSelected(item);
 		 }
+
+	    @Override
+		public void onDestroy(){
+	    	super.onDestroy();
+	    	
+		
+	    	
+	    	//Clear the data from the shared pref file
+	    	if(sharedPref != null){
+	    		
+		       	 if(sharedPrefFound){
+		       		//sharedPref.edit().remove(getString(R.string.pref_data_key)).clear().commit();
+//			 			/**Clear company value from shared pref**/
+//				    	SharedPreferences.Editor editor = sharedPref.edit();
+//				    	editor.remove(getString(R.string.pref_data_key));
+//				    	sharedPref.getAll();
+//				    	editor.clear();
+//						editor.commit();
+//						sharedPrefFound = false;
+		       	 }
+	    	}
+//	    	//pd.show();
+	    	//GetTimeLogData();
+	    	//pd.hide();
+	    }
 
 }

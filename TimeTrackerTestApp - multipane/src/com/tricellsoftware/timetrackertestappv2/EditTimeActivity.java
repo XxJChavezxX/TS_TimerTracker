@@ -2,14 +2,17 @@ package com.tricellsoftware.timetrackertestappv2;
 
 import java.text.ParseException;
 import java.util.Calendar;
+
 import com.tricellsoftware.timetrackertestapp.DTOsv2.TimeLogDTO;
 import com.tricellsoftware.timetrackertestapp.businessLogicv2.BusinessLogic;
+import com.tricellsoftware.timetrackertestapp.databasev2.CompanyTable;
 import com.tricellsoftware.timetrackertestapp.databasev2.TimeLogTable;
 import com.tricellsoftware.timetrackertestapp.helperv2.TimeHelper;
 
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
@@ -23,7 +26,7 @@ public class EditTimeActivity extends Activity {
 	private BusinessLogic logic;
 	private TimeLogDTO timelog;
 	
-	private int id;
+	public static int id;
 	String StartDate;
 	String EndDate;
 	
@@ -50,18 +53,29 @@ public class EditTimeActivity extends Activity {
 		//if screen is large (7 inches)
 	    if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE ){
 	    		//&& (getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_LARGE) {
-	    	land = true;
+	    	  land = true;
+//		      /** Sending ID back to the Timeloglist fragment if this activity is in landscape mode**/	
+//		      if(id > 0){
+//					/** Share id with other activities or fragments by using sharedPref method
+//					 * **/
+//		    	  SharedPreferences sharedPref = this.getSharedPreferences(getString(R.string.pref_data_key), this.MODE_PRIVATE);
+//		    	  SharedPreferences.Editor editor = sharedPref.edit();
+//		    	  editor.putString(getString(R.string.timelog_id), String.valueOf(id));
+//		    	  editor.commit();
+//		      }	
 	      finish();
 	      return;
 	    }//checking for the Orientation must be before defining the content view
 	    else
 	    	land = false;
 		setContentView(R.layout.edit_time_layout);
-		
-		
-		pd = new ProgressDialog(this);
-		pd.show();
-		pd.setMessage("Loading..");
+//		
+//		if(pd != null){
+//			pd = null;
+//		}
+//		pd = new ProgressDialog(this);
+//		pd.show();
+//		pd.setMessage("Loading..");
 		//action bar
 		ActionBar actionBar = getActionBar();
 		actionBar.setTitle("Time Log Time Details");
@@ -106,7 +120,7 @@ public class EditTimeActivity extends Activity {
 		
 		Button SaveBttn = (Button) findViewById(R.id.checkbttn);
 		
-		pd.hide();
+		//pd.hide();
 		
 		//Listening to the button event
 		SaveBttn.setOnClickListener(new View.OnClickListener(){

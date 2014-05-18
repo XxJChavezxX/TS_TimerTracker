@@ -2,8 +2,10 @@ package com.tricellsoftware.timetrackertestappv2.Fragments;
 
 import java.text.ParseException;
 import java.util.Calendar;
+
 import com.tricellsoftware.timetrackertestapp.DTOsv2.TimeLogDTO;
 import com.tricellsoftware.timetrackertestapp.businessLogicv2.BusinessLogic;
+import com.tricellsoftware.timetrackertestapp.databasev2.CompanyTable;
 import com.tricellsoftware.timetrackertestapp.databasev2.TimeLogTable;
 import com.tricellsoftware.timetrackertestapp.helperv2.TimeHelper;
 import com.tricellsoftware.timetrackertestappv2.R;
@@ -11,6 +13,7 @@ import com.tricellsoftware.timetrackertestappv2.R;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -55,10 +58,13 @@ public class TimeLogDetails_Fragment extends Fragment {
 	
 	ProgressDialog pd = null;
 	
+	boolean land; //landscape
+	boolean sharedPrefFound; 
+	
 	 @Override
 	 public void onCreate(Bundle savedInstanceState) {
 	  super.onCreate(savedInstanceState);
-	    
+	     
 	  
 	  // context = getActivity();
 	
@@ -69,8 +75,10 @@ public class TimeLogDetails_Fragment extends Fragment {
 		//add action bar
 		actionBar = getActivity().getActionBar();
 		actionBar.setTitle("Time Log Details");
-		
-		pd = new ProgressDialog(getActivity());
+//		if(pd != null){
+//			pd = null;
+//		}
+//		pd = new ProgressDialog(getActivity());
 		//pd.show();
 		//pd.setMessage("Loading..");
 
@@ -81,6 +89,12 @@ public class TimeLogDetails_Fragment extends Fragment {
 	  @Override
 	  public View onCreateView(LayoutInflater inflater, ViewGroup container,
 	      Bundle savedInstanceState) {
+		  
+		  if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
+			  land = true;
+		  else
+			  land = false;
+		  
 	    View view = inflater.inflate(R.layout.timelog_details_fragment,
 	        container, false);
 	    // setHasOptionsMenu(true);
@@ -92,16 +106,16 @@ public class TimeLogDetails_Fragment extends Fragment {
 		    super.onActivityCreated(savedInstanceState);
 		    
 		    
-		    if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
-			    
-		    	Bundle extras = getArguments(); 
+		    if(land){
+			   
+				Bundle extras = getArguments(); 
 			    
 				if(extras != null){
 					id = getArguments().getInt(TimeLogTable.COLUMN_ID);
 					//StartDate = extras.getString("StartDate");
 					//EndDate = extras.getString("EndString");
-				}
-				
+	
+		    	
 				//business logic
 				
 				timelog = logic.getTimeLogByID(String.valueOf(id));
@@ -147,6 +161,8 @@ public class TimeLogDetails_Fragment extends Fragment {
 								
 					}
 				});
+			
+				}
 		    }
 	  }
 	  @Override

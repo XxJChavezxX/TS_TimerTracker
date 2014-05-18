@@ -6,7 +6,9 @@ import com.tricellsoftware.timetrackertestappv2.Fragments.Companies_Fragment;
 import com.tricellsoftware.timetrackertestappv2.Fragments.Company_Fragment;
 import com.tricellsoftware.timetrackertestapp.databasev2.CompanyTable;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 
@@ -14,11 +16,18 @@ import android.support.v4.app.FragmentActivity;
 public class CompanyMainActivity extends FragmentActivity implements Companies_Fragment.OnItemSelectedListener{
 	
 	String s = null;
+	
+	String _id = null;
+	
+	SharedPreferences sharedPref;
+	boolean sharedPrefFound = false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.company_main_layout);
+		
+		//sharedPref = this.getSharedPreferences(getString(R.string.pref_data_key),this.MODE_PRIVATE);
 		
 	}
 	
@@ -26,33 +35,29 @@ public class CompanyMainActivity extends FragmentActivity implements Companies_F
 	@Override
 	public void onItemSelected(String _id) {
 		// TODO Auto-generated method stub
-		  Company_Fragment fm = (Company_Fragment) getSupportFragmentManager().findFragmentById(R.id.company_Fragment);
-	        if (fm != null && fm.isInLayout()) {
-	          fm.getDataByID(_id);
-	        }else{
-	        	Intent i = new Intent(getApplicationContext(),
-	        	          CompanyActivity.class);
-	        		  i.putExtra(CompanyTable.COLUMN_ID, _id);
-	        	      startActivity(i);
-	        }
+//		  Company_Fragment fm = (Company_Fragment) getSupportFragmentManager().findFragmentById(R.id.company_Fragment);
+//	        if (fm != null && fm.isInLayout()) {
+//	          fm.getDataByID(_id);
+//	        }else{
+//	        	Intent i = new Intent(getApplicationContext(),
+//	        	          CompanyActivity.class);
+//	        		  i.putExtra(CompanyTable.COLUMN_ID, _id);
+//	        	      startActivity(i);
+//	        }
 	}
-//	 /**gets the information from the child screen**/
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data){
-//    	super.onActivityResult(requestCode, resultCode, data);
-//    	switch(requestCode){
-//	    	case 1:{
-//	    		if(resultCode == Activity.RESULT_OK){
-//	    			s = data.getStringExtra("itemValue");
-//	    			Detail_Fragment fm = (Detail_Fragment) getSupportFragmentManager().findFragmentById(R.id.detail_Fragment);
-//	    	        if (fm != null && fm.isInLayout()) {
-//	    	          fm.setText(s);
-//	    	        }
-//	    		}
-//	    	}
-//	    	break;
-//    	
+//	@Override
+//	public void onBackPressed(){
+//    	if(sharedPref != null){
+//	       	 if(sharedPrefFound){
+//		 			/**Clear company value from shared pref**/
+//			    	SharedPreferences.Editor editor = sharedPref.edit();
+//			    	editor.clear();
+//					editor.commit();
+//					sharedPrefFound = false;
+//	       	 }
 //    	}
-//    }
+//		super.onBackPressed();
+//	}
     @Override
 	protected void onStart(){
     	super.onStart();

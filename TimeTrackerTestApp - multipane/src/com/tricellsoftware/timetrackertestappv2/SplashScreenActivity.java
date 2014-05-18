@@ -32,7 +32,7 @@ public class SplashScreenActivity extends Activity {
 
 		//action bar
 		ActionBar actionBar = getActionBar();
-		actionBar.hide();
+		actionBar.hide(); 
 		
 		
 		//business logic //db helper

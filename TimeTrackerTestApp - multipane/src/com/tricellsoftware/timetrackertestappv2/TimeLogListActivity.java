@@ -48,9 +48,9 @@ public class TimeLogListActivity extends ListActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);	
-		pd = new ProgressDialog(this);
-		pd.show();
-		pd.setMessage("Loading..");
+//		pd = new ProgressDialog(this);
+//		pd.show();
+//		pd.setMessage("Loading..");
 		logic = new BusinessLogic(this);
 		//Button addNewBttn = (Button) findViewById(R.id.addnewbttn);
 
@@ -62,7 +62,7 @@ public class TimeLogListActivity extends ListActivity {
 
 		GetTimeLogData();
 		
-		pd.hide();
+		//pd.hide();
 	}
 	
 	public void GetTimeLogData(){
@@ -162,9 +162,9 @@ public class TimeLogListActivity extends ListActivity {
     @Override
 	protected void onRestart(){
     	super.onRestart();
-    	pd.show();
+    	//pd.show();
     	GetTimeLogData();
-    	pd.hide();
+    	//pd.hide();
     }
     /**gets the information from the child screen**/
     @Override
