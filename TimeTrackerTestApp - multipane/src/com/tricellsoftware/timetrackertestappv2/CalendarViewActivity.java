@@ -5,6 +5,7 @@ import com.tricellsoftware.timetrackertestapp.helperv2.TimeHelper;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -67,10 +68,18 @@ public class CalendarViewActivity extends Activity{
 			public void onClick(View view){
 				
 				//dialog.cancel();
-				Intent i = new Intent(getApplicationContext(), TimeLogListActivity.class);
+				Intent i = new Intent();
 				i.putExtra("selectedDate", date);
 				setResult(Activity.RESULT_OK, i); //pass information to the previous activity
-				finish();
+				
+//				/** Share date with other activities or fragments by using sharedPref method
+//				 * **/
+//	    	  SharedPreferences sharedPref = getApplicationContext().getSharedPreferences(getString(R.string.pref_data_key), 0);
+//	    	  SharedPreferences.Editor editor = sharedPref.edit();
+//	    	  editor.putString(getString(R.string.selected_date), date);
+//	    	  editor.commit();
+				
+		      finish();
 				//startActivity(i);
 				//GetTimeLogData();
 			}

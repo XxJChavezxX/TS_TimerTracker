@@ -3,18 +3,19 @@ package com.tricellsoftware.timetrackertestappv2.Fragments;
 import java.util.List;
 
 import android.annotation.SuppressLint;
+import android.app.ListFragment;
 import android.app.ActionBar;
 import android.app.Activity;
+import android.animation.Animator;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.app.ListFragment;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
@@ -47,12 +48,12 @@ public class Companies_Fragment extends ListFragment {
 	List<CompanyDTO> companies; 
 	private BusinessLogic logic;
 	
-	ArrayAdapter<CompanyDTO> adapter;
+	private ArrayAdapter<CompanyDTO> adapter;
 	//action bar
 	ActionBar actionBar;
 	
 	private String _id;
-	private int id;
+	private int id = 0;
 	private int position;
 	
 	ProgressDialog pd = null;
@@ -78,12 +79,34 @@ public class Companies_Fragment extends ListFragment {
 	boolean land; //landscape
 	boolean sharedPrefFound = false;
 	
-	SharedPreferences sharedPref;
+	NoResults_Fragment nr;
+	
+	/**
+	 * The fragment argument representing the section number for this
+	 * fragment.
+	 */
+	private static final String ARG_SECTION_NUMBER = "section_number";
+	
+	/**
+	 * Returns a new instance of this fragment for the given section number.
+	 */
+	public static Companies_Fragment newInstance(int sectionNumber) {
+		Companies_Fragment fragment = new Companies_Fragment();
+		Bundle args = new Bundle();
+		args.putInt(ARG_SECTION_NUMBER, sectionNumber);
+		fragment.setArguments(args);
+		return fragment;
+	}
+	 public static void LoadCompaniesData() {   
+		 //adapter.notifyDataSetChanged();
+     }
+
 	
 	  @Override
 	  public View onCreateView(LayoutInflater inflater, ViewGroup container,
 	      Bundle savedInstanceState) {
 		
+		  
 //		//check for data passed by an Activity, this case Company Activity when landscape
 //		Bundle args1 = getArguments();
 //		if(args1 != null){
@@ -95,6 +118,7 @@ public class Companies_Fragment extends ListFragment {
 		}
 		else
 			land = false;
+			//land = false;
 		
 	    View view = inflater.inflate(R.layout.company_rates_fragment,
 	        container, false);
@@ -115,9 +139,10 @@ public class Companies_Fragment extends ListFragment {
 		
 		//add action bar
 		actionBar = getActivity().getActionBar();
-		actionBar.setTitle("Companies");
+		//actionBar.setTitle("Companies");
 		setHasOptionsMenu(true);
 	     
+		//startActivityForResult();
 
 	    return view;
 	  }
@@ -127,7 +152,7 @@ public class Companies_Fragment extends ListFragment {
 		    super.onActivityCreated(savedInstanceState);
 		    //get list view
 			registerForContextMenu(getListView());
-			
+		   // lv = (ListView) getView().findViewById(R.id.companies_listview);
 //			if(pd != null){
 //				pd = null;
 //			}
@@ -146,11 +171,13 @@ public class Companies_Fragment extends ListFragment {
 			 * We passed the Company id from the Company Activity class and we retrieve by using the getSharedPreferences
 			 * method. This was the only way to pass the id from an activity that does not have direct contact with this fragment.
 			 * **/
-			sharedPref = getActivity().getSharedPreferences(getString(R.string.pref_data_key),getActivity().MODE_PRIVATE);
+			//Important: currently the shared pref is not clearing up
+			SharedPreferences sharedPref = getActivity().getApplicationContext().getSharedPreferences(getString(R.string.pref_data_key), 0);
 			if(sharedPref != null){
 				if(sharedPref.contains(getString(R.string.company_id)) && land)
 					id = sharedPref.getInt(getString(R.string.company_id), 0);
-					sharedPref.edit().remove(getString(R.string.company_id)).clear().commit();
+					sharedPref.edit().remove(getString(R.string.pref_data_key)).clear().commit();
+					//sharedPref.edit().remove(getString(R.string.pref_data_key)).clear().commit();
 					
 					//sharedPrefFound = true;
 //					SharedPreferences.Editor editor = sharedPref.edit();
@@ -160,6 +187,8 @@ public class Companies_Fragment extends ListFragment {
 //					editor.commit();
 //					sharedPref.getAll();
 			}
+			//if activity if in port them launch the current timelog in the EditTimeActivity layout
+
 
 
 			
@@ -188,6 +217,9 @@ public class Companies_Fragment extends ListFragment {
 		            ft.add(R.id.fragment_container, nr).commit();
 				
 				 }
+				 else{
+					 
+				 }
 			}
 			//launch the Company Fragment 
 			else{
@@ -201,14 +233,14 @@ public class Companies_Fragment extends ListFragment {
 
 
 		         //Begin fragment transaction to show the new fragment and replace the old one 
-	        	 transaction.setCustomAnimations(R.anim.slide_down, R.anim.slide_up);
+	        	 transaction.setCustomAnimations(R.anim.slide_left, R.anim.slide_right);
 	        	 transaction.replace(R.id.fragment_container, newCF);
 			     
 	        	 transaction.commit();	 
 
 			}
-			id = 0;
-			
+			//id = 0;
+
 
 			//pd.hide();
 	  }
@@ -262,6 +294,7 @@ public class Companies_Fragment extends ListFragment {
 			    setListAdapter(adapter);
 			    
 			    adapter.notifyDataSetChanged();
+			    
 			}
 			
 			
@@ -271,11 +304,10 @@ public class Companies_Fragment extends ListFragment {
 		  @Override
 		  public void onListItemClick(ListView l, View v, int position, long id){
 			  super.onListItemClick(l, v, position, id);
-			  if(sharedPref != null){
-				  sharedPref.edit().remove(getString(R.string.pref_data_key)).clear().commit();
-			  }
+
 			   //get id of the selected item
 			   _id = String.valueOf(companies.get(position).getID());
+			   id = Integer.parseInt(_id);
 			   //i.putExtra(CompanyTable.COLUMN_ID, _id);
 
 				//if screen is large (7 inches)
@@ -292,7 +324,7 @@ public class Companies_Fragment extends ListFragment {
 
 
 			         //Begin fragment transaction to show the new fragment and replace the old one 
-		        	 transaction.setCustomAnimations(R.anim.slide_down, R.anim.slide_up);
+		        	 transaction.setCustomAnimations(R.anim.slide_left, R.anim.slide_right);
 		        	 transaction.replace(R.id.fragment_container, newCF);
 				     
 		        	 transaction.commit();
@@ -337,7 +369,7 @@ public class Companies_Fragment extends ListFragment {
 	    	//pd.show();
 	    	GetCompaniesData();
 			
-	    	if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE && newCF == null){
+	    	if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE  && nr == null){// && newCF == null){
 				
 				FragmentTransaction ft = getFragmentManager().beginTransaction();
 				//check of the framelayout is present on the Activity associated with this ListFragment
@@ -350,17 +382,32 @@ public class Companies_Fragment extends ListFragment {
 	          //      return;
 	          //  }
 	            //Creates Company Fragment to be held in the Activity layout using the FrameLayout
-	            NoResults_Fragment nr = new NoResults_Fragment();
+	            nr = new NoResults_Fragment();
 	            // In case this activity was started with special instructions from an
 	            // Intent, pass the Intent's extras to the fragment as arguments
 	            //cf.setArguments(getActivity().getIntent().getExtras());
 	
 	            //Add the fragment to the 'fragment_container' FrameLayout
-	            ft.setCustomAnimations(R.anim.slide_down, R.anim.slide_up);
+	            //ft.setCustomAnimations(R.anim.slide_left, R.anim.slide_right);
 	            ft.replace(R.id.fragment_container, nr).commit();
 			
 			 }
 	    	//pd.hide();
+	    }
+	    /**gets the information from the child screen**/
+	    @Override
+		public void onActivityResult(int requestCode, int resultCode, Intent data){
+	    	super.onActivityResult(requestCode, resultCode, data);
+	    	switch(requestCode){
+		    	case 1:{
+		    		if(resultCode == Activity.RESULT_OK){
+		    			_id = data.getStringExtra("companyID");
+		    		
+		    		}
+		    	}
+		    	break;
+	    	
+	    	}
 	    }
 
 
@@ -421,7 +468,7 @@ public class Companies_Fragment extends ListFragment {
 			//_id = companies.get((int) info.id).getID();
 		   switch (item.getItemId()) {
 		   case R.id.action_settings:
-		    	  Toast.makeText(getActivity(), "Settings was selected", Toast.LENGTH_LONG).show();
+		    	 // Toast.makeText(getActivity(), "Settings was selected", Toast.LENGTH_LONG).show();
 		   break;
 		   case R.id.AddNew:
 			   
@@ -436,7 +483,7 @@ public class Companies_Fragment extends ListFragment {
 
 
 			         //Begin fragment transaction to show the new fragment and replace the old one 
-		        	 transaction.setCustomAnimations(R.anim.slide_down, R.anim.slide_up);
+		        	 transaction.setCustomAnimations(R.anim.slide_left, R.anim.slide_right);
 		        	 transaction.replace(R.id.fragment_container, CF);
 				     
 		        	 transaction.commit();
@@ -472,6 +519,7 @@ public class Companies_Fragment extends ListFragment {
 		   return super.onOptionsItemSelected(item);
 		 }
 
+
 	    @Override
 		public void onDestroy(){
 	    	super.onDestroy();
@@ -479,9 +527,9 @@ public class Companies_Fragment extends ListFragment {
 		
 	    	
 	    	//Clear the data from the shared pref file
-	    	if(sharedPref != null){
-	    		
-		       	 if(sharedPrefFound){
+	    //	if(sharedPref != null){
+	    		//
+		       ///if(sharedPrefFound){
 		       		//sharedPref.edit().remove(getString(R.string.pref_data_key)).clear().commit();
 //			 			/**Clear company value from shared pref**/
 //				    	SharedPreferences.Editor editor = sharedPref.edit();
@@ -490,8 +538,8 @@ public class Companies_Fragment extends ListFragment {
 //				    	editor.clear();
 //						editor.commit();
 //						sharedPrefFound = false;
-		       	 }
-	    	}
+	//	       	 }
+//	    	}
 //	    	//pd.show();
 	    	//GetTimeLogData();
 	    	//pd.hide();

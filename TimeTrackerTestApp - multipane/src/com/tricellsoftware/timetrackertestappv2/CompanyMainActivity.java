@@ -2,18 +2,22 @@ package com.tricellsoftware.timetrackertestappv2;
 
 
 
+import com.tricellsoftware.timetrackertestappv2.Fragments.Clocks_Fragment;
 import com.tricellsoftware.timetrackertestappv2.Fragments.Companies_Fragment;
 import com.tricellsoftware.timetrackertestappv2.Fragments.Company_Fragment;
 import com.tricellsoftware.timetrackertestapp.databasev2.CompanyTable;
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 //This is the main activity (holder) for both the Company Fragment and the Companies_Fragment 
-public class CompanyMainActivity extends FragmentActivity implements Companies_Fragment.OnItemSelectedListener{
+public class CompanyMainActivity extends Fragment implements Companies_Fragment.OnItemSelectedListener{
 	
 	String s = null;
 	
@@ -21,16 +25,68 @@ public class CompanyMainActivity extends FragmentActivity implements Companies_F
 	
 	SharedPreferences sharedPref;
 	boolean sharedPrefFound = false;
+	
+	/**
+	 * The fragment argument representing the section number for this
+	 * fragment.
+	 */
+	private static final String ARG_SECTION_NUMBER = "section_number";
+	
+	/**
+	 * Returns a new instance of this fragment for the given section number.
+	 */
+	public static CompanyMainActivity newInstance(int sectionNumber) {
+		CompanyMainActivity fragment = new CompanyMainActivity();
+		Bundle args = new Bundle();
+		args.putInt(ARG_SECTION_NUMBER, sectionNumber);
+		fragment.setArguments(args);
+		return fragment;
+	}
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.company_main_layout);
-		
-		//sharedPref = this.getSharedPreferences(getString(R.string.pref_data_key),this.MODE_PRIVATE);
-		
+	public CompanyMainActivity() {
 	}
 	
+
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		
+		
+		//setContentView(R.layout.company_main_layout);
+		
+//		if (savedInstanceState != null) {
+//            return;
+//      }
+
+		//sharedPref = this.getSharedPreferences(getString(R.string.pref_data_key),this.MODE_PRIVATE);
+	    //Intent i = new Intent(this, CompanyActivity.class);
+	    //i.putExtra("companyID", string);
+	    //startActivityForResult(getApplicationContext(), Activity.RESULT_OK);
+		
+//		Bundle extras = getIntent().getExtras();
+//		
+//		if(extras != null){
+//			String id = extras.getString("companyID");	
+//			System.out.println(id);
+//		}
+	}
+	public void onActivityCreated(Bundle savedInstanceState) {
+	    super.onActivityCreated(savedInstanceState);
+	    
+		if(savedInstanceState != null)
+			return;
+	}
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
+		View rootView = inflater.inflate(R.layout.company_main_layout, container,
+				false);
+//		TextView textView = (TextView) rootView
+//				.findViewById(R.id.section_label);
+//		textView.setText(Integer.toString(getArguments().getInt(
+//				ARG_SECTION_NUMBER)));
+		return rootView;
+	}
 
 	@Override
 	public void onItemSelected(String _id) {
@@ -59,22 +115,34 @@ public class CompanyMainActivity extends FragmentActivity implements Companies_F
 //		super.onBackPressed();
 //	}
     @Override
-	protected void onStart(){
+	public void onStart(){
     	super.onStart();
     }
     ///Refreshes the List View
     @Override
-	protected void onRestart(){
-    	super.onRestart();
-    }
-    @Override
-	protected void onResume(){
+	public void onResume(){
     	super.onResume();
+    }
+    /**gets the information from the child screen**/
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data){
+    	super.onActivityResult(requestCode, resultCode, data);
+    	switch(requestCode){
+	    	case 1:{
+	    		if(resultCode == Activity.RESULT_OK){
+	    			_id = data.getStringExtra("companyID");
+	    		
+	    		}
+	    	}
+	    	break;
+    	
+    	}
     }
 
     @Override
-	protected void onPause(){
+	public void onPause(){
     	super.onPause();
     }
+
 
 }

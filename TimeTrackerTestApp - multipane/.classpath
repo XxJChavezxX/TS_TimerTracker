@@ -11,5 +11,6 @@
 	<classpathentry kind="lib" path="libs/android-support-v7-gridlayout.jar"/>
 	<classpathentry kind="lib" path="libs/android-support-v7-mediarouter.jar"/>
 	<classpathentry kind="src" path="gen"/>
+	<classpathentry kind="lib" path="libs/android-support-v13.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

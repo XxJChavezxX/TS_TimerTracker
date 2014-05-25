@@ -14,18 +14,20 @@ import com.tricellsoftware.timetrackertestapp.databasev2.CompanyTable;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.NumberPicker;
@@ -45,6 +47,10 @@ public class Company_Fragment extends Fragment {
 	private CompanyDTO company;
 	private CompanyDTO tempCompany;
 	//needed for the aletrt box
+
+	ArrayAdapter<CompanyDTO> adapter;
+	
+	View MainView;
 	
 	private int id;
 	
@@ -62,6 +68,8 @@ public class Company_Fragment extends Fragment {
 
 	    View view = inflater.inflate(R.layout.company_fragment,
 	        container, false);
+	    
+	    MainView = view;
 	    ctx = getActivity();
 	    
 	    return view;
@@ -72,14 +80,14 @@ public class Company_Fragment extends Fragment {
 		  id = Integer.parseInt(ID);
 			logic = new BusinessLogic(getActivity());
 			
-			tView = (TextView) getActivity().findViewById(R.id.txtcompanyname);
-			nPicker = (NumberPicker) getActivity().findViewById(R.id.numberPicker1);
-			nPicker2 = (NumberPicker) getActivity().findViewById(R.id.NumberPicker01);
-			Button SaveBttn = (Button) getActivity().findViewById(R.id.checkbttn);
-			Default = (CheckBox) getActivity().findViewById(R.id.chkboxdefault);
+			tView = (TextView) getView().findViewById(R.id.txtcompanyname);
+			nPicker = (NumberPicker) getView().findViewById(R.id.numberPicker1);
+			nPicker2 = (NumberPicker) getView().findViewById(R.id.NumberPicker01);
+			Button SaveBttn = (Button) getView().findViewById(R.id.checkbttn);
+			Default = (CheckBox) getView().findViewById(R.id.chkboxdefault);
 			//action bar
-			ActionBar actionBar = getActivity().getActionBar();
-			actionBar.setTitle("Company Details");
+			//ActionBar actionBar = getActivity().getActionBar();
+			//actionBar.setTitle("Company Details");
 			
 //			//mItem = DummyData.Item_Map.get(id);
 			nPicker.setMaxValue(100);
@@ -97,7 +105,7 @@ public class Company_Fragment extends Fragment {
 			}); 
 			
 			
-			TextView Datetv = (TextView) getActivity().findViewById(R.id.vDateCompany);
+			TextView Datetv = (TextView) getView().findViewById(R.id.vDateCompany);
 			
 			//get an
 			SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy"); // hour //HH:mm:ss
@@ -153,7 +161,7 @@ public class Company_Fragment extends Fragment {
 	  @Override
 	  public void onActivityCreated(Bundle savedInstanceState) {
 		    super.onActivityCreated(savedInstanceState);
-		    if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
+		    if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE && MainView != null){
 	    		//&& (getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_LARGE) {
 		    	getDataByID(String.valueOf(id));
 		    }
@@ -206,11 +214,16 @@ public class Company_Fragment extends Fragment {
 						if(tempCompany.getID() != pCompany.getID()){
 							pCompany.setIsDefault(false);
 							logic.updateCompanyById(pCompany);
-							getActivity().finish();
+							//getActivity().finish();
 						}
 					}
 					//new item
 					logic.addNewCompany(tempCompany);
+					//companyUri = getContentResolver().insert(TimeTrackerContentProvider.Content_URI, Values);
+					Toast.makeText(getActivity(), "New Company/Project: " + tempCompany.getName() + " has been added successfully", Toast.LENGTH_LONG).show();
+					
+					//replaceReloadCompaniesFragment();
+					
 					 if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
 						 //Toast.makeText(getActivity(), "New Record has been added successfully", Toast.LENGTH_LONG).show();
 					      //return;
@@ -227,7 +240,7 @@ public class Company_Fragment extends Fragment {
 				//if the company that was pull does not match the new/temp company then update it
 				boolean chkbox = Default.isChecked();
 				if(company.getName().equals(name) && company.getRate() == totalRate && company.getIsDefault() == chkbox){
-					getActivity().finish();
+					//getActivity().finish();
 				}
 				else{
 					//getContentResolver().update(companyUri, Values, null, null);
@@ -244,7 +257,7 @@ public class Company_Fragment extends Fragment {
 						if(tempCompany.getID() != pCompany.getID()){
 							pCompany.setIsDefault(false);
 							logic.updateCompanyById(pCompany);
-							getActivity().finish();
+							//getActivity().finish();
 						}
 					}
 					/** End of Section **/
@@ -252,9 +265,9 @@ public class Company_Fragment extends Fragment {
 					logic.updateCompanyById(tempCompany);
 					
 					//getContentResolver().update(companyUri, Values, null, null);
-					Toast.makeText(getActivity(), "Selected Record has been updated successfully", Toast.LENGTH_LONG).show();
+					Toast.makeText(getActivity(), "The seleted Company: " + tempCompany.getName() + " has been updated successfully", Toast.LENGTH_LONG).show();
 					
-					getActivity().finish();
+					//getActivity().finish();
 				}
 			
 				
@@ -314,5 +327,46 @@ public class Company_Fragment extends Fragment {
 		    	  
 		   }
 		   return super.onOptionsItemSelected(item);
-		 } 
+		 }
+		
+//		private void replaceReloadCompaniesFragment(){
+//			FragmentTransaction ft = getFragmentManager().beginTransaction();
+//			//check of the framelayout is present on the Activity associated with this ListFragment
+//			if(getView().findViewById(android.R.id.list) != null){
+//				return;
+//			}// However, if we're being restored from a previous state,
+//            // then we don't need to do anything and should return or else
+//            // we could end up with overlapping fragments.
+//            //Creates Company Fragment to be held in the Activity layout using the FrameLayout
+//            Companies_Fragment cp = new Companies_Fragment();
+//            // In case this activity was started with special instructions from an
+//            // Intent, pass the Intent's extras to the fragment as arguments
+//            //cf.setArguments(getActivity().getIntent().getExtras());
+//
+//            //Add the fragment to the 'fragment_container' FrameLayout
+//            ft.add(android.R.id.list, cp).commit();
+//		}
+		
+		//refresh companies list view
+	    @Override
+		public void onStart(){
+	    	super.onStart();
+	    	
+	    }
+	    ///Refreshes the List View
+	    @Override
+		public void onResume(){
+	    	super.onResume();
+	    	//pd.show();
+	    	//pd.hide();
+	    }
+	    @Override
+		public void onPause(){
+	    	super.onPause();
+	    }
+	    @Override
+		public void onDestroy(){
+	    	super.onDestroy();
+	    	
+	    }
 }

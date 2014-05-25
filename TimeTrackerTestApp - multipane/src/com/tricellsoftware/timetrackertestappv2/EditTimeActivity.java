@@ -26,7 +26,8 @@ public class EditTimeActivity extends Activity {
 	private BusinessLogic logic;
 	private TimeLogDTO timelog;
 	
-	public static int id;
+	private static int id;
+	private int _id;
 	String StartDate;
 	String EndDate;
 	
@@ -54,15 +55,15 @@ public class EditTimeActivity extends Activity {
 	    if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE ){
 	    		//&& (getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_LARGE) {
 	    	  land = true;
-//		      /** Sending ID back to the Timeloglist fragment if this activity is in landscape mode**/	
-//		      if(id > 0){
-//					/** Share id with other activities or fragments by using sharedPref method
-//					 * **/
-//		    	  SharedPreferences sharedPref = this.getSharedPreferences(getString(R.string.pref_data_key), this.MODE_PRIVATE);
-//		    	  SharedPreferences.Editor editor = sharedPref.edit();
-//		    	  editor.putString(getString(R.string.timelog_id), String.valueOf(id));
-//		    	  editor.commit();
-//		      }	
+		      /** Sending ID back to the Timeloglist fragment if this activity is in landscape mode**/	
+		      if(id > 0){
+					/** Share id with other activities or fragments by using sharedPref method
+					 * **/
+		    	  SharedPreferences sharedPref = getApplicationContext().getSharedPreferences(getString(R.string.pref_data_key), 0);
+		    	  SharedPreferences.Editor editor = sharedPref.edit();
+		    	  editor.putString(getString(R.string.timelog_id), String.valueOf(id));
+		    	  editor.commit();
+		      }	
 	      finish();
 	      return;
 	    }//checking for the Orientation must be before defining the content view
@@ -84,7 +85,9 @@ public class EditTimeActivity extends Activity {
 		Bundle extras = getIntent().getExtras();
 		
 		if(extras != null){
+			
 			id = extras.getInt(TimeLogTable.COLUMN_ID);
+			//id = _id;
 			//StartDate = extras.getString("StartDate");
 			//EndDate = extras.getString("EndString");
 		}
@@ -135,7 +138,6 @@ public class EditTimeActivity extends Activity {
 						
 			}
 		});
-		
 		
 	}
 	private void validateTimes(){

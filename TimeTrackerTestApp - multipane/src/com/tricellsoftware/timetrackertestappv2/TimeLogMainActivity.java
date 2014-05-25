@@ -23,7 +23,7 @@ public class TimeLogMainActivity extends FragmentActivity implements TimeLogs_Fr
 	@Override
 	public void onLogSelected(String _id) {
 		 //TODO Auto-generated method stub
-		  TimeLogDetails_Fragment fm = (TimeLogDetails_Fragment) getSupportFragmentManager().findFragmentById(R.id.timelogDetails_Fragment);
+		  TimeLogDetails_Fragment fm = (TimeLogDetails_Fragment) getFragmentManager().findFragmentById(R.id.timelogDetails_Fragment);
 	        if (fm != null && fm.isInLayout()) {
 	         // fm.getDataByID(_id);
 	        }else{

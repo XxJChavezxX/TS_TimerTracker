@@ -75,15 +75,20 @@ public class CompanyActivity extends FragmentActivity implements Companies_Fragm
 	      if(id > 0){
 				/** Share id with other activities or fragments by using sharedPref method
 				 * **/
-	    	  SharedPreferences sharedPref = getApplicationContext().getSharedPreferences(getString(R.string.pref_data_key), getApplicationContext().MODE_PRIVATE);
+	    	  SharedPreferences sharedPref = getApplicationContext().getSharedPreferences(getString(R.string.pref_data_key), 0);
 	    	  SharedPreferences.Editor editor = sharedPref.edit();
 	    	  editor.putInt(getString(R.string.company_id), id);
 	    	  editor.commit();
+	    	  
+			Intent i = new Intent(this, CompanyMainActivity.class);
+			i.putExtra("companyID", id);
+			setResult(Activity.RESULT_OK, i); //pass information to the previous activity
+			
 	      }
 	      
       	  /** Kills the Activity **/
 	      finish();
-	      return;
+	    //  return;
 	    }//checking for the Orientation must be before defining the content view
 	    else
 	    	land = false;
