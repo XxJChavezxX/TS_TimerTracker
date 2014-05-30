@@ -5,6 +5,7 @@ package com.tricellsoftware.timetrackertestappv2.Fragments;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import com.tricellsoftware.timetrackertestappv2.R;
 import com.tricellsoftware.timetrackertestapp.DTOsv2.CompanyDTO;
@@ -30,6 +31,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.ListView;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -49,6 +51,10 @@ public class Company_Fragment extends Fragment {
 	//needed for the aletrt box
 
 	ArrayAdapter<CompanyDTO> adapter;
+	
+	List<CompanyDTO> companies; 
+	
+	ListView lv;
 	
 	View MainView;
 	
@@ -70,6 +76,9 @@ public class Company_Fragment extends Fragment {
 	        container, false);
 	    
 	    MainView = view;
+	    
+	    
+	    
 	    ctx = getActivity();
 	    
 	    return view;
@@ -162,6 +171,8 @@ public class Company_Fragment extends Fragment {
 	  public void onActivityCreated(Bundle savedInstanceState) {
 		    super.onActivityCreated(savedInstanceState);
 		    if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE && MainView != null){
+		    	//look for the list view on the Companies_fragment
+		    	lv = (ListView)getActivity().findViewById(android.R.id.list);
 	    		//&& (getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_LARGE) {
 		    	getDataByID(String.valueOf(id));
 		    }
@@ -214,14 +225,14 @@ public class Company_Fragment extends Fragment {
 						if(tempCompany.getID() != pCompany.getID()){
 							pCompany.setIsDefault(false);
 							logic.updateCompanyById(pCompany);
-							//getActivity().finish();
+							
 						}
 					}
 					//new item
 					logic.addNewCompany(tempCompany);
 					//companyUri = getContentResolver().insert(TimeTrackerContentProvider.Content_URI, Values);
 					Toast.makeText(getActivity(), "New Company/Project: " + tempCompany.getName() + " has been added successfully", Toast.LENGTH_LONG).show();
-					
+					RefreshCompaniesList(lv, adapter);
 					//replaceReloadCompaniesFragment();
 					
 					 if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
@@ -266,8 +277,14 @@ public class Company_Fragment extends Fragment {
 					
 					//getContentResolver().update(companyUri, Values, null, null);
 					Toast.makeText(getActivity(), "The seleted Company: " + tempCompany.getName() + " has been updated successfully", Toast.LENGTH_LONG).show();
-					
 					//getActivity().finish();
+					//use the default list provided by android
+					RefreshCompaniesList(lv, adapter);
+					
+					//TempCompany becomes company, this avoids unnecessary trips to the DB
+					company.setName(tempCompany.getName());
+					company.setRate(tempCompany.getRate());
+					company.setIsDefault(tempCompany.getIsDefault());
 				}
 			
 				
@@ -346,6 +363,17 @@ public class Company_Fragment extends Fragment {
 //            //Add the fragment to the 'fragment_container' FrameLayout
 //            ft.add(android.R.id.list, cp).commit();
 //		}
+		//Refreshes the list on the Companies Fragment 
+		private void RefreshCompaniesList(ListView lv, ArrayAdapter<CompanyDTO> adapter){
+			this.lv = lv;
+			this.adapter = adapter;
+			companies = logic.getAllCompanies();
+			
+			adapter = new ArrayAdapter<CompanyDTO>(getActivity(), android.R.layout.simple_list_item_1, companies);
+			lv.setAdapter(adapter);
+		    
+		    adapter.notifyDataSetChanged();
+		}
 		
 		//refresh companies list view
 	    @Override

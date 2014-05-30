@@ -2,11 +2,14 @@ package com.tricellsoftware.timetrackertestappv2.Fragments;
 
 import java.text.ParseException;
 import java.util.Calendar;
+import java.util.List;
 
+import com.tricellsoftware.timetrackertestapp.DTOsv2.CompanyDTO;
 import com.tricellsoftware.timetrackertestapp.DTOsv2.TimeLogDTO;
 import com.tricellsoftware.timetrackertestapp.businessLogicv2.BusinessLogic;
 import com.tricellsoftware.timetrackertestapp.databasev2.CompanyTable;
 import com.tricellsoftware.timetrackertestapp.databasev2.TimeLogTable;
+import com.tricellsoftware.timetrackertestapp.helperv2.CustomArrayAdapter;
 import com.tricellsoftware.timetrackertestapp.helperv2.TimeHelper;
 import com.tricellsoftware.timetrackertestappv2.R;
 
@@ -21,7 +24,9 @@ import android.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -57,6 +62,12 @@ public class TimeLogDetails_Fragment extends Fragment {
 	NoResults_Fragment NR = null;
 	
 	ProgressDialog pd = null;
+	
+	//The following are needed to update the list on the timelogs fragment
+	CustomArrayAdapter adapter;
+	List<TimeLogDTO> timelogs;
+	ListView lv;
+	Bundle activityextras;
 	
 	boolean land; //landscape
 	boolean sharedPrefFound; 
@@ -105,6 +116,7 @@ public class TimeLogDetails_Fragment extends Fragment {
 	public void onActivityCreated(Bundle savedInstanceState) {
 		    super.onActivityCreated(savedInstanceState);
 		    
+		    activityextras = getActivity().getIntent().getExtras();
 		    
 		    if(land){
 			   
@@ -142,6 +154,8 @@ public class TimeLogDetails_Fragment extends Fragment {
 				EndPicker.setCurrentMinute(cl.get(Calendar.MINUTE));
 				//String srt = StartPicker.getCurrentHour().toString();
 				
+				//look for the list view realted to the Activity on the timelogs_fragment
+		    	lv = (ListView)getActivity().findViewById(android.R.id.list);
 				//StartPicker.set/
 				
 				Button SaveBttn = (Button) getActivity().findViewById(R.id.checkbttn);
@@ -179,7 +193,7 @@ public class TimeLogDetails_Fragment extends Fragment {
 			
 			if(timelog.getStartTime().equals(newStartTime) && timelog.getEndTime().equals(newEndTime)){
 				//Toast.makeText(this, "Times were not updated because no change was made", Toast.LENGTH_LONG).show();
-				getActivity().finish();
+				//getActivity().finish();
 			}
 			else{
 				long lg1 = TimeHelper.getLongFromHour(newStartTime);
@@ -187,13 +201,27 @@ public class TimeLogDetails_Fragment extends Fragment {
 				//if starttime is less than endtime 
 				if(lg1 < lg2){
 					updateTimelog(newStartTime, newEndTime);
-					Toast.makeText(getActivity(), "Times were updated sucessfully!!", Toast.LENGTH_LONG).show();
-					
-					getActivity().finish();
+					Toast.makeText(getActivity(), "Time was updated sucessfully!!", Toast.LENGTH_LONG).show();
+					RefreshCompaniesList(lv, adapter);
+					//getActivity().finish();
 				}
 				else
 					Toast.makeText(getActivity(), "Start Time cannot be less than End Time, please try again", Toast.LENGTH_LONG).show();
 			}
+		}
+		//Refreshes the list related to this activity located on the Timelogs Fragment 
+		private void RefreshCompaniesList(ListView lv, CustomArrayAdapter adapter){
+			this.lv = lv;
+			this.adapter = adapter;
+			
+			StartDate = activityextras.getString("StartDate");
+			EndDate = activityextras.getString("EndDate");
+			timelogs = logic.getAllTimeLogsByWeek(StartDate, EndDate);
+			
+			adapter = new CustomArrayAdapter(getActivity(), android.R.id.list, timelogs);
+			lv.setAdapter(adapter);
+		    
+		    adapter.notifyDataSetChanged();
 		}
 		private void updateTimelog(String startTime, String endTime){
 			/**updates starttime and end time**/
