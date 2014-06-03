@@ -205,6 +205,7 @@ public class Clocks_Fragment extends Fragment {
 	  						
 	  						Status.setText("Status: " + Status_Enum.Off.toString());
 	  					}
+	  				
 
 	  				} catch (ParseException e) {
 	  					// TODO Auto-generated catch block

@@ -64,8 +64,8 @@ public class EditTimeActivity extends Activity {
 		    	  editor.putString(getString(R.string.timelog_id), String.valueOf(id));
 		    	  editor.commit();
 		      }	
-	      finish();
-	      return;
+	      //finish();
+	      //return;
 	    }//checking for the Orientation must be before defining the content view
 	    else
 	    	land = false;

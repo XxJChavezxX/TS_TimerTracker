@@ -54,6 +54,8 @@ public class Summary_Fragment extends Fragment {
 	FileCreatorHelper fc = null;
 	SendEmailHelper se = null;
 	
+	private boolean infoChanged;
+	
 	View MainView;
 	
 	ProgressDialog pd = null;

@@ -232,7 +232,7 @@ public class Company_Fragment extends Fragment {
 					logic.addNewCompany(tempCompany);
 					//companyUri = getContentResolver().insert(TimeTrackerContentProvider.Content_URI, Values);
 					Toast.makeText(getActivity(), "New Company/Project: " + tempCompany.getName() + " has been added successfully", Toast.LENGTH_LONG).show();
-					RefreshCompaniesList(lv, adapter);
+					//RefreshCompaniesList(lv, adapter);
 					//replaceReloadCompaniesFragment();
 					
 					 if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
@@ -243,6 +243,8 @@ public class Company_Fragment extends Fragment {
 						//getActivity().finish();
 						//Toast.makeText(getActivity(), "New Record has been added successfully", Toast.LENGTH_LONG).show();
 					 }
+					 //Companies_Fragment.refreshList();
+					 //RefreshCompaniesList(lv, adapter);
 				}
 				else
 					Toast.makeText(getActivity(), "Company Name already Exists, please choose a different one", Toast.LENGTH_LONG).show();
@@ -289,6 +291,7 @@ public class Company_Fragment extends Fragment {
 			
 				
 			}
+			//Companies_Fragment.refreshList();
 		}
 		
 		//create menu options for the action bar
@@ -368,6 +371,8 @@ public class Company_Fragment extends Fragment {
 			this.lv = lv;
 			this.adapter = adapter;
 			companies = logic.getAllCompanies();
+			
+		//	adapter.clear();
 			
 			adapter = new ArrayAdapter<CompanyDTO>(getActivity(), android.R.layout.simple_list_item_1, companies);
 			lv.setAdapter(adapter);

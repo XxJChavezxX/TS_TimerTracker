@@ -56,6 +56,7 @@ public class TimeLogs_Fragment extends ListFragment {
 	private ActionBar actionBar;
 	
 	private int _id = 0;
+	private static int timeid = 0;
 	String StartDate;
 	String EndDate;
 	
@@ -125,6 +126,17 @@ public class TimeLogs_Fragment extends ListFragment {
 		    super.onActivityCreated(savedInstanceState);
 		    //get list view
 		    registerForContextMenu(getListView());
+		    
+		    if(land == false && timeid > 0){
+		    	 Intent i = new Intent(getActivity(), EditTimeActivity.class);
+		    	
+				 i.putExtra(TimeLogTable.COLUMN_ID, timeid);
+				 //add start time and end time
+				 i.putExtra("StartDate", StartDate);
+				 i.putExtra("StartDate", EndDate);
+				 startActivity(i);
+				 timeid = 0;
+		    }
 		    
 		
 		    
@@ -290,7 +302,7 @@ public class TimeLogs_Fragment extends ListFragment {
 			//get id of the selected item
 			   _id = timelogs.get(position).getID();
 			   //i.putExtra(CompanyTable.COLUMN_ID, _id);
-	
+			   timeid = _id;
 				//if screen is large (7 inches)
 			    if (land){
 			    		//&& (getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_LARGE) {
@@ -350,6 +362,8 @@ public class TimeLogs_Fragment extends ListFragment {
 				i.putExtra("selectedDate", date);
 				startActivityForResult(i, 1);
 				
+				//_id = 0;
+				
 		   break;
 		    	  
 		   }
@@ -361,12 +375,13 @@ public class TimeLogs_Fragment extends ListFragment {
 	    	super.onStart();
 	    }
 	    ///Refreshes the List View
-	    @Override
+	    @SuppressLint("NewApi")
+		@Override
 		public void onResume(){
 	    	super.onResume();
 	    	//pd.show();
 	    	GetTimeLogData();
-	    	if (land &&  nr == null){// && newCF == null){
+	    	if (land &&  nr == null || land && timelogs.isEmpty()){// && newCF == null){
 				
 				FragmentTransaction ft = getFragmentManager().beginTransaction();
 				//check of the framelayout is present on the Activity associated with this ListFragment
@@ -389,10 +404,24 @@ public class TimeLogs_Fragment extends ListFragment {
 	            ft.replace(R.id.fragment_timelog_container, nr).commit();
 			
 			 }
+	    	if(date != null && timelogs.isEmpty() && tv == null){
+				
+				tv = new TextView(getActivity());
+				
+				tv.setText("No Time Logs have been found for date: " + date);
+				tv.setPaddingRelative(20, 20, 20, 20);
+				
+				//View view = Mainview.findViewById(R.layout.company_rates_fragment);
+				((LinearLayout)Mainview).addView(tv);
+				
+				//cfView.addView(tv);
+				
+	    	}
 	    	//pd.hide();
 	    }
 	    /**gets the information from the child screen**/
-	    @Override
+	    @SuppressLint("NewApi")
+		@Override
 		public void onActivityResult(int requestCode, int resultCode, Intent data){
 	    	super.onActivityResult(requestCode, resultCode, data);
 	    	switch(requestCode){
@@ -403,6 +432,9 @@ public class TimeLogs_Fragment extends ListFragment {
 							tv.setVisibility(View.GONE);
 							((LinearLayout)Mainview).removeView((View)tv.getParent());
 						}
+		    			else{
+
+		    			}
 		    		
 		    		}
 		    	}

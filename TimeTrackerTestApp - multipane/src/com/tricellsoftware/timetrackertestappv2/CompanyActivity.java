@@ -87,7 +87,7 @@ public class CompanyActivity extends FragmentActivity implements Companies_Fragm
 	      }
 	      
       	  /** Kills the Activity **/
-	      finish();
+	      //finish();
 	    //  return;
 	    }//checking for the Orientation must be before defining the content view
 	    else
@@ -138,8 +138,9 @@ public class CompanyActivity extends FragmentActivity implements Companies_Fragm
 		Bundle extras = getIntent().getExtras();
 		
 		if(extras != null){
-			_id = extras.getString(CompanyTable.COLUMN_ID);
-			id = Integer.parseInt(_id);
+			//_id = extras.getString(CompanyTable.COLUMN_ID);
+			//id = Integer.parseInt(_id);
+			id = extras.getInt(CompanyTable.COLUMN_ID);
 		}
 		
 	

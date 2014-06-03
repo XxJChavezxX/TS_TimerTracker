@@ -48,13 +48,14 @@ public class Companies_Fragment extends ListFragment {
 	List<CompanyDTO> companies; 
 	private BusinessLogic logic;
 	
-	private ArrayAdapter<CompanyDTO> adapter;
+	private static ArrayAdapter<CompanyDTO> adapter;
 	//action bar
 	ActionBar actionBar;
 	
 	private String _id;
 	private int id = 0;
 	private int position;
+	private static int compid = 0;
 	
 	ProgressDialog pd = null;
 	
@@ -150,6 +151,20 @@ public class Companies_Fragment extends ListFragment {
 	  @Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		    super.onActivityCreated(savedInstanceState);
+		    
+       	 	if(land == false && compid > 0){
+       	 		
+		  	    Intent i = new Intent(getActivity(), CompanyActivity.class);
+			    //mCallbacks.onItemSelected(DummyContent.ITEMS.get(position).id);
+			    //Uri CompanyUri = Uri.parse(TimeTrackerContentProvider.Content_URI + "/" + id);
+		    	  
+			     i.putExtra(CompanyTable.COLUMN_ID, compid);
+			    
+			    startActivity(i);
+			    
+			    compid = 0;
+       	 	}
+		    
 		    //get list view
 			registerForContextMenu(getListView());
 		   // lv = (ListView) getView().findViewById(R.id.companies_listview);
@@ -236,7 +251,7 @@ public class Companies_Fragment extends ListFragment {
 	        	 transaction.setCustomAnimations(R.anim.slide_left, R.anim.slide_right);
 	        	 transaction.replace(R.id.fragment_container, newCF);
 			     
-	        	 transaction.commit();	 
+	        	 transaction.commit();	
 
 			}
 			//id = 0;
@@ -300,25 +315,30 @@ public class Companies_Fragment extends ListFragment {
 			
 		    
 		}
+		//public static void refillData(){
+		public static void refreshList(){
+			  adapter.notifyDataSetChanged();
+		}
 		
 		  @Override
 		  public void onListItemClick(ListView l, View v, int position, long id){
 			  super.onListItemClick(l, v, position, id);
 
 			   //get id of the selected item
-			   _id = String.valueOf(companies.get(position).getID());
-			   id = Integer.parseInt(_id);
+			  // _id = String.valueOf();
+			   id = companies.get(position).getID();
+			   compid = (int) id;
 			   //i.putExtra(CompanyTable.COLUMN_ID, _id);
 
 				//if screen is large (7 inches)
 			    if (land){
 			    		//&& (getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_LARGE) {
-			    	 mListener.onItemSelected(String.valueOf(_id));
+			    	 mListener.onItemSelected(String.valueOf(id));
 			    	 
 			    	// Create fragment and give it an argument specifying the item it should show
 		        	  newCF = new Company_Fragment(); // new company fragment
 		        	  Bundle args = new Bundle();
-		        	  args.putInt(CompanyTable.COLUMN_ID, Integer.parseInt(_id));
+		        	  args.putInt(CompanyTable.COLUMN_ID, (int)id);
 		        	  newCF.setArguments(args);
 		        	  FragmentTransaction transaction = getFragmentManager().beginTransaction();
 
@@ -334,7 +354,7 @@ public class Companies_Fragment extends ListFragment {
 				    //mCallbacks.onItemSelected(DummyContent.ITEMS.get(position).id);
 				    //Uri CompanyUri = Uri.parse(TimeTrackerContentProvider.Content_URI + "/" + id);
 			    	  
-				     i.putExtra(CompanyTable.COLUMN_ID, _id);
+				     i.putExtra(CompanyTable.COLUMN_ID, (int)id);
 
 				    startActivity(i);
 			    }
@@ -471,31 +491,34 @@ public class Companies_Fragment extends ListFragment {
 		    	 // Toast.makeText(getActivity(), "Settings was selected", Toast.LENGTH_LONG).show();
 		   break;
 		   case R.id.AddNew:
+			   //launch the Company activity to add a new company
+			   		    	Intent CompanyScreen = new Intent(getActivity(), CompanyActivity.class);
+			   		    	startActivity(CompanyScreen);
 			   
-				 // Need to check if Activity has been switched to landscape mode
-			    // If yes, finished and go back to the start Activity
-			    if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-			    	//mListener.onItemSelected(String.valueOf(0));
-			    	
-			    	//creates an empty fragment to add a new company
-		        	  Company_Fragment CF = new Company_Fragment(); // new company fragment
-		        	  FragmentTransaction transaction = getFragmentManager().beginTransaction();
-
-
-			         //Begin fragment transaction to show the new fragment and replace the old one 
-		        	 transaction.setCustomAnimations(R.anim.slide_left, R.anim.slide_right);
-		        	 transaction.replace(R.id.fragment_container, CF);
-				     
-		        	 transaction.commit();
-			    	
-			    	
-			      //return;
-			    }//checking for the Orientation must be before defining the content view
-			    else{
-			    	Intent CompanyScreen = new Intent(getActivity(), CompanyActivity.class);
-			    	startActivity(CompanyScreen);
-			   
-			    }
+//				 // Need to check if Activity has been switched to landscape mode
+//			    // If yes, finished and go back to the start Activity
+//			    if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+//			    	//mListener.onItemSelected(String.valueOf(0));
+//			    	
+//			    	//creates an empty fragment to add a new company
+//		        	  Company_Fragment CF = new Company_Fragment(); // new company fragment
+//		        	  FragmentTransaction transaction = getFragmentManager().beginTransaction();
+//
+//
+//			         //Begin fragment transaction to show the new fragment and replace the old one 
+//		        	 transaction.setCustomAnimations(R.anim.slide_left, R.anim.slide_right);
+//		        	 transaction.replace(R.id.fragment_container, CF);
+//				     
+//		        	 transaction.commit();
+//			    	
+//			    	
+//			      //return;
+//			    }//checking for the Orientation must be before defining the content view
+//			    else{
+//			    	Intent CompanyScreen = new Intent(getActivity(), CompanyActivity.class);
+//			    	startActivity(CompanyScreen);
+//			   
+//			    }
 			   
 			   //search text box on the action bar
 //		   case R.id.action_search:

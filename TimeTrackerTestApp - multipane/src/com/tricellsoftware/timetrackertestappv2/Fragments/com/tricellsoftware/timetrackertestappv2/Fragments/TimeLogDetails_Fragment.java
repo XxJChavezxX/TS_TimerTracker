@@ -11,11 +11,13 @@ import com.tricellsoftware.timetrackertestapp.databasev2.CompanyTable;
 import com.tricellsoftware.timetrackertestapp.databasev2.TimeLogTable;
 import com.tricellsoftware.timetrackertestapp.helperv2.CustomArrayAdapter;
 import com.tricellsoftware.timetrackertestapp.helperv2.TimeHelper;
+import com.tricellsoftware.timetrackertestappv2.EditTimeActivity;
 import com.tricellsoftware.timetrackertestappv2.R;
 
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -177,6 +179,9 @@ public class TimeLogDetails_Fragment extends Fragment {
 				});
 			
 				}
+		    }
+		    else{
+		    	 
 		    }
 	  }
 	  @Override
