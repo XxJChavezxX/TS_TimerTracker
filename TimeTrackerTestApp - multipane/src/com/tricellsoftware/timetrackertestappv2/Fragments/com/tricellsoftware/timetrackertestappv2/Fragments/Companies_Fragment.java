@@ -152,18 +152,7 @@ public class Companies_Fragment extends ListFragment {
 	public void onActivityCreated(Bundle savedInstanceState) {
 		    super.onActivityCreated(savedInstanceState);
 		    
-       	 	if(land == false && compid > 0){
-       	 		
-		  	    Intent i = new Intent(getActivity(), CompanyActivity.class);
-			    //mCallbacks.onItemSelected(DummyContent.ITEMS.get(position).id);
-			    //Uri CompanyUri = Uri.parse(TimeTrackerContentProvider.Content_URI + "/" + id);
-		    	  
-			     i.putExtra(CompanyTable.COLUMN_ID, compid);
-			    
-			    startActivity(i);
-			    
-			    compid = 0;
-       	 	}
+
 		    
 		    //get list view
 			registerForContextMenu(getListView());
@@ -189,7 +178,7 @@ public class Companies_Fragment extends ListFragment {
 			//Important: currently the shared pref is not clearing up
 			SharedPreferences sharedPref = getActivity().getApplicationContext().getSharedPreferences(getString(R.string.pref_data_key), 0);
 			if(sharedPref != null){
-				if(sharedPref.contains(getString(R.string.company_id)) && land)
+				if(sharedPref.contains(getString(R.string.company_id)) && land == false)
 					id = sharedPref.getInt(getString(R.string.company_id), 0);
 					sharedPref.edit().remove(getString(R.string.pref_data_key)).clear().commit();
 					//sharedPref.edit().remove(getString(R.string.pref_data_key)).clear().commit();
@@ -238,6 +227,19 @@ public class Companies_Fragment extends ListFragment {
 			}
 			//launch the Company Fragment 
 			else{
+	       	 	if(land == false && id > 0){
+	       	 		
+			  	    Intent i = new Intent(getActivity(), CompanyActivity.class);
+				    //mCallbacks.onItemSelected(DummyContent.ITEMS.get(position).id);
+				    //Uri CompanyUri = Uri.parse(TimeTrackerContentProvider.Content_URI + "/" + id);
+			    	  
+				     i.putExtra(CompanyTable.COLUMN_ID, id);
+				   //  compid = 0;
+				    startActivity(i);
+				    
+				    
+	       	 	}
+	       	 	else{
 				
 				  newCF = new Company_Fragment(); // new company fragment
 				  //set data to pass to the company fragment
@@ -252,6 +254,7 @@ public class Companies_Fragment extends ListFragment {
 	        	 transaction.replace(R.id.fragment_container, newCF);
 			     
 	        	 transaction.commit();	
+	       	 	}
 
 			}
 			//id = 0;
@@ -327,11 +330,18 @@ public class Companies_Fragment extends ListFragment {
 			   //get id of the selected item
 			  // _id = String.valueOf();
 			   id = companies.get(position).getID();
-			   compid = (int) id;
+			  // compid = (int) id;
+			   
+
 			   //i.putExtra(CompanyTable.COLUMN_ID, _id);
 
 				//if screen is large (7 inches)
 			    if (land){
+			    	
+			    	//save company the user was seeing
+				   SharedPreferences sharedPref = getActivity().getSharedPreferences(getString(R.string.pref_data_key), 0);
+			    	  SharedPreferences.Editor editor = sharedPref.edit();
+			    	  editor.putInt(getString(R.string.company_id), (int) id).commit();
 			    		//&& (getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_LARGE) {
 			    	 mListener.onItemSelected(String.valueOf(id));
 			    	 
@@ -350,6 +360,8 @@ public class Companies_Fragment extends ListFragment {
 		        	 transaction.commit();
 			    }
 			    else{
+
+			    	
 			    	Intent i = new Intent(getActivity(), CompanyActivity.class);
 				    //mCallbacks.onItemSelected(DummyContent.ITEMS.get(position).id);
 				    //Uri CompanyUri = Uri.parse(TimeTrackerContentProvider.Content_URI + "/" + id);

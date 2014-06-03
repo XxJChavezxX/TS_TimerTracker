@@ -61,8 +61,8 @@ public class EditTimeActivity extends Activity {
 					 * **/
 		    	  SharedPreferences sharedPref = getApplicationContext().getSharedPreferences(getString(R.string.pref_data_key), 0);
 		    	  SharedPreferences.Editor editor = sharedPref.edit();
-		    	  editor.putString(getString(R.string.timelog_id), String.valueOf(id));
-		    	  editor.commit();
+		    	  editor.putString(getString(R.string.timelog_id), String.valueOf(id)).commit();
+		    	  //editor.commit();
 		      }	
 	      //finish();
 	      //return;

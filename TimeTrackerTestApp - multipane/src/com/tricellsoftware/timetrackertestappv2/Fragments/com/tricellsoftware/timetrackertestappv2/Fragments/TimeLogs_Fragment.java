@@ -4,8 +4,10 @@ import java.util.List;
 
 
 
+
 import com.tricellsoftware.timetrackertestapp.DTOsv2.TimeLogDTO;
 import com.tricellsoftware.timetrackertestapp.businessLogicv2.BusinessLogic;
+import com.tricellsoftware.timetrackertestapp.databasev2.CompanyTable;
 import com.tricellsoftware.timetrackertestapp.databasev2.TimeLogTable;
 import com.tricellsoftware.timetrackertestapp.helperv2.CustomArrayAdapter;
 import com.tricellsoftware.timetrackertestappv2.CalendarViewActivity;
@@ -127,16 +129,17 @@ public class TimeLogs_Fragment extends ListFragment {
 		    //get list view
 		    registerForContextMenu(getListView());
 		    
-		    if(land == false && timeid > 0){
-		    	 Intent i = new Intent(getActivity(), EditTimeActivity.class);
-		    	
-				 i.putExtra(TimeLogTable.COLUMN_ID, timeid);
-				 //add start time and end time
-				 i.putExtra("StartDate", StartDate);
-				 i.putExtra("StartDate", EndDate);
-				 startActivity(i);
-				 timeid = 0;
-		    }
+//		    if(land == false && timeid > 0){
+//		    	 Intent i = new Intent(getActivity(), EditTimeActivity.class);
+//		    	
+//				 i.putExtra(TimeLogTable.COLUMN_ID, timeid);
+//				 //add start time and end time
+////				 i.putExtra("StartDate", StartDate);
+////				 i.putExtra("StartDate", EndDate);
+//				 startActivity(i);
+//				 
+//		    }
+//		    timeid = 0;
 		    
 		
 		    
@@ -153,8 +156,8 @@ public class TimeLogs_Fragment extends ListFragment {
 			 * **/
 			SharedPreferences sharedPref = getActivity().getApplicationContext().getSharedPreferences(getString(R.string.pref_data_key),0);
 			if(sharedPref != null){
-				if(sharedPref.contains(getString(R.string.timelog_id)) && land){
-					_id = Integer.parseInt(sharedPref.getString(getString(R.string.timelog_id), ""));
+				if(sharedPref.contains(getString(R.string.timelog_id)) && land == false){
+					_id = sharedPref.getInt(getString(R.string.timelog_id), 0);
 					sharedPref.edit().remove(getString(R.string.pref_data_key)).clear().commit();
 				}
 				
@@ -189,19 +192,34 @@ public class TimeLogs_Fragment extends ListFragment {
 				 }
 			}
 			else{
+				
+		 	 	if(land == false && _id > 0){
+			       	 		
+					  	    Intent i = new Intent(getActivity(), EditTimeActivity.class);
+						    //mCallbacks.onItemSelected(DummyContent.ITEMS.get(position).id);
+						    //Uri CompanyUri = Uri.parse(TimeTrackerContentProvider.Content_URI + "/" + id);
+					    	  
+						     i.putExtra(TimeLogTable.COLUMN_ID, _id);
+						   //  compid = 0;
+						    startActivity(i);
+						    
+						    
+			       	 	}
+		 	 	else{
 		    	// Create fragment and give it an argument specifying the item it should show
-		    	  newTF = new TimeLogDetails_Fragment(); // new company fragment
-	        	  Bundle args = new Bundle();
-	        	  args.putInt(TimeLogTable.COLUMN_ID, _id);
-	        	  newTF.setArguments(args);
-	        	  FragmentTransaction transaction = getFragmentManager().beginTransaction();
-
-
-		         //Begin fragment transaction to show the new fragment and replace the old one 
-	        	 transaction.setCustomAnimations(R.anim.slide_left, R.anim.slide_right);
-	        	 transaction.replace(R.id.fragment_timelog_container, newTF);
-			     
-	        	 transaction.commit();
+			    	  newTF = new TimeLogDetails_Fragment(); // new company fragment
+		        	  Bundle args = new Bundle();
+		        	  args.putInt(TimeLogTable.COLUMN_ID, _id);
+		        	  newTF.setArguments(args);
+		        	  FragmentTransaction transaction = getFragmentManager().beginTransaction();
+	
+	
+			         //Begin fragment transaction to show the new fragment and replace the old one 
+		        	 transaction.setCustomAnimations(R.anim.slide_left, R.anim.slide_right);
+		        	 transaction.replace(R.id.fragment_timelog_container, newTF);
+				     
+		        	 transaction.commit();
+		 	 	}
 
 			}
 			
@@ -302,9 +320,13 @@ public class TimeLogs_Fragment extends ListFragment {
 			//get id of the selected item
 			   _id = timelogs.get(position).getID();
 			   //i.putExtra(CompanyTable.COLUMN_ID, _id);
-			   timeid = _id;
+			  // timeid = _id;
 				//if screen is large (7 inches)
 			    if (land){
+			    	//save timelog the user was seeing
+					   SharedPreferences sharedPref = getActivity().getSharedPreferences(getString(R.string.pref_data_key), 0);
+				    	  SharedPreferences.Editor editor = sharedPref.edit();
+				    	  editor.putInt(getString(R.string.timelog_id), _id).commit();
 			    		//&& (getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_LARGE) {
 			    	 //mListener.onLogSelected(String.valueOf(_id));
 			    	 
@@ -323,6 +345,8 @@ public class TimeLogs_Fragment extends ListFragment {
 		        	 transaction.commit();
 			    }
 			    else{
+
+			    	
 					  Intent i = new Intent(getActivity(), EditTimeActivity.class);
 					  
 						if(timelogs.get(position).getEndTime().equals("--")){
