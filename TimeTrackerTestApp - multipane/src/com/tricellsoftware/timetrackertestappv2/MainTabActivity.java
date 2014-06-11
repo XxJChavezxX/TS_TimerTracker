@@ -67,9 +67,10 @@ public class MainTabActivity extends Activity implements ActionBar.TabListener, 
 					@Override
 					public void onPageSelected(int position) {
 						actionBar.setSelectedNavigationItem(position);
+						
 					}
 				});
-
+		mViewPager.setOffscreenPageLimit(1);
 		// For each of the sections in the app, add a tab to the action bar.
 		
 		
@@ -90,6 +91,8 @@ public class MainTabActivity extends Activity implements ActionBar.TabListener, 
 				.setText("Companies")
 				.setTabListener(this));
 				//.setIcon(R.drawable.companytab));
+		
+		
 		
 		
 	}
@@ -122,6 +125,8 @@ public class MainTabActivity extends Activity implements ActionBar.TabListener, 
 		// When the given tab is selected, switch to the corresponding page in
 				// the ViewPager.
 		mViewPager.setCurrentItem(tab.getPosition());
+		//mSectionsPagerAdapter.notifyDataSetChanged();
+		//this.onResume();
 	}
 
 	@Override
@@ -141,5 +146,6 @@ public class MainTabActivity extends Activity implements ActionBar.TabListener, 
 		// TODO Auto-generated method stub
 		
 	}
+	
 
 }

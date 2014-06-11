@@ -80,9 +80,9 @@ public class CompanyActivity extends FragmentActivity implements Companies_Fragm
 	    	  editor.putInt(getString(R.string.company_id), id);
 	    	  editor.commit();
 	    	  
-			Intent i = new Intent(this, CompanyMainActivity.class);
-			i.putExtra("companyID", id);
-			setResult(Activity.RESULT_OK, i); //pass information to the previous activity
+			//Intent i = new Intent(this, CompanyMainActivity.class);
+			//i.putExtra("companyID", id);
+			//setResult(Activity.RESULT_OK, i); //pass information to the previous activity
 			
 	      }
 	      

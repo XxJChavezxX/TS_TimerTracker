@@ -38,15 +38,15 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter{
 		case 0: 
 			//Clocks_Fragment fragment = new Clocks_Fragment();
 			//return fragment;
-			return Clocks_Fragment.newInstance(position + 1);
+			return Clocks_Fragment.newInstance(position);
 		case 1:
 			//Summary_Fragment fragment1 = new Summary_Fragment();
 			//eturn fragment1;
-			return Summary_Fragment.newInstance(position + 1);
+			return Summary_Fragment.newInstance(position);
 		case 2: 
 			//Companies_Fragment fragment2 = new Companies_Fragment();
 			//return fragment2;
-			return Companies_Fragment.newInstance(position + 1);
+			return Companies_Fragment.newInstance(position);
 			
 			//FragmentTransaction transaction = getActivity().getFragmentManager().beginTransaction();
 

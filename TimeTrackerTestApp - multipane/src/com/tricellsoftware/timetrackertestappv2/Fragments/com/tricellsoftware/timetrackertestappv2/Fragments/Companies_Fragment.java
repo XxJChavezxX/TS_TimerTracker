@@ -52,10 +52,10 @@ public class Companies_Fragment extends ListFragment {
 	//action bar
 	ActionBar actionBar;
 	
-	private String _id;
-	private int id = 0;
-	private int position;
-	private static int compid = 0;
+	private int _id = 0;
+	//private int id = 0;
+	//private int position;
+	//private static int compid = 0;
 	
 	ProgressDialog pd = null;
 	
@@ -80,7 +80,11 @@ public class Companies_Fragment extends ListFragment {
 	boolean land; //landscape
 	boolean sharedPrefFound = false;
 	
+	Bundle savedInstanceState;
+	
 	NoResults_Fragment nr;
+	
+	SharedPreferences sharedPref;
 	
 	/**
 	 * The fragment argument representing the section number for this
@@ -107,6 +111,9 @@ public class Companies_Fragment extends ListFragment {
 	  public View onCreateView(LayoutInflater inflater, ViewGroup container,
 	      Bundle savedInstanceState) {
 		
+		  
+
+			
 		  
 //		//check for data passed by an Activity, this case Company Activity when landscape
 //		Bundle args1 = getArguments();
@@ -152,7 +159,8 @@ public class Companies_Fragment extends ListFragment {
 	public void onActivityCreated(Bundle savedInstanceState) {
 		    super.onActivityCreated(savedInstanceState);
 		    
-
+		    _id = 0;
+		    //this.savedInstanceState = savedInstanceState;
 		    
 		    //get list view
 			registerForContextMenu(getListView());
@@ -176,10 +184,11 @@ public class Companies_Fragment extends ListFragment {
 			 * method. This was the only way to pass the id from an activity that does not have direct contact with this fragment.
 			 * **/
 			//Important: currently the shared pref is not clearing up
-			SharedPreferences sharedPref = getActivity().getApplicationContext().getSharedPreferences(getString(R.string.pref_data_key), 0);
+			sharedPref = getActivity().getSharedPreferences(getString(R.string.pref_data_key), 0);
 			if(sharedPref != null){
 				if(sharedPref.contains(getString(R.string.company_id)) && land == false)
-					id = sharedPref.getInt(getString(R.string.company_id), 0);
+					_id = sharedPref.getInt(getString(R.string.company_id), 0);
+				    sharedPref.getAll();
 					sharedPref.edit().remove(getString(R.string.pref_data_key)).clear().commit();
 					//sharedPref.edit().remove(getString(R.string.pref_data_key)).clear().commit();
 					
@@ -197,7 +206,7 @@ public class Companies_Fragment extends ListFragment {
 
 			
 			//if id is or less 0 meaning no id was returned, display the no results fragment
-			if(id <= 0){
+			if(_id <= 0){
 				//Get Fragment Container if it's present on the Activity
 				 if (land){
 				
@@ -227,15 +236,18 @@ public class Companies_Fragment extends ListFragment {
 			}
 			//launch the Company Fragment 
 			else{
-	       	 	if(land == false && id > 0){
-	       	 		
+	       	 	if(land == false && _id > 0){
+//	       	 		
 			  	    Intent i = new Intent(getActivity(), CompanyActivity.class);
 				    //mCallbacks.onItemSelected(DummyContent.ITEMS.get(position).id);
 				    //Uri CompanyUri = Uri.parse(TimeTrackerContentProvider.Content_URI + "/" + id);
 			    	  
-				     i.putExtra(CompanyTable.COLUMN_ID, id);
+				     i.putExtra(CompanyTable.COLUMN_ID, _id);
+				     //_id = 0;
 				   //  compid = 0;
 				    startActivity(i);
+				    
+				    //_id = 0;
 				    
 				    
 	       	 	}
@@ -244,7 +256,7 @@ public class Companies_Fragment extends ListFragment {
 				  newCF = new Company_Fragment(); // new company fragment
 				  //set data to pass to the company fragment
 	        	  Bundle args = new Bundle();
-	        	  args.putInt(CompanyTable.COLUMN_ID,id);
+	        	  args.putInt(CompanyTable.COLUMN_ID,_id);
 	        	  newCF.setArguments(args);
 	        	  FragmentTransaction transaction = getFragmentManager().beginTransaction();
 
@@ -253,7 +265,9 @@ public class Companies_Fragment extends ListFragment {
 	        	 transaction.setCustomAnimations(R.anim.slide_left, R.anim.slide_right);
 	        	 transaction.replace(R.id.fragment_container, newCF);
 			     
-	        	 transaction.commit();	
+	        	 transaction.commit();
+	        	 
+	        	 //_id = 0;
 	       	 	}
 
 			}
@@ -329,7 +343,8 @@ public class Companies_Fragment extends ListFragment {
 
 			   //get id of the selected item
 			  // _id = String.valueOf();
-			   id = companies.get(position).getID();
+			   //id = companies.get(position).getID();
+			   _id = companies.get(position).getID();
 			  // compid = (int) id;
 			   
 
@@ -339,16 +354,16 @@ public class Companies_Fragment extends ListFragment {
 			    if (land){
 			    	
 			    	//save company the user was seeing
-				   SharedPreferences sharedPref = getActivity().getSharedPreferences(getString(R.string.pref_data_key), 0);
-			    	  SharedPreferences.Editor editor = sharedPref.edit();
-			    	  editor.putInt(getString(R.string.company_id), (int) id).commit();
+				    sharedPref = getActivity().getSharedPreferences(getString(R.string.pref_data_key), 0);
+				    SharedPreferences.Editor editor = sharedPref.edit();
+			    	editor.putInt(getString(R.string.company_id), _id).commit();
 			    		//&& (getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_LARGE) {
-			    	 mListener.onItemSelected(String.valueOf(id));
+			    	 //mListener.onItemSelected(String.valueOf(id));
 			    	 
 			    	// Create fragment and give it an argument specifying the item it should show
 		        	  newCF = new Company_Fragment(); // new company fragment
 		        	  Bundle args = new Bundle();
-		        	  args.putInt(CompanyTable.COLUMN_ID, (int)id);
+		        	  args.putInt(CompanyTable.COLUMN_ID, _id);
 		        	  newCF.setArguments(args);
 		        	  FragmentTransaction transaction = getFragmentManager().beginTransaction();
 
@@ -366,10 +381,13 @@ public class Companies_Fragment extends ListFragment {
 				    //mCallbacks.onItemSelected(DummyContent.ITEMS.get(position).id);
 				    //Uri CompanyUri = Uri.parse(TimeTrackerContentProvider.Content_URI + "/" + id);
 			    	  
-				     i.putExtra(CompanyTable.COLUMN_ID, (int)id);
+				     i.putExtra(CompanyTable.COLUMN_ID, _id);
 
 				    startActivity(i);
+				    //trashes the old id value
+				   
 			    }
+			    //_id = 0;
 	          //Toast.makeText(getActivity(), "item: "+ _id, Toast.LENGTH_LONG).show();
 
 		  }
@@ -410,9 +428,9 @@ public class Companies_Fragment extends ListFragment {
 				}// However, if we're being restored from a previous state,
 	            // then we don't need to do anything and should return or else
 	            // we could end up with overlapping fragments.
-	            //if (savedInstanceState != null) {
-	          //      return;
-	          //  }
+//	            if (savedInstanceState != null) {
+//	                return;
+//	            }
 	            //Creates Company Fragment to be held in the Activity layout using the FrameLayout
 	            nr = new NoResults_Fragment();
 	            // In case this activity was started with special instructions from an
@@ -433,7 +451,7 @@ public class Companies_Fragment extends ListFragment {
 	    	switch(requestCode){
 		    	case 1:{
 		    		if(resultCode == Activity.RESULT_OK){
-		    			_id = data.getStringExtra("companyID");
+		    			_id = Integer.parseInt(data.getStringExtra("companyID"));
 		    		
 		    		}
 		    	}
@@ -460,10 +478,10 @@ public class Companies_Fragment extends ListFragment {
 		public boolean onContextItemSelected(MenuItem item) {
 			//Gets the position on the Item selected
 			AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
-			_id = String.valueOf(companies.get((int) info.id).getID());
+			_id = companies.get((int) info.id).getID();
 		   switch (item.getItemId()) {
 		   case R.id.delete:
-			   logic.deleteCompanyById(_id);
+			   logic.deleteCompanyById(String.valueOf(_id));
 			   Toast.makeText(getActivity(), "Record has been deleted successfully", Toast.LENGTH_LONG).show();
 			   GetCompaniesData();
 		    break;

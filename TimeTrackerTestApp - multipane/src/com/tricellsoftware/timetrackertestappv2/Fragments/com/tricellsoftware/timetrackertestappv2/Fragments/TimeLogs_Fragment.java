@@ -127,6 +127,8 @@ public class TimeLogs_Fragment extends ListFragment {
 	public void onActivityCreated(Bundle savedInstanceState) {
 		    super.onActivityCreated(savedInstanceState);
 		    //get list view
+		    _id = 0;
+		    
 		    registerForContextMenu(getListView());
 		    
 //		    if(land == false && timeid > 0){
@@ -327,6 +329,7 @@ public class TimeLogs_Fragment extends ListFragment {
 					   SharedPreferences sharedPref = getActivity().getSharedPreferences(getString(R.string.pref_data_key), 0);
 				    	  SharedPreferences.Editor editor = sharedPref.edit();
 				    	  editor.putInt(getString(R.string.timelog_id), _id).commit();
+				    	  
 			    		//&& (getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_LARGE) {
 			    	 //mListener.onLogSelected(String.valueOf(_id));
 			    	 

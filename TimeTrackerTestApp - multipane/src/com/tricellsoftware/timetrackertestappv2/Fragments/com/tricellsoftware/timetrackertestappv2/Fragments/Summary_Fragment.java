@@ -56,6 +56,8 @@ public class Summary_Fragment extends Fragment {
 	
 	private boolean infoChanged;
 	
+	OnInfoChangedListener listener;
+	
 	View MainView;
 	
 	ProgressDialog pd = null;
@@ -171,6 +173,12 @@ public class Summary_Fragment extends Fragment {
 			i.putExtra("selectedDate", date);
 			startActivityForResult(i, 1);
 	   break;
+	   case R.id.action_refresh:
+		   GetData();
+//			Intent i = new Intent(getActivity(), CalendarViewActivity.class);
+//			i.putExtra("selectedDate", date);
+//			startActivityForResult(i, 1);
+	   break;
 	    	  
 	   }
 	   return super.onOptionsItemSelected(item);
@@ -263,6 +271,10 @@ public class Summary_Fragment extends Fragment {
 		}
 		else
 			txtAmountPaid.setText("$: " + amountPaid);
+    }
+    // Container Activity must implement this interface
+    public interface OnInfoChangedListener {
+        public void onInforChanged();
     }
 
 }
