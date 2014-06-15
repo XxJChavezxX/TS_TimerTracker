@@ -95,9 +95,15 @@ public class ProfileActivity extends Activity {
 				newprofile.setStatusID(2); // set fk status id to off
 				//new item
 				logic.AddNewUser(newprofile);
-				//companyUri = getContentResolver().insert(TimeTrackerContentProvider.Content_URI, Values);
-				Intent MainScreen = new Intent(getApplicationContext(), MainActivity.class);
-				startActivity(MainScreen);
+				
+		         Intent i = new Intent(this, MainTabActivity.class);
+	                
+	                i.putExtra(ProfileTable.COLUMN_ID, profile.getID());
+	   			 
+	                startActivity(i);
+	 
+	                // close this activity
+	                finish();
 				Toast.makeText(this, "Your profile has been created successfully", Toast.LENGTH_LONG).show();
 				
 				finish();

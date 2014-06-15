@@ -67,19 +67,6 @@
           android:textSize="@dimen/font_title_size"
            android:fontFamily="@style/font_family" />
 
-     <EditText
-         android:id="@+id/editText3"
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:layout_alignParentLeft="true"
-         android:layout_below="@+id/editText2"
-         android:layout_marginTop="50dp"
-         android:ems="10"
-         android:hint="@string/email"
-         android:inputType="textEmailAddress"
-          android:textSize="@dimen/font_title_size"
-           android:fontFamily="@style/font_family" />
-
      <Button
          android:id="@+id/checkbttn"
          android:layout_width="92dp"
@@ -88,6 +75,18 @@
          android:layout_alignRight="@+id/view1"
          android:layout_marginBottom="14dp"
          android:background="@drawable/check_bttn" />
+
+     <EditText
+         android:id="@+id/editText3"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_above="@+id/editText2"
+         android:layout_alignRight="@+id/view1"
+         android:ems="10"
+         android:fontFamily="@style/font_family"
+         android:hint="@string/email"
+         android:inputType="textEmailAddress"
+         android:textSize="@dimen/font_title_size" />
 
 "
     

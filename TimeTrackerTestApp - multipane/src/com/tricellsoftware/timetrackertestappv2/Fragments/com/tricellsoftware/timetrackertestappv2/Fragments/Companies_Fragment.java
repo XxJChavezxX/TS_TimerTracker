@@ -134,8 +134,11 @@ public class Companies_Fragment extends ListFragment {
 	    //ctx = getActivity();
 	    
 	    
-		if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE 
-	    		&& (getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_LARGE){
+		if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
+			land = true;
+			
+		}
+		if((getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_LARGE){
 			largeScreen = true;
 		}
 	   
@@ -287,7 +290,7 @@ public class Companies_Fragment extends ListFragment {
 			
 			if(companies.size() <= 0){
 				//text view is dynamically added to display the messag below
-				tv = new TextView(ctx);
+				tv = new TextView(getActivity());
 				
 				tv.setText("No Companies/Projects have been added");
 				tv.setPaddingRelative(20, 20, 20, 20);

@@ -126,8 +126,8 @@ public class TimeLogDetails_Fragment extends Fragment {
 			    
 				if(extras != null){
 					id = getArguments().getInt(TimeLogTable.COLUMN_ID);
-					//StartDate = extras.getString("StartDate");
-					//EndDate = extras.getString("EndString");
+					StartDate = extras.getString("StartDate");
+					EndDate = extras.getString("EndDate");
 	
 		    	
 				//business logic
@@ -219,8 +219,8 @@ public class TimeLogDetails_Fragment extends Fragment {
 			this.lv = lv;
 			this.adapter = adapter;
 			
-			StartDate = activityextras.getString("StartDate");
-			EndDate = activityextras.getString("EndDate");
+			//StartDate = activityextras.getString("StartDate");
+			//EndDate = activityextras.getString("EndDate");
 			timelogs = logic.getAllTimeLogsByWeek(StartDate, EndDate);
 			
 			adapter = new CustomArrayAdapter(getActivity(), android.R.id.list, timelogs);

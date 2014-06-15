@@ -61,17 +61,6 @@
          android:hint="@string/last_name"
          android:inputType="textPersonName" />
 
-     <EditText
-         android:id="@+id/editText3"
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:layout_alignParentLeft="true"
-         android:layout_below="@+id/editText2"
-         android:layout_marginTop="50dp"
-         android:ems="10"
-         android:hint="@string/email"
-         android:inputType="textEmailAddress" />
-
      <Button
          android:id="@+id/checkbttn"
          android:layout_width="64dp"
@@ -80,6 +69,18 @@
          android:layout_alignRight="@+id/view1"
          android:layout_marginBottom="14dp"
          android:background="@drawable/check_bttn" />
+
+     <EditText
+         android:id="@+id/editText3"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_alignBaseline="@+id/editText1"
+         android:layout_alignBottom="@+id/editText1"
+         android:layout_alignRight="@+id/checkbttn"
+         android:layout_marginRight="18dp"
+         android:ems="10"
+         android:hint="@string/email"
+         android:inputType="textEmailAddress" />
 
 "
     

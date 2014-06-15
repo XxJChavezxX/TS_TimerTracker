@@ -73,14 +73,14 @@ public class MainTabActivity extends Activity implements ActionBar.TabListener, 
 					public void onPageSelected(int position) {
 						actionBar.setSelectedNavigationItem(position);
 						
-						//gets current fragment and refreshes the view
-						Fragment fg = returnCurrentFragment(position);
-						
-						if(fg != null){
-							if(fg.getView() != null){
-								fg.onResume();
-							}
-						}
+//						//gets current fragment and refreshes the view
+//						Fragment fg = returnCurrentFragment(position);
+//						
+//						if(fg != null){
+//							if(fg.getView() != null){
+//								fg.onResume();
+//							}
+//						}
 //						if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
 //							Fragment f1 = returnCurrentFragment(position);
 //							if(f1 != null){

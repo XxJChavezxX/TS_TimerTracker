@@ -136,15 +136,15 @@ public class TimeLogs_Fragment extends ListFragment {
 			 * We passed the Timelog id from the EditTimelog Activity class and we retrieve by using the getSharedPreferences
 			 * method. This was the only way to pass the id from an activity that does not have direct contact with this fragment.
 			 * **/
-			SharedPreferences sharedPref = getActivity().getApplicationContext().getSharedPreferences(getString(R.string.pref_data_key),0);
-			if(sharedPref != null){
-				if(sharedPref.contains(getString(R.string.timelog_id)) && land == false){
-					_id = sharedPref.getInt(getString(R.string.timelog_id), 0);
-					sharedPref.edit().remove(getString(R.string.pref_data_key)).clear().commit();
-				}
-				
-			}
-			
+//			SharedPreferences sharedPref = getActivity().getApplicationContext().getSharedPreferences(getString(R.string.pref_data_key),0);
+//			if(sharedPref != null){
+//				if(sharedPref.contains(getString(R.string.timelog_id)) && land == false){
+//					_id = sharedPref.getInt(getString(R.string.timelog_id), 0);
+//					sharedPref.edit().remove(getString(R.string.timelog_id)).clear().commit();
+//				}
+//				
+//			}
+//			
 			if(_id <= 0) {  
 			  //Get Fragment Container if it's present on the Activity
 				 if (land){
@@ -186,7 +186,7 @@ public class TimeLogs_Fragment extends ListFragment {
 						    startActivity(i);
 						    
 						    
-			       	 	}
+			     }
 		 	 	else{
 		    	// Create fragment and give it an argument specifying the item it should show
 			    	  newTF = new TimeLogDetails_Fragment(); // new company fragment
@@ -228,7 +228,7 @@ public class TimeLogs_Fragment extends ListFragment {
 			Bundle extras = getActivity().getIntent().getExtras();
 			
 			if(date != null){
-				timelogs = logic.getAllTimeLogsByDate(date);
+				timelogs = logic.getAllTimeLogsByDate(StartDate);
 				
 			}
 			else if(extras != null){
@@ -236,7 +236,7 @@ public class TimeLogs_Fragment extends ListFragment {
 				EndDate = extras.getString("EndDate");
 				timelogs = logic.getAllTimeLogsByWeek(StartDate, EndDate);
 				
-				if(timelogs.size() <= 0){
+				if(timelogs.size() <= 0){// && tv == null){
 					tv = new TextView(getActivity());
 					
 					tv.setText("No Time Logs have been created");
@@ -308,6 +308,8 @@ public class TimeLogs_Fragment extends ListFragment {
 			    	  newTF = new TimeLogDetails_Fragment(); // new company fragment
 		        	  Bundle args = new Bundle();
 		        	  args.putInt(TimeLogTable.COLUMN_ID, _id);
+		        	  args.putString("StartDate", StartDate);
+		        	  args.putString("EndDate", EndDate);
 		        	  newTF.setArguments(args);
 		        	  FragmentTransaction transaction = getFragmentManager().beginTransaction();
 	
@@ -402,7 +404,7 @@ public class TimeLogs_Fragment extends ListFragment {
 	            ft.replace(R.id.fragment_timelog_container, nr).commit();
 			
 			 }
-	    	if(date != null && timelogs.isEmpty() && tv == null){
+	    	if(date != null && timelogs.isEmpty() && tv != null){
 				
 				tv = new TextView(getActivity());
 				
@@ -426,6 +428,9 @@ public class TimeLogs_Fragment extends ListFragment {
 		    	case 1:{
 		    		if(resultCode == Activity.RESULT_OK){
 		    			date = data.getStringExtra("selectedDate");
+		    			StartDate = date;
+		    			EndDate = StartDate;
+		    			
 		    			if(tv != null){
 							tv.setVisibility(View.GONE);
 							((LinearLayout)Mainview).removeView((View)tv.getParent());
@@ -445,6 +450,11 @@ public class TimeLogs_Fragment extends ListFragment {
 	    @Override
 		public void onPause(){
 	    	super.onPause();
+			if(tv != null){
+				tv.setVisibility(View.GONE);
+				((LinearLayout)Mainview).removeView((View)tv.getParent());
+			}
+	    	
 	    }
 	    @Override
 		public void onDestroy(){

@@ -13,7 +13,7 @@
         android:src="@drawable/no_selected_icon" />
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/largeTextView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/imageView1"

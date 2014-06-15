@@ -3,7 +3,6 @@
         <item android:id="@+id/action_search"
         android:icon="@drawable/calendar_icon"
         android:title="Search by Date"
-        android:actionViewClass=""
         android:showAsAction="ifRoom"></item>
  
 </menu>
