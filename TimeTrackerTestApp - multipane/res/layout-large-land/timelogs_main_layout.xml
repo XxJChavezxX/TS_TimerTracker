@@ -12,6 +12,13 @@
         android:layout_weight="1.8"
         tools:layout="@layout/list_view_container" />
 
+    <View
+        android:id="@+id/view1"
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:background="@android:color/darker_gray"
+        android:orientation="vertical" />
+
     <FrameLayout
         android:id="@+id/fragment_timelog_container"
         android:layout_width="0dp"

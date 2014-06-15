@@ -288,7 +288,7 @@ public class Companies_Fragment extends ListFragment {
 			
 			companies = logic.getAllCompanies();
 			
-			if(companies.size() <= 0){
+			if(companies.size() <= 0 && tv==null){
 				//text view is dynamically added to display the messag below
 				tv = new TextView(getActivity());
 				
@@ -298,18 +298,13 @@ public class Companies_Fragment extends ListFragment {
 				//View view = Mainview.findViewById(R.layout.company_rates_fragment);
 				((RelativeLayout)Mainview).addView(tv);
 				
+				
+				
 				//cfView.addView(tv);
 			}
 			else{
 				
-				//Mainview = getListView();
-				 
-				if(tv != null){
-					//tv.setVisibility(View.INVISIBLE);
-					tv.setVisibility(View.GONE);
-					((RelativeLayout)Mainview).removeView((View)tv);
-					
-				}
+		
 				
 			}
 			
@@ -467,6 +462,14 @@ public class Companies_Fragment extends ListFragment {
 	    @Override
 		public void onPause(){
 	    	super.onPause();
+			//Mainview = getListView();
+			 
+			if(tv != null){
+				//tv.setVisibility(View.INVISIBLE);
+				tv.setVisibility(View.GONE);
+				((RelativeLayout)Mainview).removeView((View)tv);
+				
+			}
 	    }
 
 	    @Override

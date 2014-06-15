@@ -17,6 +17,13 @@
         android:fontFamily="@style/font_family" >
     </ListView>
 
+    <View
+        android:id="@+id/view1"
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:background="@android:color/darker_gray"
+        android:orientation="vertical" />
+
     <FrameLayout
         android:id="@+id/fragment_container"
         android:layout_width="0dp"

@@ -17,6 +17,7 @@ import com.tricellsoftware.timetrackertestappv2.R;
 import com.tricellsoftware.timetrackertestappv2.SummaryActivity;
 import com.tricellsoftware.timetrackertestappv2.TimeLogMainActivity;
 
+import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
@@ -185,6 +186,7 @@ public class Summary_Fragment extends Fragment {
 	 }
 	
 	 /**gets the information from the child screen**/
+	@SuppressLint("NewApi")
     @Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data){
     	super.onActivityResult(requestCode, resultCode, data);
