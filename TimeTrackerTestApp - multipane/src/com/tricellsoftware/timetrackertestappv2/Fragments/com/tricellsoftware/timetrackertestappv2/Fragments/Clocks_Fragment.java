@@ -11,15 +11,21 @@ import com.tricellsoftware.timetrackertestapp.businessLogicv2.BusinessLogic;
 import com.tricellsoftware.timetrackertestapp.databasev2.ProfileTable;
 import com.tricellsoftware.timetrackertestapp.helperv2.TimeHelper;
 import com.tricellsoftware.timetrackertestappv2.ClocksActivity;
+import com.tricellsoftware.timetrackertestappv2.MainTabActivity;
 import com.tricellsoftware.timetrackertestappv2.R;
 import com.tricellsoftware.timetrackertestappv2.SummaryActivity;
 
 import android.app.ActionBar;
+import android.app.Application;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.NotificationCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -172,6 +178,35 @@ public class Clocks_Fragment extends Fragment {
 	  				logic.updateProfileById(profile); // updates the status of the user
 	  				
 	  				Status.setText("Status: " + Status_Enum.On.toString());
+	  				
+	  				/*** Create notification when clocked in ***/
+	  				NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(getActivity()).setSmallIcon(R.drawable.noti_icon)
+	  						.setContentTitle("Clocked in at: " + TimeHelper.getTime())
+	  						.setContentText("Click here if you would like to Clock Out");
+	  				
+	  				Intent resultIntent = new Intent(getActivity(), MainTabActivity.class);
+	  				resultIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK 
+	  						| Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_FROM_BACKGROUND | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
+	  				//Application.getApplicationContext().startActivity(resultIntent);
+	  				PendingIntent resultPendingIntent =
+	  				    PendingIntent.getActivity(
+	  				    getActivity(),
+	  				    0,
+	  				    resultIntent,
+	  				    PendingIntent.FLAG_UPDATE_CURRENT
+	  				);
+	  				
+	  				mBuilder.setContentIntent(resultPendingIntent);
+	  				// Sets an ID for the notification
+	  				int mNotificationId = 1;
+	  				getActivity().getApplicationContext();
+					// Gets an instance of the NotificationManager service
+	  				NotificationManager mNotifyMgr = 
+	  				        (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
+	  				// Builds the notification and issues it.
+	  				mNotifyMgr.notify(mNotificationId, mBuilder.build());
+	  				/*** End of Notification  ***/
+	  				
 	  			}
 	  		});
 	  		//Listening to the button event
@@ -204,6 +239,33 @@ public class Clocks_Fragment extends Fragment {
 	  						logic.updateProfileById(profile); // updates the status of the user
 	  						
 	  						Status.setText("Status: " + Status_Enum.Off.toString());
+	  						
+	  		  				/*** Create notification when clocked out ***/
+	  		  				NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(getActivity()).setSmallIcon(R.drawable.noti_icon)
+	  		  						.setContentTitle("Clocked out at: " + TimeHelper.getTime());
+	  		  				
+	  		  				//Intent resultIntent = new Intent(getActivity(), MainTabActivity.class);
+	  		  				
+	  		  				
+	  		  				
+//	  		  				PendingIntent resultPendingIntent =
+//	  		  				    PendingIntent.getActivity(
+//	  		  				    getActivity(),
+//	  		  				    0,
+//	  		  				    resultIntent,
+//	  		  				    PendingIntent.FLAG_UPDATE_CURRENT
+//	  		  				);
+//	  		  				
+//	  		  				mBuilder.setContentIntent(resultPendingIntent);
+	  		  				// Sets an ID for the notification
+	  		  				int mNotificationId = 1;
+	  		  				getActivity().getApplicationContext();
+	  						// Gets an instance of the NotificationManager service
+	  		  				NotificationManager mNotifyMgr = 
+	  		  				        (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
+	  		  				// Builds the notification and issues it.
+	  		  				mNotifyMgr.notify(mNotificationId, mBuilder.build());
+	  		  				/*** End of Notification  ***/
 	  					}
 	  				
 
@@ -211,8 +273,6 @@ public class Clocks_Fragment extends Fragment {
 	  					// TODO Auto-generated catch block
 	  					e.printStackTrace();
 	  				}//updates the current timelog 
-	  				
-
 	  			}
 	  		});
 //	  		timeSheetBttn.setOnClickListener(new View.OnClickListener() {

@@ -44,6 +44,11 @@ public class MainTabActivity extends Activity implements ActionBar.TabListener, 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+//		if(savedInstanceState != null){
+//			return;
+//		}
+		
 		setContentView(R.layout.pager_container);
 
 		// Set up the action bar.

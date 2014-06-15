@@ -292,7 +292,7 @@ public class Companies_Fragment extends ListFragment {
 				//text view is dynamically added to display the messag below
 				tv = new TextView(getActivity());
 				
-				tv.setText("No Companies/Projects have been added");
+				tv.setText("Companies/Projects have not been added");
 				tv.setPaddingRelative(20, 20, 20, 20);
 				
 				//View view = Mainview.findViewById(R.layout.company_rates_fragment);

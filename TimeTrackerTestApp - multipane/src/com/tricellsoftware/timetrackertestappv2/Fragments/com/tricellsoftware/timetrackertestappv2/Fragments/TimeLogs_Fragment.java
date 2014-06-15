@@ -239,7 +239,7 @@ public class TimeLogs_Fragment extends ListFragment {
 				if(timelogs.size() <= 0){// && tv == null){
 					tv = new TextView(getActivity());
 					
-					tv.setText("No Time Logs have been created");
+					tv.setText("Time Logs have not been created");
 					tv.setPaddingRelative(20, 20, 20, 20);
 					
 					//View view = Mainview.findViewById(R.layout.company_rates_fragment);
@@ -408,7 +408,7 @@ public class TimeLogs_Fragment extends ListFragment {
 				
 				tv = new TextView(getActivity());
 				
-				tv.setText("No Time Logs have been found for date: " + date);
+				tv.setText("Time Logs have not been found for date: " + date);
 				tv.setPaddingRelative(20, 20, 20, 20);
 				
 				//View view = Mainview.findViewById(R.layout.company_rates_fragment);

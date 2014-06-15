@@ -60,11 +60,22 @@ public class Company_Fragment extends Fragment {
 	
 	private int id;
 	
+	boolean largeScreen;
+	boolean land; //landscape
+	
 	Context ctx = null;
 	  @Override
 	  public View onCreateView(LayoutInflater inflater, ViewGroup container,
 	      Bundle savedInstanceState) {
 		 Bundle args = getArguments(); 
+		 
+			if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
+				land = true;
+				
+			}
+			if((getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_LARGE){
+				largeScreen = true;
+			}
 		 //Bundle extras = getActivity().getIntent().getExtras();
 
 	    //Get arguments passed from an activity or another fragment
@@ -374,10 +385,21 @@ public class Company_Fragment extends Fragment {
 			
 		//	adapter.clear();
 			
-			adapter = new ArrayAdapter<CompanyDTO>(getActivity(), android.R.layout.simple_list_item_1, companies);
-			lv.setAdapter(adapter);
-		    
-		    adapter.notifyDataSetChanged();
+			if(largeScreen){
+				adapter = new ArrayAdapter<CompanyDTO>(getActivity(), R.layout.large_company_custom_list, companies);
+				lv.setAdapter(adapter);
+			    
+			    adapter.notifyDataSetChanged();
+			}
+			else
+			{
+				adapter = new ArrayAdapter<CompanyDTO>(getActivity(), android.R.layout.simple_list_item_1, companies);
+				lv.setAdapter(adapter);
+			    
+			    adapter.notifyDataSetChanged();
+			}
+			
+			
 		}
 		
 		//refresh companies list view

@@ -3,17 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <TextView
-        android:id="@+id/dateview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/imageView2"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="14dp"
-        android:text="Time Tracker"
-                android:textSize="@dimen/font_title_size"
-        android:fontFamily="@style/font_family"/>
-
     <ImageView
         android:id="@+id/imageView1"
         android:layout_width="wrap_content"
@@ -23,13 +12,23 @@
         android:layout_marginBottom="102dp"
         android:src="@drawable/logo" />
 
+    <TextView
+        android:id="@+id/dateview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:fontFamily="@style/font_family"
+        android:text="Time Tracker"
+        android:textSize="@dimen/font_title_size" />
+
     <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="128dp"
-        android:layout_height="128dp"
-        android:layout_alignParentTop="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/dateview"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="117dp"
+        android:layout_marginBottom="38dp"
         android:src="@drawable/app_logo" />
 
 </RelativeLayout>
