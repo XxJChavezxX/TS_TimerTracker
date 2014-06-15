@@ -3,12 +3,10 @@
         <item android:id="@+id/action_edit"
         android:icon="@drawable/calendar_icon"
         android:title="Edit Start Date/End Date"
-        android:actionViewClass=""
         android:showAsAction="ifRoom"></item>
         <item android:id="@+id/action_refresh"
         android:icon="@drawable/refresh_icon"
         android:title="Refresh timesheet summary"
-        android:actionViewClass=""
         android:showAsAction="ifRoom"></item>
 
 </menu>

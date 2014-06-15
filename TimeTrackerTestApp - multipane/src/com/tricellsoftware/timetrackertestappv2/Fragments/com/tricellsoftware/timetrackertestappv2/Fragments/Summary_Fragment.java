@@ -179,7 +179,7 @@ public class Summary_Fragment extends Fragment {
 //			i.putExtra("selectedDate", date);
 //			startActivityForResult(i, 1);
 	   break;
-	    	  
+//	    	  
 	   }
 	   return super.onOptionsItemSelected(item);
 	 }

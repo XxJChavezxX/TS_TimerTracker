@@ -5,13 +5,18 @@ import com.tricellsoftware.timetrackertestapp.DTOsv2.ProfileDTO;
 import com.tricellsoftware.timetrackertestapp.businessLogicv2.BusinessLogic;
 import com.tricellsoftware.timetrackertestapp.databasev2.ProfileTable;
 import com.tricellsoftware.timetrackertestapp.helperv2.SectionsPagerAdapter;
+import com.tricellsoftware.timetrackertestappv2.Fragments.Clocks_Fragment;
 import com.tricellsoftware.timetrackertestappv2.Fragments.Companies_Fragment;
+import com.tricellsoftware.timetrackertestappv2.Fragments.Company_Fragment;
+import com.tricellsoftware.timetrackertestappv2.Fragments.Summary_Fragment;
 
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.Activity;
+import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -67,6 +72,24 @@ public class MainTabActivity extends Activity implements ActionBar.TabListener, 
 					@Override
 					public void onPageSelected(int position) {
 						actionBar.setSelectedNavigationItem(position);
+						
+						//gets current fragment and refreshes the view
+						Fragment fg = returnCurrentFragment(position);
+						
+						if(fg != null){
+							if(fg.getView() != null){
+								fg.onResume();
+							}
+						}
+//						if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
+//							Fragment f1 = returnCurrentFragment(position);
+//							if(f1 != null){
+//								if(f1.getView() != null){
+//									f1.onResume();
+//								}
+//							}
+//						}
+
 						
 					}
 				});
@@ -125,6 +148,9 @@ public class MainTabActivity extends Activity implements ActionBar.TabListener, 
 		// When the given tab is selected, switch to the corresponding page in
 				// the ViewPager.
 		mViewPager.setCurrentItem(tab.getPosition());
+		
+		
+		
 		//mSectionsPagerAdapter.notifyDataSetChanged();
 		//this.onResume();
 	}
@@ -145,6 +171,23 @@ public class MainTabActivity extends Activity implements ActionBar.TabListener, 
 	public void onItemSelected(String item) {
 		// TODO Auto-generated method stub
 		
+	}
+	/*** Returns current fragment ***/
+	public Fragment returnCurrentFragment(int id){
+		
+		switch(id){
+		case 0:
+			Clocks_Fragment fragment = (Clocks_Fragment) getFragmentManager().findFragmentByTag("android:switcher:"+R.id.pager+":0");
+			return fragment;
+		case 1: 
+			Summary_Fragment fragment2 = (Summary_Fragment) getFragmentManager().findFragmentByTag("android:switcher:"+R.id.pager+":1");
+			return fragment2;
+		case 2:
+			Companies_Fragment fragment3 = (Companies_Fragment) getFragmentManager().findFragmentByTag("android:switcher:"+R.id.pager+":2");
+			return fragment3;
+		}
+			
+		return null;
 	}
 	
 

@@ -54,7 +54,7 @@
             android:id="@+id/textSRate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingLeft="45dp"
+            android:paddingLeft="40dp"
             android:text="Small Text"
             android:textSize="@dimen/font_size"
             android:fontFamily="@style/font_family" />

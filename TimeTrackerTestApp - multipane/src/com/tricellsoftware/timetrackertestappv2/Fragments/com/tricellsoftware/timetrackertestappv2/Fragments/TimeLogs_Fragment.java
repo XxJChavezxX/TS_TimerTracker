@@ -131,27 +131,7 @@ public class TimeLogs_Fragment extends ListFragment {
 		    
 		    registerForContextMenu(getListView());
 		    
-//		    if(land == false && timeid > 0){
-//		    	 Intent i = new Intent(getActivity(), EditTimeActivity.class);
-//		    	
-//				 i.putExtra(TimeLogTable.COLUMN_ID, timeid);
-//				 //add start time and end time
-////				 i.putExtra("StartDate", StartDate);
-////				 i.putExtra("StartDate", EndDate);
-//				 startActivity(i);
-//				 
-//		    }
-//		    timeid = 0;
-		    
-		
-		    
-//			//time log id is being shared by a static field which we use in this list fragment.
-//			if(EditTimeActivity.id > 0){
-//				//pass the value to the id of this fragment
-//				_id = EditTimeActivity.id;
-//				//reset the timelog id back to 0
-//				EditTimeActivity.id  = 0;
-//			}
+//		   
 			/**check for shared preferences, 
 			 * We passed the Timelog id from the EditTimelog Activity class and we retrieve by using the getSharedPreferences
 			 * method. This was the only way to pass the id from an activity that does not have direct contact with this fragment.
@@ -225,15 +205,6 @@ public class TimeLogs_Fragment extends ListFragment {
 
 			}
 			
-			//GetTimeLogData();
-//			//clear data from shared pref file
-//	       	 if(sharedPrefFound){
-//		 			/**Clear Timelog value from shared pref**/
-//			    	SharedPreferences.Editor editor = sharedPref.edit();
-//			    	editor.clear();
-//					editor.commit();
-//					sharedPrefFound = false;
-//	       	 }
 		   
 	  }
 	    // Container Activity must implement this interface
@@ -478,18 +449,5 @@ public class TimeLogs_Fragment extends ListFragment {
 	    @Override
 		public void onDestroy(){
 	    	super.onDestroy();
-//	    	
-//	    	if(sharedPref != null){
-//		       	 if(sharedPrefFound){
-//			 			/**Clear Timelog value from shared pref**/
-//				    	SharedPreferences.Editor editor = sharedPref.edit();
-//				    	editor.clear();
-//						editor.commit();
-//						sharedPrefFound = false;
-//		       	 }
-//	    	}
-	    	//pd.show();
-	    	//GetTimeLogData();
-	    	//pd.hide();
 	    }
 }

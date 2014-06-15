@@ -236,39 +236,39 @@ public class Companies_Fragment extends ListFragment {
 			}
 			//launch the Company Fragment 
 			else{
-	       	 	if(land == false && _id > 0){
-//	       	 		
-			  	    Intent i = new Intent(getActivity(), CompanyActivity.class);
-				    //mCallbacks.onItemSelected(DummyContent.ITEMS.get(position).id);
-				    //Uri CompanyUri = Uri.parse(TimeTrackerContentProvider.Content_URI + "/" + id);
-			    	  
-				     i.putExtra(CompanyTable.COLUMN_ID, _id);
-				     //_id = 0;
-				   //  compid = 0;
-				    startActivity(i);
-				    
-				    //_id = 0;
-				    
-				    
-	       	 	}
-	       	 	else{
+//	       	 	if(land == false && _id > 0){
+////	       	 		
+//			  	    Intent i = new Intent(getActivity(), CompanyActivity.class);
+//				    //mCallbacks.onItemSelected(DummyContent.ITEMS.get(position).id);
+//				    //Uri CompanyUri = Uri.parse(TimeTrackerContentProvider.Content_URI + "/" + id);
+//			    	  
+//				     i.putExtra(CompanyTable.COLUMN_ID, _id);
+//				     //_id = 0;
+//				   //  compid = 0;
+//				    startActivity(i);
+//				    
+//				    //_id = 0;
+//				    
+//				    
+//	       	 	}
+	       	 	//else{
 				
-				  newCF = new Company_Fragment(); // new company fragment
-				  //set data to pass to the company fragment
-	        	  Bundle args = new Bundle();
-	        	  args.putInt(CompanyTable.COLUMN_ID,_id);
-	        	  newCF.setArguments(args);
-	        	  FragmentTransaction transaction = getFragmentManager().beginTransaction();
-
-
-		         //Begin fragment transaction to show the new fragment and replace the old one 
-	        	 transaction.setCustomAnimations(R.anim.slide_left, R.anim.slide_right);
-	        	 transaction.replace(R.id.fragment_container, newCF);
-			     
-	        	 transaction.commit();
+//				  newCF = new Company_Fragment(); // new company fragment
+//				  //set data to pass to the company fragment
+//	        	  Bundle args = new Bundle();
+//	        	  args.putInt(CompanyTable.COLUMN_ID,_id);
+//	        	  newCF.setArguments(args);
+//	        	  FragmentTransaction transaction = getFragmentManager().beginTransaction();
+//
+//
+//		         //Begin fragment transaction to show the new fragment and replace the old one 
+//	        	 transaction.setCustomAnimations(R.anim.slide_left, R.anim.slide_right);
+//	        	 transaction.replace(R.id.fragment_container, newCF);
+//			     
+//	        	 transaction.commit();
 	        	 
 	        	 //_id = 0;
-	       	 	}
+	       	 	//}
 
 			}
 			//id = 0;

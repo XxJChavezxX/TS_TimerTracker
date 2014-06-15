@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/lightgrey"
+    android:background="@color/white"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
@@ -13,17 +13,17 @@
 		    	android:layout_width="match_parent"
 		    	android:layout_height="0dp"
 		    	android:layout_weight="2.5"
-		        android:background="@android:color/white"
-	            android:paddingBottom="@dimen/activity_vertical_margin"
-	            android:paddingLeft="@dimen/activity_horizontal_margin"
-	            android:paddingRight="@dimen/activity_horizontal_margin"
-	            android:paddingTop="@dimen/activity_vertical_margin" >
+		        android:background="@android:color/white">
+<!-- 	            android:paddingBottom="@dimen/activity_vertical_margin" -->
+<!-- 	            android:paddingLeft="@dimen/activity_horizontal_margin" -->
+<!-- 	            android:paddingRight="@dimen/activity_horizontal_margin" -->
+<!-- 	            android:paddingTop="@dimen/activity_vertical_margin" > -->
+
 	        <RelativeLayout
 	            android:id="@+id/relativeLayout2"
 	            android:layout_width="match_parent"
-	            android:layout_height="wrap_content"
-	            android:background="@android:color/white"
- >
+	            android:layout_height="match_parent"
+	            android:background="@android:color/white" >
 	
 	            <View
 	                android:id="@+id/view1"
@@ -42,14 +42,14 @@
 	                android:layout_centerHorizontal="true"
 	                android:text="Start Time"
 	                android:textAppearance="?android:attr/textAppearanceSmall" />
-	
+
 	            <TimePicker
 	                android:id="@+id/StartTimePicker"
 	                android:layout_width="wrap_content"
 	                android:layout_height="wrap_content"
-	                android:layout_below="@+id/clockintv"
 	                android:layout_centerHorizontal="true"
-	                android:layout_marginTop="5dp" />
+	                android:layout_centerVertical="true" />
+
 	        </RelativeLayout>
         </LinearLayout>
 
@@ -63,25 +63,17 @@
 		    	android:layout_width="match_parent"
 		    	android:layout_height="0dp"
 		    	android:layout_weight="2.5"
-		        android:background="@android:color/white"
-	            android:paddingBottom="@dimen/activity_vertical_margin"
-	            android:paddingLeft="@dimen/activity_horizontal_margin"
-	            android:paddingRight="@dimen/activity_horizontal_margin"
-	            android:paddingTop="@dimen/activity_vertical_margin" >
+		        android:background="@android:color/white">
+<!-- 	            android:paddingBottom="@dimen/activity_vertical_margin" -->
+<!-- 	            android:paddingLeft="@dimen/activity_horizontal_margin" -->
+<!-- 	            android:paddingRight="@dimen/activity_horizontal_margin" -->
+<!-- 	            android:paddingTop="@dimen/activity_vertical_margin" > -->
+
 		        <RelativeLayout
 		            android:id="@+id/relativeLayout1"
 		            android:layout_width="match_parent"
-		            android:layout_height="wrap_content"
-		            android:background="@android:color/white"
- >
-		
-		            <TimePicker
-		                android:id="@+id/EndTimePicker"
-		                android:layout_width="wrap_content"
-		                android:layout_height="wrap_content"
-		                android:layout_below="@+id/clockouttv"
-		                android:layout_centerHorizontal="true"
-		                android:layout_marginTop="5dp" />
+		            android:layout_height="match_parent"
+		            android:background="@android:color/white" >
 		
 		            <View
 		                android:id="@+id/View01"
@@ -100,6 +92,13 @@
 		                android:layout_centerHorizontal="true"
 		                android:text="End Time"
 		                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+		            <TimePicker
+		                android:id="@+id/EndTimePicker"
+		                android:layout_width="wrap_content"
+		                android:layout_height="wrap_content"
+		                android:layout_centerHorizontal="true"
+		                android:layout_centerVertical="true" />
 		
 		        </RelativeLayout>
 
@@ -108,13 +107,14 @@
 		<LinearLayout
 		    android:layout_width="match_parent"
 		    android:layout_height="0dp"
-		    android:layout_weight="0.70"
+		    android:layout_weight="0.9"
 		    android:background="@android:color/white"
 		    android:orientation="vertical" >
 
 		    <RelativeLayout
 		        android:layout_width="match_parent"
-		        android:layout_height="wrap_content" >
+		        android:layout_height="wrap_content"
+		        android:layout_weight="1.35" >
 
 		        <Button
 		            android:id="@+id/checkbttn"
@@ -123,9 +123,7 @@
 		            android:layout_alignParentRight="true"
 		            android:layout_alignParentTop="true"
 		            android:background="@drawable/check_bttn" />
-
 		    </RelativeLayout>
-
 		</LinearLayout>
 
 </LinearLayout>
