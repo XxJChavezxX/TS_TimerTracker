@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/fragment1"
-        android:name="com.tricellsoftware.timetrackertestappv2.Fragments.TimeLogs_Fragment"
+        android:name="com.tricellsoftware.timetrackertestapp.Fragments.TimeLogs_Fragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:layout="@layout/list_view_container" />

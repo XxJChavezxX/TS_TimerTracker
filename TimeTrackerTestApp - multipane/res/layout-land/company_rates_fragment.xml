@@ -6,6 +6,13 @@
     tools:context=".CompanyRatesActivity"
     tools:listitem="@android:layout/simple_list_item_1" >
 
+    <TextView
+        android:id="@+id/nofoundtv"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:text="TextView" />
+
     <ListView
         android:id="@android:id/list"
         android:layout_width="0dp"

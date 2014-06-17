@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/company_Fragment"
-        android:name="com.tricellsoftware.timetrackertestappv2.Fragments.Company_Fragment"
+        android:name="com.tricellsoftware.timetrackertestapp.Fragments.Company_Fragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:layout="@layout/company_fragment" />

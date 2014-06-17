@@ -15,5 +15,10 @@
         android:layout_weight="0" >
     </ListView>
 
+    <TextView
+        android:id="@+id/nofoundtv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView" />
 
 </RelativeLayout>
