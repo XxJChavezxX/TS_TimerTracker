@@ -76,6 +76,7 @@ public class BusinessLogic {
 		catch(SQLiteException sql){
 			 System.err.println("Caught SQLiteException: " + sql.getMessage());
 		}
+		Close();
 		return company;
 	}
 	//return a company by default is true
@@ -112,6 +113,7 @@ public class BusinessLogic {
 			catch(SQLiteException sql){
 				 System.err.println("Caught SQLiteException: " + sql.getMessage());
 			}
+			 Close();
 			return company;
 		}
 	//returns a list of companies
@@ -138,7 +140,8 @@ public class BusinessLogic {
 		}
 		catch(SQLiteException sql){
 			 System.err.println("Caught SQLiteException: " + sql.getMessage());
-		}		
+		}	
+		Close();
 		return companies;
 	}
 	//returns a list of companies
@@ -173,7 +176,8 @@ public class BusinessLogic {
 		}
 		catch(SQLiteException sql){
 			 System.err.println("Caught SQLiteException: " + sql.getMessage());
-		}		
+		}	
+		Close();
 		return NameExists;
 	}
 	//updates a company by id
@@ -308,7 +312,6 @@ public class BusinessLogic {
 			String[] projection = { TimeLogTable.COLUMN_ID, TimeLogTable.COLUMN_DATE, TimeLogTable.COLUMN_START_TIME, TimeLogTable.COLUMN_END_TIME, 
 					TimeLogTable.COLUMN_MINUTES,TimeLogTable.COLUMN_YEARWEEK, TimeLogTable.COLUMN_FK_PROFILEID, TimeLogTable.COLUMN_FK_STATUSID };
 			Cursor cursor = db.query(TimeLogTable.TIMELOG_TABLE, projection, null, null, null, null, null);
-			
 			cursor.moveToFirst();
 			while(!cursor.isAfterLast()){
 				TimeLogDTO timelog = new TimeLogDTO();
@@ -412,18 +415,19 @@ public class BusinessLogic {
 		
 	}
 public TimeLogDTO getTimeLogbyStatus(int statusID){
-		
+	Open();
 	String[] projection = { TimeLogTable.COLUMN_ID, TimeLogTable.COLUMN_DATE, TimeLogTable.COLUMN_START_TIME, TimeLogTable.COLUMN_END_TIME, 
 			TimeLogTable.COLUMN_MINUTES,TimeLogTable.COLUMN_YEARWEEK, TimeLogTable.COLUMN_FK_PROFILEID, TimeLogTable.COLUMN_FK_STATUSID };
-		Open();
+
 		TimeLogDTO timelog = new TimeLogDTO();
 		try{
 			// Cursor cursor = db.query(CompanyTable.COMPANY_TABLE, projection, null, projection, null, null, null, null);
 			
 			 Cursor cursor = db.query(TimeLogTable.TIMELOG_TABLE, projection, TimeLogTable.COLUMN_FK_STATUSID + " = ?", new String[] {String.valueOf(statusID)}, null, null, null,null);
 			 int count = cursor.getCount();
-			 if(count > 0){
-				 cursor.moveToFirst();
+			 cursor.moveToFirst();
+			 while(!cursor.isAfterLast()){
+				 
 				 int _id = Integer.parseInt(cursor.getString(0));
 				 timelog.setID(_id);
 				 String Date = cursor.getString(cursor.getColumnIndexOrThrow(TimeLogTable.COLUMN_DATE));
@@ -442,9 +446,6 @@ public TimeLogDTO getTimeLogbyStatus(int statusID){
 			     timelog.setProfileID(FKProfileID);
 			     timelog.setYearWeek(YearWeek);
 			     
-			 }
-			 else{
-				 return null;
 			 }
 		}
 		catch(SQLiteException sql){

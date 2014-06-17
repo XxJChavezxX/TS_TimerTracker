@@ -246,7 +246,7 @@ public class TimeLogs_Fragment extends ListFragment {
 					
 					tv.setText("Time Logs have not been created");
 					tv.setPaddingRelative(20, 20, 20, 20);
-					
+					tv.setVisibility(View.VISIBLE);
 					//View view = Mainview.findViewById(R.layout.company_rates_fragment);
 					((LinearLayout)Mainview).addView(tv);
 					
@@ -409,7 +409,7 @@ public class TimeLogs_Fragment extends ListFragment {
 	            ft.replace(R.id.fragment_timelog_container, nr).commit();
 			
 			 }
-	    	if(date != null && timelogs.isEmpty() && tv == null){
+	    	if(date != null && timelogs.isEmpty()){// && tv == null){
 				
 				tv = new TextView(getActivity());
 				
