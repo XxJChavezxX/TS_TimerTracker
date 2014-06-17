@@ -264,8 +264,10 @@ public class BusinessLogic {
 			     profile.setStatusID(statusid);
 			 }
 			 else{
+				 Close();
 				 return null;
 			 }
+
 		}
 		catch(SQLiteException sql){
 			 System.err.println("Caught SQLiteException: " + sql.getMessage());
@@ -425,9 +427,9 @@ public TimeLogDTO getTimeLogbyStatus(int statusID){
 			
 			 Cursor cursor = db.query(TimeLogTable.TIMELOG_TABLE, projection, TimeLogTable.COLUMN_FK_STATUSID + " = ?", new String[] {String.valueOf(statusID)}, null, null, null,null);
 			 int count = cursor.getCount();
-			 cursor.moveToFirst();
-			 while(!cursor.isAfterLast()){
-				 
+			 //cursor.moveToFirst();
+			 if(count > 0){
+				 cursor.moveToFirst();
 				 int _id = Integer.parseInt(cursor.getString(0));
 				 timelog.setID(_id);
 				 String Date = cursor.getString(cursor.getColumnIndexOrThrow(TimeLogTable.COLUMN_DATE));
@@ -445,7 +447,7 @@ public TimeLogDTO getTimeLogbyStatus(int statusID){
 			     timelog.setStatusID(FKStatusID);
 			     timelog.setProfileID(FKProfileID);
 			     timelog.setYearWeek(YearWeek);
-			     
+			     cursor.moveToNext();
 			 }
 		}
 		catch(SQLiteException sql){

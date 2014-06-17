@@ -38,7 +38,7 @@ public class SplashScreenActivity extends Activity {
 		//business logic //db helper
 		logic = new BusinessLogic(this);
 		
-		profile = logic.getUser(1);//search for user by id 1
+		profile = logic.getUser(profileID);//search for user by id 1
 		//if not null then redirect the user to the main activiy
 		if(profile != null){ 
 			
