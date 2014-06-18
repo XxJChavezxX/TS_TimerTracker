@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.tricellsoftware.timetrackertestapp"
-    android:versionCode="2"
-    android:versionName="2" >
+    android:versionCode="3"
+    android:versionName="3">
 
     <uses-sdk
         android:minSdkVersion="14"
@@ -91,15 +91,15 @@
         </activity>
         <activity
             android:name="com.tricellsoftware.timetrackertestapp.EditTimeActivity"
-            android:label="@string/app_name">
-            <!--android:parentActivityName="com.example.timetrackertestapp.TimeLogListActivity" -->
+            android:label="@string/app_name"
+            android:parentActivityName="com.tricellsoftware.timetrackertestapp.TimeLogMainActivity">
             
         </activity>
         
         <activity
             android:name="com.tricellsoftware.timetrackertestapp.TimeLogMainActivity"
             android:label="@string/app_name"
-            android:parentActivityName="com.example.timetrackertestapp.SummaryActivity">
+            android:parentActivityName="com.tricellsoftware.timetrackertestapp.MainTabActivity">
             
         </activity>
 
