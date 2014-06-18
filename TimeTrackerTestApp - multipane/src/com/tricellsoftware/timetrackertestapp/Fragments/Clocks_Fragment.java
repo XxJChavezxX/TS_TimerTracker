@@ -180,10 +180,10 @@ public class Clocks_Fragment extends Fragment {
 	  				Status.setText("Status: " + Status_Enum.On.toString());
 	  				
 	  				/*** Create notification when clocked in ***/
-	  				NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(getActivity()).setSmallIcon(R.drawable.noti_icon)
-	  						.setContentTitle("Clocked in at: " + TimeHelper.getTime())
+	  				NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(getActivity()).setSmallIcon(R.drawable.app_logo)
+	  						.setContentTitle("Clocked in at: " + TimeHelper.getTime() + "")
 	  						.setContentText("Touch if you would like to Clock Out");
-	  				
+	  						
 	  				Intent resultIntent = new Intent(getActivity(), MainTabActivity.class);
 	  				resultIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK 
 	  						| Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_FROM_BACKGROUND | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
@@ -241,8 +241,9 @@ public class Clocks_Fragment extends Fragment {
 	  						Status.setText("Status: " + Status_Enum.Off.toString());
 	  						
 	  		  				/*** Create notification when clocked out ***/
-	  		  				NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(getActivity()).setSmallIcon(R.drawable.noti_icon)
+	  		  				NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(getActivity()).setSmallIcon(R.drawable.app_logo)
 	  		  						.setContentTitle("Clocked out at: " + TimeHelper.getTime());
+	  		  						//.setContentText();
 	  		  				
 	  		  				//Intent resultIntent = new Intent(getActivity(), MainTabActivity.class);
 	  		  				
