@@ -249,7 +249,7 @@ public class Summary_Fragment extends Fragment {
 			txtRate.setText("N/A");
 		}
 		else
-			txtRate.setText("$: "+String.valueOf(Company.getRate()));
+			txtRate.setText("$ "+String.valueOf(Company.getRate()));
 			
 		//txtCompany.setTextSize(20);
 		
@@ -265,14 +265,18 @@ public class Summary_Fragment extends Fragment {
 			
 			TotalMinutes = TotalMinutes + minutes;
 		}
-		totalHours.setText(TimeHelper.displayHoursandMinutes(Integer.toString(TotalMinutes)));
+		if(TotalMinutes == 0){
+			totalHours.setText("N/A");
+		}
+		else
+			totalHours.setText(TimeHelper.displayHoursandMinutes(Integer.toString(TotalMinutes)));
 		//Calculate amount paid
 		String amountPaid = TimeHelper.calculatepay(TotalMinutes, (float)Company.getRate());
 		if(amountPaid.equals("0")){
 			txtAmountPaid.setText("N/A");
 		}
 		else
-			txtAmountPaid.setText("$: " + amountPaid);
+			txtAmountPaid.setText("$ " + amountPaid);
     }
     // Container Activity must implement this interface
     public interface OnInfoChangedListener {
