@@ -115,7 +115,7 @@ public class CompanyActivity extends FragmentActivity implements Companies_Fragm
 //		//mItem = DummyData.Item_Map.get(id);
 		nPicker.setMaxValue(100);
 		nPicker.setMinValue(8);
-		nPicker2.setMaxValue(100);
+		nPicker2.setMaxValue(99);
 		nPicker2.setMinValue(0);
 		//nPicker2.setWrapSelectorWheel(false);
 		//displays two digits on the number piker

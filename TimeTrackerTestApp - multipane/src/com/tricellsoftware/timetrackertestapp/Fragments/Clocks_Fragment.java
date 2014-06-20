@@ -13,6 +13,7 @@ import com.tricellsoftware.timetrackertestapp.helper.TimeHelper;
 import com.tricellsoftware.timetrackertestapp.ClocksActivity;
 import com.tricellsoftware.timetrackertestapp.MainTabActivity;
 import com.tricellsoftware.timetrackertestapp.R;
+import com.tricellsoftware.timetrackertestapp.R.color;
 import com.tricellsoftware.timetrackertestapp.SummaryActivity;
 
 import android.app.ActionBar;
@@ -46,7 +47,7 @@ public class Clocks_Fragment extends Fragment {
 	
 	TextView Name;
 	TextView Status;
-	
+	TextView clockedtv;
 	
 	Date date; //time entry for the timelog
 	int ClockType;
@@ -58,7 +59,7 @@ public class Clocks_Fragment extends Fragment {
 	String TimeFormat	=	"MM/dd/yyyy h:mm a"; //time format
 	SimpleDateFormat tf;
 	
-	String time;
+	String startTime = "";
 	
 	private int id;
 
@@ -130,7 +131,8 @@ public class Clocks_Fragment extends Fragment {
 	  		profile = logic.getUser(id);
 	  		Name = (TextView)getView().findViewById(R.id.dateview);
 	  		Status = (TextView)getView().findViewById(R.id.textStatus);
-
+	  		clockedtv = (TextView)getView().findViewById(R.id.clockedtimetv);
+	  		
 	  		if(id > 0){
 	  			Name.setText("Welcome " + profile.getFirstName());
 	  			
@@ -143,11 +145,14 @@ public class Clocks_Fragment extends Fragment {
 	  				clockOutBttn.setBackgroundResource(R.drawable.clockout_focused);
 	  				clockInBttn.setBackgroundResource(R.drawable.clockin_default);
 	  				clockInBttn.setEnabled(false);
+	  				
 	  			}
 	  			else{
 	  				Status.setText("Status: " + Status_Enum.Off.toString());
 	  				clockInBttn.setBackgroundResource(R.drawable.clockin_focused);
 	  				clockOutBttn.setEnabled(false);
+	  				clockedtv.setVisibility(View.GONE);
+	  				
 	  			}
 	  		}
 	  		
@@ -158,7 +163,14 @@ public class Clocks_Fragment extends Fragment {
 	  		Datetv.setText(TimeHelper.getDate());
 	  		
 	  		timelog = logic.getTimeLogbyStatus(Status_Enum.In.getValue()); // get single timelog by status
-	  		
+	  		//displays the current clocked in time if not null
+	  		if(timelog.getStartTime() != null){
+	  			clockedtv.setText("Clocked in at " + timelog.getStartTime().substring(10));
+	  			clockedtv.setBackgroundColor(color.lightgrey);
+	  			clockedtv.setPadding(20, 20, 20, 20);
+	  			
+	  		}
+	  		//clockedtv.setText("Clocked in at: " + timelog.getStartTime());
 	  		//Listening to the button event
 	  		clockInBttn.setOnClickListener(new View.OnClickListener(){
 	  					
@@ -173,11 +185,22 @@ public class Clocks_Fragment extends Fragment {
 	  				
 	  				profile.setStatusID(Status_Enum.On.getValue()); // saves the current user state
 	  				ClockType = Status_Enum.In.getValue(); // saves the type of clock the user has made
-
+	  				
+	  				startTime = TimeHelper.getTime();
 	  				SaveNewTimeLog();
 	  				logic.updateProfileById(profile); // updates the status of the user
 	  				
 	  				Status.setText("Status: " + Status_Enum.On.toString());
+	  				//displays current time if getStartTime is null
+	  				clockedtv.setText("Clocked in at " + startTime.substring(10));
+		  			clockedtv.setBackgroundColor(color.lightgrey);
+		  			clockedtv.setPadding(20, 20, 20, 20);
+	  				clockedtv.setVisibility(View.VISIBLE);
+	  				
+//	  				if(timelog.getStartTime() == null){
+//	  					startTime = TimeHelper.getTime();
+//	  					clockedtv.setText("Clocked in at: " + startTime);
+//	  				}
 	  				
 	  				/*** Create notification when clocked in ***/
 	  				NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(getActivity()).setSmallIcon(R.drawable.app_logo_noti)
@@ -227,6 +250,7 @@ public class Clocks_Fragment extends Fragment {
 	  						Toast.makeText(getActivity(), "Please allow 5 minutes after Clocking In to Clock Out (" + String.valueOf(minsleft) +" minutes left)", Toast.LENGTH_LONG).show();
 	  					}
 	  					else{
+	  						clockedtv.setVisibility(View.GONE);
 	  						profile.setStatusID(Status_Enum.Off.getValue());
 	  						ClockType = Status_Enum.Out.getValue();
 	  						UpdateTimeLog();
@@ -294,9 +318,10 @@ public class Clocks_Fragment extends Fragment {
 		String YearWeek = Integer.toString(TimeHelper.getWeekOfYear());
 		
 		/**May add the week of the year to query timelogs by week **/
+		startTime = TimeHelper.getTime();
 		timelog = new TimeLogDTO();
 		timelog.setDate(TimeHelper.getDate()); //saves the date format as string
-		timelog.setStartTime(TimeHelper.getTime());//saves the time format as string
+		timelog.setStartTime(startTime);//saves the time format as string
 		timelog.setEndTime("--");
 		timelog.setProfileID(profile.getID());
 		timelog.setStatusID(ClockType);

@@ -71,6 +71,7 @@
         android:layout_alignLeft="@+id/vDate"
         android:layout_alignParentBottom="true"
         android:layout_alignRight="@+id/textStatus"
+        android:layout_below="@+id/dateview"
         android:layout_marginBottom="17dp" >
 
 <!--         <TextView -->
@@ -89,6 +90,16 @@
 <!--             android:layout_above="@+id/txt" -->
 <!--             android:layout_centerHorizontal="true" -->
 <!--             android:background="@drawable/timesheet_bttn" /> -->
+
+        <TextView
+            android:id="@+id/clockedtimetv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:text="Medium Text"
+            android:textColor="@color/white"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
     </RelativeLayout>
 

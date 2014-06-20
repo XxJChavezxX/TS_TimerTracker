@@ -118,4 +118,15 @@
           android:text="@string/clockin"
           android:textSize="@dimen/font_size" />
 
+      <TextView
+          android:id="@+id/clockedtimetv"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_below="@+id/txtStatus"
+          android:layout_centerHorizontal="true"
+          android:textColor="@color/white"
+          android:layout_marginTop="137dp"
+          android:text="Medium Text"
+          android:textAppearance="?android:attr/textAppearanceMedium" />
+
 </RelativeLayout>

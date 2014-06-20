@@ -89,14 +89,26 @@
         android:layout_toRightOf="@+id/dateview"
         android:background="@drawable/clock_out_bttn" />
 
+    <TextView
+        android:id="@+id/clockedtimetv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:fontFamily="@style/font_family"
+        android:textColor="@color/white"
+        android:layout_marginBottom="36dp"
+        android:text="Medium Text"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
     <Button
         android:id="@+id/clockinbttn"
         android:layout_width="128dp"
         android:layout_height="128dp"
         android:layout_alignBaseline="@+id/clockoutbttn"
         android:layout_alignBottom="@+id/clockoutbttn"
-        android:layout_marginLeft="87dp"
-        android:layout_toRightOf="@+id/vDate"
+        android:layout_marginRight="67dp"
+        android:layout_toLeftOf="@+id/clockedtimetv"
         android:background="@drawable/clock_in_bttn" />
 
 </RelativeLayout>
