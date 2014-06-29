@@ -239,7 +239,8 @@ public class BusinessLogic {
 	}
 	public ProfileDTO getUser(int id){
 		
-		String[] projection = {ProfileTable.COLUMN_ID, ProfileTable.COLUMN_FIRSTNAME, ProfileTable.COLUMN_LASTNAME, ProfileTable.COLUMN_EMAIL, ProfileTable.COLUMN_FK_STATUSID};
+		String[] projection = {ProfileTable.COLUMN_ID, ProfileTable.COLUMN_FIRSTNAME, ProfileTable.COLUMN_LASTNAME, 
+				ProfileTable.COLUMN_EMAIL, ProfileTable.COLUMN_FK_STATUSID, ProfileTable.COLUMN_FK_COMPANYID};
 		Open();
 		ProfileDTO profile = new ProfileDTO();
 		try{
@@ -255,13 +256,14 @@ public class BusinessLogic {
 			     String lastname = cursor.getString(cursor.getColumnIndexOrThrow(ProfileTable.COLUMN_LASTNAME));
 			     String email = cursor.getString(cursor.getColumnIndexOrThrow(ProfileTable.COLUMN_EMAIL));
 			     String status = cursor.getString(cursor.getColumnIndexOrThrow(ProfileTable.COLUMN_FK_STATUSID));
-			     
+			     int companyid = cursor.getInt(cursor.getColumnIndexOrThrow(ProfileTable.COLUMN_FK_COMPANYID));
 			     int statusid = Integer.parseInt(status);
 				 //company.setID(cursor.getColumnIndexOrThrow(CompanyTable.COLUMN_ID));
 			     profile.setFirstName(firstname);
 			     profile.setLastName(lastname);
 			     profile.setEmail(email);
 			     profile.setStatusID(statusid);
+			     profile.setCurrentCompany(companyid);
 			 }
 			 else{
 				 Close();
@@ -288,6 +290,7 @@ public class BusinessLogic {
 		  values.put(ProfileTable.COLUMN_LASTNAME, profile.getLastName());
 		  values.put(ProfileTable.COLUMN_EMAIL, profile.getEmail());
 		  values.put(ProfileTable.COLUMN_FK_STATUSID, profile.getStatusID());
+		  values.put(ProfileTable.COLUMN_FK_COMPANYID, profile.getCurrentCompany());
 		  rowsupdated = db.update(ProfileTable.PROFILE_TABLE,
 					values,
 					ProfileTable.COLUMN_ID + "=" + profile.getID(),
@@ -312,7 +315,7 @@ public class BusinessLogic {
 		
 		try{
 			String[] projection = { TimeLogTable.COLUMN_ID, TimeLogTable.COLUMN_DATE, TimeLogTable.COLUMN_START_TIME, TimeLogTable.COLUMN_END_TIME, 
-					TimeLogTable.COLUMN_MINUTES,TimeLogTable.COLUMN_YEARWEEK, TimeLogTable.COLUMN_FK_PROFILEID, TimeLogTable.COLUMN_FK_STATUSID };
+					TimeLogTable.COLUMN_MINUTES,TimeLogTable.COLUMN_YEARWEEK, TimeLogTable.COLUMN_FK_PROFILEID, TimeLogTable.COLUMN_FK_STATUSID, TimeLogTable.COLUMN_FK_COMPANYID };
 			Cursor cursor = db.query(TimeLogTable.TIMELOG_TABLE, projection, null, null, null, null, null);
 			cursor.moveToFirst();
 			while(!cursor.isAfterLast()){
@@ -326,6 +329,7 @@ public class BusinessLogic {
 				timelog.setYearWeek(cursor.getString(cursor.getColumnIndexOrThrow(TimeLogTable.COLUMN_YEARWEEK)));
 				timelog.setProfileID(cursor.getInt(cursor.getColumnIndexOrThrow( TimeLogTable.COLUMN_FK_PROFILEID)));
 				timelog.setStatusID(cursor.getInt(cursor.getColumnIndexOrThrow(TimeLogTable.COLUMN_FK_STATUSID)));
+				timelog.setCompanyId(cursor.getInt(cursor.getColumnIndexOrThrow(TimeLogTable.COLUMN_FK_COMPANYID)));
 				timelogs.add(timelog);
 				cursor.moveToNext();
 			}
@@ -350,6 +354,7 @@ public class BusinessLogic {
 			  values.put(TimeLogTable.COLUMN_YEARWEEK, timelog.getYearWeek().toString());
 			  values.put(TimeLogTable.COLUMN_FK_PROFILEID, timelog.getProfileID());
 			  values.put(TimeLogTable.COLUMN_FK_STATUSID, timelog.getStatusID());
+			  values.put(TimeLogTable.COLUMN_FK_COMPANYID, timelog.getCompanyId());
 			  db.insert(TimeLogTable.TIMELOG_TABLE, null, values);
 		  }
 		  catch(SQLiteException sql){
@@ -419,7 +424,7 @@ public class BusinessLogic {
 public TimeLogDTO getTimeLogbyStatus(int statusID){
 	Open();
 	String[] projection = { TimeLogTable.COLUMN_ID, TimeLogTable.COLUMN_DATE, TimeLogTable.COLUMN_START_TIME, TimeLogTable.COLUMN_END_TIME, 
-			TimeLogTable.COLUMN_MINUTES,TimeLogTable.COLUMN_YEARWEEK, TimeLogTable.COLUMN_FK_PROFILEID, TimeLogTable.COLUMN_FK_STATUSID };
+			TimeLogTable.COLUMN_MINUTES,TimeLogTable.COLUMN_YEARWEEK, TimeLogTable.COLUMN_FK_PROFILEID, TimeLogTable.COLUMN_FK_STATUSID,TimeLogTable.COLUMN_FK_COMPANYID };
 
 		TimeLogDTO timelog = new TimeLogDTO();
 		try{
@@ -439,6 +444,7 @@ public TimeLogDTO getTimeLogbyStatus(int statusID){
 			     String YearWeek = cursor.getString(cursor.getColumnIndexOrThrow(TimeLogTable.COLUMN_YEARWEEK));
 			     int FKStatusID = cursor.getInt(cursor.getColumnIndexOrThrow(TimeLogTable.COLUMN_FK_STATUSID));
 			     int FKProfileID = cursor.getInt(cursor.getColumnIndexOrThrow(TimeLogTable.COLUMN_FK_PROFILEID));
+			     int FKCompanyID = cursor.getInt(cursor.getColumnIndexOrThrow(TimeLogTable.COLUMN_FK_COMPANYID));
 			     
 			     timelog.setDate(Date);
 			     timelog.setStartTime(StartTime);
@@ -447,6 +453,7 @@ public TimeLogDTO getTimeLogbyStatus(int statusID){
 			     timelog.setStatusID(FKStatusID);
 			     timelog.setProfileID(FKProfileID);
 			     timelog.setYearWeek(YearWeek);
+			     timelog.setCompanyId(FKCompanyID);
 			     cursor.moveToNext();
 			 }
 		}
@@ -479,7 +486,7 @@ public TimeLogDTO getTimeLogbyStatus(int statusID){
 		try{
 			 
 			String[] projection = { TimeLogTable.COLUMN_ID, TimeLogTable.COLUMN_DATE, TimeLogTable.COLUMN_START_TIME, TimeLogTable.COLUMN_END_TIME, 
-					TimeLogTable.COLUMN_MINUTES, TimeLogTable.COLUMN_YEARWEEK, TimeLogTable.COLUMN_FK_PROFILEID, TimeLogTable.COLUMN_FK_STATUSID };
+					TimeLogTable.COLUMN_MINUTES, TimeLogTable.COLUMN_YEARWEEK, TimeLogTable.COLUMN_FK_PROFILEID, TimeLogTable.COLUMN_FK_STATUSID, TimeLogTable.COLUMN_FK_COMPANYID };
 			Cursor cursor = db.query(TimeLogTable.TIMELOG_TABLE, projection, TimeLogTable.COLUMN_ID + " = ?", new String[] {ID}, null, null, null,null);
 			int count = cursor.getCount();
 			 if(count > 0){
@@ -494,6 +501,7 @@ public TimeLogDTO getTimeLogbyStatus(int statusID){
 				timelog.setYearWeek(cursor.getString(cursor.getColumnIndexOrThrow(TimeLogTable.COLUMN_YEARWEEK)));
 				timelog.setProfileID(cursor.getInt(cursor.getColumnIndexOrThrow( TimeLogTable.COLUMN_FK_PROFILEID)));
 				timelog.setStatusID(cursor.getInt(cursor.getColumnIndexOrThrow(TimeLogTable.COLUMN_FK_STATUSID)));
+				timelog.setCompanyId(cursor.getInt(cursor.getColumnIndexOrThrow(TimeLogTable.COLUMN_FK_COMPANYID)));
 			 }
 			 else{
 				 return null;
@@ -515,7 +523,7 @@ public TimeLogDTO getTimeLogbyStatus(int statusID){
 		
 		try{
 			String[] projection = { TimeLogTable.COLUMN_ID, TimeLogTable.COLUMN_DATE, TimeLogTable.COLUMN_START_TIME, TimeLogTable.COLUMN_END_TIME, 
-					TimeLogTable.COLUMN_MINUTES, TimeLogTable.COLUMN_YEARWEEK, TimeLogTable.COLUMN_FK_PROFILEID, TimeLogTable.COLUMN_FK_STATUSID };
+					TimeLogTable.COLUMN_MINUTES, TimeLogTable.COLUMN_YEARWEEK, TimeLogTable.COLUMN_FK_PROFILEID, TimeLogTable.COLUMN_FK_STATUSID,TimeLogTable.COLUMN_FK_COMPANYID };
 			Cursor cursor = db.query(TimeLogTable.TIMELOG_TABLE, projection, TimeLogTable.COLUMN_DATE + " = ?", new String[] {Date}, null, null, null,null);
 			
 			cursor.moveToFirst();
@@ -530,6 +538,7 @@ public TimeLogDTO getTimeLogbyStatus(int statusID){
 				timelog.setYearWeek(cursor.getString(cursor.getColumnIndexOrThrow(TimeLogTable.COLUMN_YEARWEEK)));
 				timelog.setProfileID(cursor.getInt(cursor.getColumnIndexOrThrow( TimeLogTable.COLUMN_FK_PROFILEID)));
 				timelog.setStatusID(cursor.getInt(cursor.getColumnIndexOrThrow(TimeLogTable.COLUMN_FK_STATUSID)));
+				timelog.setCompanyId(cursor.getInt(cursor.getColumnIndexOrThrow(TimeLogTable.COLUMN_FK_COMPANYID)));
 				timelogs.add(timelog);
 				cursor.moveToNext();
 			}
@@ -550,7 +559,7 @@ public TimeLogDTO getTimeLogbyStatus(int statusID){
 		
 		try{
 			String[] projection = { TimeLogTable.COLUMN_ID, TimeLogTable.COLUMN_DATE, TimeLogTable.COLUMN_START_TIME, TimeLogTable.COLUMN_END_TIME, 
-					TimeLogTable.COLUMN_MINUTES, TimeLogTable.COLUMN_YEARWEEK, TimeLogTable.COLUMN_FK_PROFILEID, TimeLogTable.COLUMN_FK_STATUSID };
+					TimeLogTable.COLUMN_MINUTES, TimeLogTable.COLUMN_YEARWEEK, TimeLogTable.COLUMN_FK_PROFILEID, TimeLogTable.COLUMN_FK_STATUSID, TimeLogTable.COLUMN_FK_COMPANYID };
 			Cursor cursor = db.query(TimeLogTable.TIMELOG_TABLE, projection, TimeLogTable.COLUMN_YEARWEEK + " = ?", new String[] {YearWeek}, null, null, null,null);
 			
 			cursor.moveToFirst();
@@ -565,6 +574,7 @@ public TimeLogDTO getTimeLogbyStatus(int statusID){
 				timelog.setYearWeek(cursor.getString(cursor.getColumnIndexOrThrow(TimeLogTable.COLUMN_YEARWEEK)));
 				timelog.setProfileID(cursor.getInt(cursor.getColumnIndexOrThrow( TimeLogTable.COLUMN_FK_PROFILEID)));
 				timelog.setStatusID(cursor.getInt(cursor.getColumnIndexOrThrow(TimeLogTable.COLUMN_FK_STATUSID)));
+				timelog.setCompanyId(cursor.getInt(cursor.getColumnIndexOrThrow(TimeLogTable.COLUMN_FK_COMPANYID)));
 				timelogs.add(timelog);
 				cursor.moveToNext();
 			}
@@ -585,7 +595,7 @@ public TimeLogDTO getTimeLogbyStatus(int statusID){
 		
 		try{
 			String[] projection = { TimeLogTable.COLUMN_ID, TimeLogTable.COLUMN_DATE, TimeLogTable.COLUMN_START_TIME, TimeLogTable.COLUMN_END_TIME, 
-					TimeLogTable.COLUMN_MINUTES, TimeLogTable.COLUMN_FK_PROFILEID, TimeLogTable.COLUMN_FK_STATUSID };
+					TimeLogTable.COLUMN_MINUTES, TimeLogTable.COLUMN_FK_PROFILEID, TimeLogTable.COLUMN_FK_STATUSID, TimeLogTable.COLUMN_FK_COMPANYID };
 //			//Cursor cursor = db.query(TimeLogTable.TIMELOG_TABLE, projection, TimeLogTable.COLUMN_DATE + " = ?", new String[] {Date}, null, null, null,null);
 //			String Select = "select " + TimeLogTable.COLUMN_ID + "," + TimeLogTable.COLUMN_DATE + ","+ TimeLogTable.COLUMN_START_TIME + "," + TimeLogTable.COLUMN_END_TIME + "," 
 //					+ TimeLogTable.COLUMN_MINUTES + "," + TimeLogTable.COLUMN_FK_PROFILEID + "," + TimeLogTable.COLUMN_FK_STATUSID + " from " + TimeLogTable.TIMELOG_TABLE + 
@@ -605,6 +615,8 @@ public TimeLogDTO getTimeLogbyStatus(int statusID){
 				timelog.setMinutes(cursor.getString(cursor.getColumnIndexOrThrow(TimeLogTable.COLUMN_MINUTES)));
 				timelog.setProfileID(cursor.getInt(cursor.getColumnIndexOrThrow( TimeLogTable.COLUMN_FK_PROFILEID)));
 				timelog.setStatusID(cursor.getInt(cursor.getColumnIndexOrThrow(TimeLogTable.COLUMN_FK_STATUSID)));
+				timelog.setCompanyId(cursor.getInt(cursor.getColumnIndexOrThrow(TimeLogTable.COLUMN_FK_COMPANYID)));
+				timelog.setCompanyId(cursor.getInt(cursor.getColumnIndexOrThrow(TimeLogTable.COLUMN_FK_COMPANYID)));
 				timelogs.add(timelog);
 				cursor.moveToNext();
 			}

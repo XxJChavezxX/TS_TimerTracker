@@ -8,6 +8,7 @@ public class ProfileDTO {
 	private String lastName;
 	private String email;
 	private int statusid;
+	private int currentCompany;
 	
 	public ProfileDTO(){
 	}
@@ -50,6 +51,14 @@ public class ProfileDTO {
 		this.lastName = lastName;
 		this.email = email;
 		this.statusid = statusid;
+	}
+
+	public int getCurrentCompany() {
+		return currentCompany;
+	}
+
+	public void setCurrentCompany(int currentCompany) {
+		this.currentCompany = currentCompany;
 	}
 
 }

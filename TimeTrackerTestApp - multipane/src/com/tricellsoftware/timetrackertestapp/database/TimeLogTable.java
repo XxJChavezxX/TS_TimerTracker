@@ -14,6 +14,7 @@ public class TimeLogTable {
 	public static final String COLUMN_YEARWEEK = "YearWeek";
 	public static final String COLUMN_FK_STATUSID = "StatusId";
 	public static final String COLUMN_FK_PROFILEID = "ProfileId";
+	public static final String COLUMN_FK_COMPANYID = "CompanyId";
 
 
 	
@@ -29,6 +30,8 @@ public class TimeLogTable {
 			+ COLUMN_YEARWEEK + " int, "
 			+ COLUMN_FK_STATUSID + " int not null, "
 			+ COLUMN_FK_PROFILEID + " int not null, "
+			+ COLUMN_FK_COMPANYID + " int, "
+			+ "foreign key("+ COLUMN_FK_COMPANYID +")" + "references Companytbl("+CompanyTable.COLUMN_ID+"),"
 			+ "foreign key("+ COLUMN_FK_STATUSID +")" + "references Statustbl("+StatusTable.COLUMN_ID+"),"
 			+ "foreign key("+ COLUMN_FK_PROFILEID +")" + "references Profiletbl("+ProfileTable.COLUMN_ID+") "
 			+ ");";

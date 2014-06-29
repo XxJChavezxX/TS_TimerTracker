@@ -9,6 +9,7 @@ import java.util.Date;
 
 import com.tricellsoftware.timetrackertestapp.DTOs.CompanyDTO;
 import com.tricellsoftware.timetrackertestapp.DTOs.DummyData;
+import com.tricellsoftware.timetrackertestapp.DTOs.ProfileDTO;
 import com.tricellsoftware.timetrackertestapp.Fragments.Companies_Fragment;
 import com.tricellsoftware.timetrackertestapp.Fragments.Company_Fragment;
 import com.tricellsoftware.timetrackertestapp.Fragments.Companies_Fragment.OnItemSelectedListener;
@@ -215,8 +216,18 @@ public class CompanyActivity extends FragmentActivity implements Companies_Fragm
 						//finish();
 					}
 				}
+				
 				//new item
+				tempCompany.setIsDefault(true);
 				logic.addNewCompany(tempCompany);
+				
+				//get user to set the current company
+				ProfileDTO pf = new ProfileDTO();
+				pf = logic.getUser(1);
+				pf.setCurrentCompany(logic.getCompanyByDefault("1").getID());
+				logic.updateProfileById(pf);
+				// end profile update //
+				
 				//companyUri = getContentResolver().insert(TimeTrackerContentProvider.Content_URI, Values);
 				Toast.makeText(this, "New Company/Project: " + tempCompany.getName() + " has been added successfully", Toast.LENGTH_LONG).show();
 				finish();
@@ -248,6 +259,13 @@ public class CompanyActivity extends FragmentActivity implements Companies_Fragm
 						finish();
 					}
 				}
+				//get user to set the current company
+				ProfileDTO pf = new ProfileDTO();
+				pf = logic.getUser(1);
+				pf.setCurrentCompany(tempCompany.getID());
+				logic.updateProfileById(pf);
+				// end profile update //
+				
 				/** End of Section **/
 				//update current company
 				logic.updateCompanyById(tempCompany);

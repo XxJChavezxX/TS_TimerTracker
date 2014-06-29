@@ -326,6 +326,7 @@ public class Clocks_Fragment extends Fragment {
 		timelog.setProfileID(profile.getID());
 		timelog.setStatusID(ClockType);
 		timelog.setYearWeek(YearWeek);
+		timelog.setCompanyId(profile.getCurrentCompany());
 		logic.AddNewTimeLog(timelog);
 	}
 	//saves new timelog record

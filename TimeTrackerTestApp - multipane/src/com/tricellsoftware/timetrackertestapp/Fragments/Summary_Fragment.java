@@ -148,7 +148,7 @@ public class Summary_Fragment extends Fragment {
 				fc = new FileCreatorHelper();
 				se = new SendEmailHelper();
 				String filePath = fc.CreateFile(getActivity(), profile, Company, date);
-				se.SendEmailWithExcelFile(getActivity(), profile.getEmail(), 
+				se.SendEmailWithExcelFile(getActivity(), profile.getEmail(),
 					"TimeSheet Report", "This document attached to the email is a detailed view of the time clocks", filePath);
 			}
 			

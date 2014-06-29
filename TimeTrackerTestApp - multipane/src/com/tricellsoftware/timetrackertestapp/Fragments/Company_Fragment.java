@@ -9,6 +9,7 @@ import java.util.List;
 
 import com.tricellsoftware.timetrackertestapp.R;
 import com.tricellsoftware.timetrackertestapp.DTOs.CompanyDTO;
+import com.tricellsoftware.timetrackertestapp.DTOs.ProfileDTO;
 import com.tricellsoftware.timetrackertestapp.businessLogic.BusinessLogic;
 import com.tricellsoftware.timetrackertestapp.database.CompanyTable;
 
@@ -240,8 +241,18 @@ public class Company_Fragment extends Fragment {
 							
 						}
 					}
+					
+					tempCompany.setIsDefault(true);
 					//new item
 					logic.addNewCompany(tempCompany);
+					
+					//get user to set the current company
+					ProfileDTO pf = new ProfileDTO();
+					pf = logic.getUser(1);
+					pf.setCurrentCompany(logic.getCompanyByDefault("1").getID());
+					logic.updateProfileById(pf);
+					// end profile update //
+					
 					//companyUri = getContentResolver().insert(TimeTrackerContentProvider.Content_URI, Values);
 					Toast.makeText(getActivity(), "New Company/Project: " + tempCompany.getName() + " has been added successfully", Toast.LENGTH_LONG).show();
 					//RefreshCompaniesList(lv, adapter);
@@ -286,6 +297,13 @@ public class Company_Fragment extends Fragment {
 						}
 					}
 					/** End of Section **/
+					//get user to set the current company
+					ProfileDTO pf = new ProfileDTO();
+					pf = logic.getUser(1);
+					pf.setCurrentCompany(tempCompany.getID());
+					logic.updateProfileById(pf);
+					// end profile update //
+					
 					//update current company
 					logic.updateCompanyById(tempCompany);
 					

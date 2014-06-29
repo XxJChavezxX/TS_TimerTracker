@@ -11,6 +11,7 @@ public class TimeLogDTO {
 	//private Date endTime;
 	private int profileId;
 	private int statusId;
+	private int companyId;
 
 //	public int profileid; // may be included
 	public TimeLogDTO(){
@@ -79,6 +80,14 @@ public class TimeLogDTO {
 		this.statusId = statusId;
 		this.YearWeek = YearWeek;
 		
+	}
+
+	public int getCompanyId() {
+		return companyId;
+	}
+
+	public void setCompanyId(int companyId) {
+		this.companyId = companyId;
 	}
 
 

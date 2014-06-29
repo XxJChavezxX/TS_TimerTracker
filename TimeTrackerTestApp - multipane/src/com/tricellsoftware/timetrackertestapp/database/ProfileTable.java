@@ -13,6 +13,7 @@ public class ProfileTable {
 	public static final String COLUMN_EMAIL = "Email";
 	public static final String COLUMN_PHONE = "PhoneNumber";
 	public static final String COLUMN_FK_STATUSID = "StatusId";
+	public static final String COLUMN_FK_COMPANYID = "CompanyId";
 
 	
 	//Databse creation SQL STATEMENT
@@ -25,6 +26,8 @@ public class ProfileTable {
 			+ COLUMN_EMAIL + " text not null, "
 			+ COLUMN_PHONE + " text, "
 			+ COLUMN_FK_STATUSID + " int not null, "
+			+ COLUMN_FK_COMPANYID + " int, "
+			+ "foreign key("+ COLUMN_FK_COMPANYID +")" + "references Companytbl("+CompanyTable.COLUMN_ID+"),"
 			+ "foreign key("+ COLUMN_FK_STATUSID +")" + "references Statustbl("+StatusTable.COLUMN_ID+")"
 			+ ");";
 	

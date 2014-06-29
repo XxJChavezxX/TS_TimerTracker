@@ -13,7 +13,7 @@ import android.util.Log;
 public class TimeTrackerDBHelper extends SQLiteOpenHelper {
 	
 	private static final String DATABASE_NAME = "timetracker.db";
-	private static final int DATABASE_VERSION = 30;
+	private static final int DATABASE_VERSION = 34;
 
 	public TimeTrackerDBHelper(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);

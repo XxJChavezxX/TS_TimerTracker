@@ -3,8 +3,11 @@ package com.tricellsoftware.timetrackertestapp.helper;
 import java.util.List;
 
 import com.tricellsoftware.timetrackertestapp.R;
+import com.tricellsoftware.timetrackertestapp.DTOs.CompanyDTO;
+import com.tricellsoftware.timetrackertestapp.DTOs.ProfileDTO;
 import com.tricellsoftware.timetrackertestapp.DTOs.Status_Enum;
 import com.tricellsoftware.timetrackertestapp.DTOs.TimeLogDTO;
+import com.tricellsoftware.timetrackertestapp.businessLogic.BusinessLogic;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -17,6 +20,8 @@ import android.widget.TextView;
 public class CustomArrayAdapter extends ArrayAdapter<TimeLogDTO>{
 	
    Context myContext;
+   
+	private BusinessLogic logic;
 	
     private final List<TimeLogDTO> itemsArrayList;
 	public CustomArrayAdapter(Context context, int TexViewResourceID, List<TimeLogDTO> timelogs){
@@ -34,6 +39,8 @@ public class CustomArrayAdapter extends ArrayAdapter<TimeLogDTO>{
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
     	
+    	logic = new BusinessLogic(myContext);
+    	
     	 // 1. Create inflater
         LayoutInflater inflater = (LayoutInflater) myContext
             .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -47,6 +54,7 @@ public class CustomArrayAdapter extends ArrayAdapter<TimeLogDTO>{
         TextView StartTimeView = (TextView) view.findViewById(R.id.txtStartTime);
         TextView EndTimeView = (TextView) view.findViewById(R.id.txt);
         TextView HoursView = (TextView) view.findViewById(R.id.txtHours);
+        TextView CompanTv = (TextView) view.findViewById(R.id.currentCmptv);
         
         TimeLogDTO item = itemsArrayList.get(position);
         
@@ -76,6 +84,10 @@ public class CustomArrayAdapter extends ArrayAdapter<TimeLogDTO>{
         // 4. Set the text for textView
         labelView.setText(item.getDate());
         StartTimeView.setText(strTime);
+        
+//        ProfileDTO pf = logic.getUser(1);
+        CompanyDTO cp = logic.getCompanyById(item.getCompanyId());
+        CompanTv.setText("Company: " + cp.getName());
         
         HoursView.setText(TimeHelper.displayHoursandMinutes(item.getMinutes()));
         if(item.getStatusID() == Status_Enum.In.getValue()){

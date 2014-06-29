@@ -182,13 +182,13 @@ public class TimeLogs_Fragment extends ListFragment {
 				
 		 	 	if(land == false && _id > 0){
 			       	 		
-					  	    Intent i = new Intent(getActivity(), EditTimeActivity.class);
-						    //mCallbacks.onItemSelected(DummyContent.ITEMS.get(position).id);
-						    //Uri CompanyUri = Uri.parse(TimeTrackerContentProvider.Content_URI + "/" + id);
-					    	  
-						     i.putExtra(TimeLogTable.COLUMN_ID, _id);
-						   //  compid = 0;
-						    startActivity(i);
+			  	    Intent i = new Intent(getActivity(), EditTimeActivity.class);
+				    //mCallbacks.onItemSelected(DummyContent.ITEMS.get(position).id);
+				    //Uri CompanyUri = Uri.parse(TimeTrackerContentProvider.Content_URI + "/" + id);
+			    	  
+				     i.putExtra(TimeLogTable.COLUMN_ID, _id);
+				   //  compid = 0;
+				    startActivity(i);
 						    
 						    
 			     }

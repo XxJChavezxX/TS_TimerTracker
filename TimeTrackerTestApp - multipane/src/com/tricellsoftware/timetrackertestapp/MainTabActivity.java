@@ -9,6 +9,7 @@ import com.tricellsoftware.timetrackertestapp.Fragments.Summary_Fragment;
 import com.tricellsoftware.timetrackertestapp.businessLogic.BusinessLogic;
 import com.tricellsoftware.timetrackertestapp.database.ProfileTable;
 import com.tricellsoftware.timetrackertestapp.helper.SectionsPagerAdapter;
+import com.tricellsoftware.timetrackertestapp.helper.SendEmailHelper;
 
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
@@ -143,6 +144,10 @@ public class MainTabActivity extends Activity implements ActionBar.TabListener, 
 			   Intent ProfileScreen = new Intent(getApplicationContext(), ProfileActivity.class);
 			   ProfileScreen.putExtra(ProfileTable.COLUMN_ID, profile.getID());
 			   startActivity(ProfileScreen);
+		}
+		if (id == R.id.send_feedback) {
+			   SendEmailHelper se = new SendEmailHelper();
+			   se.SendEmail(this,"feedback@tricellsoftware.com", "Feedback", "");
 		}
 		return super.onOptionsItemSelected(item);
 	}
