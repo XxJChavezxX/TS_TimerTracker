@@ -51,8 +51,10 @@ public class FileCreatorHelper {
 	   		File file = new File(filePathDirectory, FileName);
 			try {
 				//file = context.openFileOutput(FileName,Context.MODE_PRIVATE);
+				logic = new BusinessLogic(context);
+				logic.getUser(1);
 				
-				createFile(file, profile, company, date);
+				createFile(file, profile, company, date, String.valueOf(profile.getCurrentCompany()));
 			} catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -84,13 +86,10 @@ public class FileCreatorHelper {
 	    return false;
 	}
 	
-	public void createFile(File file, ProfileDTO profile, CompanyDTO company, String date) throws IOException{
+	public void createFile(File file, ProfileDTO profile, CompanyDTO company, String date, String companyid) throws IOException{
 		
 		 try {
-			 
-
-			 //business logic
-				logic = new BusinessLogic(context);
+				
 				
 				Dates = TimeHelper.spamSevenDatesByStartDate(date);
 				/**Create jxl and Timelogs Lists to create a jxl xls file**/
@@ -141,7 +140,7 @@ public class FileCreatorHelper {
 	    			int row = i+1;
 	    			/**Get Timelogs by date**/
 	    			timelogs = new ArrayList<TimeLogDTO>();
-	    			timelogs = logic.getAllTimeLogsByDate(Date);
+	    			timelogs = logic.getAllTimeLogsByDate(Date, companyid);
 	    			int count = timelogs.size();
 	    			Label Daylbl = new Label(row, 0, Day, fontCellformat);
 	    			Label Datelbl = new Label(row, 1, Date, fontCellformat2);
