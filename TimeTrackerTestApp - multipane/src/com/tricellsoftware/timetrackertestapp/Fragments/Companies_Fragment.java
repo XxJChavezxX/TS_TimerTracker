@@ -12,6 +12,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -491,32 +492,48 @@ public class Companies_Fragment extends ListFragment {
 			_id = companies.get((int) info.id).getID();
 		   switch (item.getItemId()) {
 		   case R.id.delete:
-			   logic.deleteCompanyById(String.valueOf(_id));
-			   Toast.makeText(getActivity(), "Record has been deleted successfully", Toast.LENGTH_LONG).show();
-			   GetCompaniesData();
-		    	if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){// && newCF == null){
-					
-					FragmentTransaction ft = getFragmentManager().beginTransaction();
-					//check of the framelayout is present on the Activity associated with this ListFragment
-					if(getView().findViewById(R.id.fragment_container) != null){
+			   try{
+
+				   logic.deleteCompanyById(String.valueOf(_id));
+				   if(logic.Error != null){
+					   if(logic.Error.contains("key constraint")){
+						   Toast.makeText(getActivity(), "This record is being used somewhere else and cannot be deleted", Toast.LENGTH_LONG).show();
+					   }
+					   else
+						   Toast.makeText(getActivity(), "Unexpected Error Occurred", Toast.LENGTH_LONG).show();
+				   }
+				   else{
+					   Toast.makeText(getActivity(), "Record has been deleted successfully", Toast.LENGTH_LONG).show();
+					  
+				   }
+				   GetCompaniesData();
+			    	if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){// && newCF == null){
 						
-					}// However, if we're being restored from a previous state,
-		            // then we don't need to do anything and should return or else
-		            // we could end up with overlapping fragments.
-//		            if (savedInstanceState != null) {
-//		                return;
-//		            }
-		            //Creates Company Fragment to be held in the Activity layout using the FrameLayout
-		            nr = new NoResults_Fragment();
-		            // In case this activity was started with special instructions from an
-		            // Intent, pass the Intent's extras to the fragment as arguments
-		            //cf.setArguments(getActivity().getIntent().getExtras());
-		
-		            //Add the fragment to the 'fragment_container' FrameLayout
-		            //ft.setCustomAnimations(R.anim.slide_left, R.anim.slide_right);
-		            ft.replace(R.id.fragment_container, nr).commit();
-				
-				 }
+						FragmentTransaction ft = getFragmentManager().beginTransaction();
+						//check of the framelayout is present on the Activity associated with this ListFragment
+						if(getView().findViewById(R.id.fragment_container) != null){
+							
+						}// However, if we're being restored from a previous state,
+			            // then we don't need to do anything and should return or else
+			            // we could end up with overlapping fragments.
+	//		            if (savedInstanceState != null) {
+	//		                return;
+	//		            }
+			            //Creates Company Fragment to be held in the Activity layout using the FrameLayout
+			            nr = new NoResults_Fragment();
+			            // In case this activity was started with special instructions from an
+			            // Intent, pass the Intent's extras to the fragment as arguments
+			            //cf.setArguments(getActivity().getIntent().getExtras());
+			
+			            //Add the fragment to the 'fragment_container' FrameLayout
+			            //ft.setCustomAnimations(R.anim.slide_left, R.anim.slide_right);
+			            ft.replace(R.id.fragment_container, nr).commit();
+					
+					 }
+			   }
+			   catch(Exception e){
+					   Toast.makeText(getActivity(), "Unexpected Error Occurred", Toast.LENGTH_LONG).show();
+			   }
 		    break;
 		      case R.id.view:
 		    	  

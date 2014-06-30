@@ -86,7 +86,8 @@ public class CustomArrayAdapter extends ArrayAdapter<TimeLogDTO>{
         StartTimeView.setText(strTime);
         
 //        ProfileDTO pf = logic.getUser(1);
-        CompanyDTO cp = logic.getCompanyById(item.getCompanyId());
+        int id = logic.getUser(1).getCurrentCompany();
+        CompanyDTO cp = logic.getCompanyById(id);
         CompanTv.setText("Company: " + cp.getName());
         
         HoursView.setText(TimeHelper.displayHoursandMinutes(item.getMinutes()));

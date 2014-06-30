@@ -311,6 +311,17 @@ public class CompanyActivity extends FragmentActivity implements Companies_Fragm
 	           @Override
 			public void onClick(DialogInterface dialog, int _id) {
 	        	   logic.deleteCompanyById(String.valueOf(id));
+	        	   if(logic.Error != null){
+					   if(logic.Error.contains("key constraint")){
+						   Toast.makeText(getApplicationContext(), "This record is being used somewhere else and cannot be deleted", Toast.LENGTH_LONG).show();
+					   }
+					   else
+						   Toast.makeText(getApplicationContext(), "Unexpected Error Occurred", Toast.LENGTH_LONG).show();
+				   }
+				   else{
+					   Toast.makeText(getApplicationContext(), "Record has been deleted successfully", Toast.LENGTH_LONG).show();
+					  
+				   }
 	    		   finish();
 	           }
 	       });

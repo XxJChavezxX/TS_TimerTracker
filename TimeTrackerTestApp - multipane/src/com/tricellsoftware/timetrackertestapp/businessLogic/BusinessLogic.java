@@ -24,13 +24,16 @@ public class BusinessLogic {
 	
 	private TimeTrackerDBHelper database;
 	SQLiteDatabase db;
+	public String Error;
 	
 	public BusinessLogic(Context context){
 		database = new TimeTrackerDBHelper(context);
 	}
 	
 	public void Open() throws SQLException{
-		db = database.getWritableDatabase();;
+		db = database.getWritableDatabase();
+		db.execSQL("PRAGMA foreign_keys=ON;");
+		
 	}
 	public void Close(){
 		db.close();
@@ -55,10 +58,17 @@ public class BusinessLogic {
 	
 	//return a company by id
 	public CompanyDTO getCompanyById(int id){
+
 		String[] projection = {CompanyTable.COLUMN_COMPANY, CompanyTable.COLUMN_RATE, CompanyTable.COLUMN_DEFAULT_COMPANY};
 		Open();
 		// Cursor cursor = db.query(CompanyTable.COMPANY_TABLE, projection, null, projection, null, null, null, null);
 		 CompanyDTO company = new CompanyDTO();
+			if(id == 0){
+				company.setName("N/A");
+				 company.setRate(0.0);
+				 company.setIsDefault(false);
+				 return company;
+			}
 		 try{
 			 Cursor cursor = db.query(CompanyTable.COMPANY_TABLE, projection, CompanyTable.COLUMN_ID + " = ?", new String[] {String.valueOf(id)}, null, null, null,null);
 			 if(cursor != null){
@@ -214,6 +224,8 @@ public class BusinessLogic {
 		}
 		catch(SQLiteException sql){
 			 System.err.println("Caught SQLiteException: " + sql.getMessage());
+			 Error = sql.getMessage();
+			 
 		}
 		Close();
 	}
