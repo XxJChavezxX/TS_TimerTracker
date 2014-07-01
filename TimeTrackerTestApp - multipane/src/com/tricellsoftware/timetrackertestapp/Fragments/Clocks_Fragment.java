@@ -176,12 +176,22 @@ public class Clocks_Fragment extends Fragment {
 	  					
 	  			@Override
 	  			public void onClick(View view){
+	  				
+	  				//check if companies have been added
+	  				if(profile.getCurrentCompany() == 0)
+	  				{
+	  					Toast.makeText(getActivity(), "You must add a Company/Project before clocking in", Toast.LENGTH_LONG).show();
+	  					return;
+	  				}
+
 	  			
 	  				//SaveNewItem();
 	  				view.setBackgroundResource(R.drawable.clockin_default);
 	  				clockOutBttn.setEnabled(true); //enables clock out button
 	  				view.setEnabled(false); //disables clock in button
 	  				clockOutBttn.setBackgroundResource(R.drawable.clockout_focused); //changes the button image to focused
+	  				
+	  				
 	  				
 	  				profile.setStatusID(Status_Enum.On.getValue()); // saves the current user state
 	  				ClockType = Status_Enum.In.getValue(); // saves the type of clock the user has made
@@ -228,6 +238,7 @@ public class Clocks_Fragment extends Fragment {
 	  				// Builds the notification and issues it.
 	  				mNotifyMgr.notify(mNotificationId, mBuilder.build());
 	  				/*** End of Notification  ***/
+	  				
 	  				
 	  			}
 	  		});
