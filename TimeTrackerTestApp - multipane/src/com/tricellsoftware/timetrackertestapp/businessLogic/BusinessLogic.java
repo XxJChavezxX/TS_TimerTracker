@@ -682,4 +682,47 @@ public TimeLogDTO getTimeLogbyStatus(int statusID){
 				
 		return timelogs;
 	}
+	public List<TimeLogDTO> getAllTimeLogsByWeek(String StartDate, String EndDate, String CompanyId){
+		Open();
+		
+		List<TimeLogDTO> timelogs = new ArrayList<TimeLogDTO>();
+		
+		try{
+			String[] projection = { TimeLogTable.COLUMN_ID, TimeLogTable.COLUMN_DATE, TimeLogTable.COLUMN_START_TIME, TimeLogTable.COLUMN_END_TIME, 
+					TimeLogTable.COLUMN_MINUTES, TimeLogTable.COLUMN_FK_PROFILEID, TimeLogTable.COLUMN_FK_STATUSID, TimeLogTable.COLUMN_FK_COMPANYID };
+//			//Cursor cursor = db.query(TimeLogTable.TIMELOG_TABLE, projection, TimeLogTable.COLUMN_DATE + " = ?", new String[] {Date}, null, null, null,null);
+//			String Select = "select " + TimeLogTable.COLUMN_ID + "," + TimeLogTable.COLUMN_DATE + ","+ TimeLogTable.COLUMN_START_TIME + "," + TimeLogTable.COLUMN_END_TIME + "," 
+//					+ TimeLogTable.COLUMN_MINUTES + "," + TimeLogTable.COLUMN_FK_PROFILEID + "," + TimeLogTable.COLUMN_FK_STATUSID + " from " + TimeLogTable.TIMELOG_TABLE + 
+//					" where " + TimeLogTable.COLUMN_DATE +" between " + EndDate + " and " + StartDate;
+			//Cursor cursor = db.query(TimeLogTable.TIMELOG_TABLE, projection, TimeLogTable.COLUMN_DATE + " = ?", new String[] {Date}, null, null, null,null);
+			String Select = "select * from " + TimeLogTable.TIMELOG_TABLE + 
+					" where " + TimeLogTable.COLUMN_DATE +" <= " + "'"+EndDate+"'" + " and " + TimeLogTable.COLUMN_DATE + " >= " + "'" + StartDate
+					+ "' and CompanyId = " + "'"+ CompanyId +"'";
+			Cursor cursor = db.rawQuery(Select, null);
+			cursor.moveToFirst();
+			while(!cursor.isAfterLast()){
+				TimeLogDTO timelog = new TimeLogDTO();
+				int id = Integer.parseInt(cursor.getString(0));
+				timelog.setID(id);
+				timelog.setDate(cursor.getString(cursor.getColumnIndexOrThrow(TimeLogTable.COLUMN_DATE)));
+				timelog.setStartTime(cursor.getString(cursor.getColumnIndexOrThrow(TimeLogTable.COLUMN_START_TIME)));
+				timelog.setEndTime(cursor.getString(cursor.getColumnIndexOrThrow(TimeLogTable.COLUMN_END_TIME)));
+				timelog.setMinutes(cursor.getString(cursor.getColumnIndexOrThrow(TimeLogTable.COLUMN_MINUTES)));
+				timelog.setProfileID(cursor.getInt(cursor.getColumnIndexOrThrow( TimeLogTable.COLUMN_FK_PROFILEID)));
+				timelog.setStatusID(cursor.getInt(cursor.getColumnIndexOrThrow(TimeLogTable.COLUMN_FK_STATUSID)));
+				timelog.setCompanyId(cursor.getInt(cursor.getColumnIndexOrThrow(TimeLogTable.COLUMN_FK_COMPANYID)));
+				timelog.setCompanyId(cursor.getInt(cursor.getColumnIndexOrThrow(TimeLogTable.COLUMN_FK_COMPANYID)));
+				timelogs.add(timelog);
+				cursor.moveToNext();
+			}
+		}
+		catch(SQLiteException sql){
+			 System.err.println("Caught SQLiteException: " + sql.getMessage());
+		}
+		//
+
+		Close();
+				
+		return timelogs;
+	}
 }

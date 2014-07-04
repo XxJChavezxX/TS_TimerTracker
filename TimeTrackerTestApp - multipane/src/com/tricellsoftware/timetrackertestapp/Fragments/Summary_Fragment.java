@@ -253,7 +253,7 @@ public class Summary_Fragment extends Fragment {
 			
 		//txtCompany.setTextSize(20);
 		
-		timelogs = logic.getAllTimeLogsByWeek(StartDate.substring(4), EndDate.substring(4)); //logic.getAllTimeLogsByWeek("03/03/2014", "03/09/2014");
+		timelogs = logic.getAllTimeLogsByWeek(StartDate.substring(4), EndDate.substring(4), String.valueOf(Company.getID())); //logic.getAllTimeLogsByWeek("03/03/2014", "03/09/2014");
 		int TotalMinutes = 0;
 		for(TimeLogDTO log: timelogs){
 			int minutes;
