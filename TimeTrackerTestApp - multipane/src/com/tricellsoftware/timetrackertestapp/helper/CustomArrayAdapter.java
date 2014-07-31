@@ -23,17 +23,19 @@ public class CustomArrayAdapter extends ArrayAdapter<TimeLogDTO>{
    
 	private BusinessLogic logic;
 	
-    private final List<TimeLogDTO> itemsArrayList;
+	List<TimeLogDTO> timelogs;
+	
+//    private final List<TimeLogDTO> itemsArrayList;
 	public CustomArrayAdapter(Context context, int TexViewResourceID, List<TimeLogDTO> timelogs){
 		super(context, TexViewResourceID, timelogs);
 		// TODO Auto-generated constructor stub
 		myContext = context;
 
-		this.itemsArrayList = timelogs;
+		this.timelogs = timelogs;
 	}
 	@Override
 	public int getCount() {
-	    return itemsArrayList.size();
+	    return timelogs.size();
 	}
 	
     @Override
@@ -56,34 +58,37 @@ public class CustomArrayAdapter extends ArrayAdapter<TimeLogDTO>{
         TextView HoursView = (TextView) view.findViewById(R.id.txtHours);
         TextView CompanTv = (TextView) view.findViewById(R.id.currentCmptv);
         
-        TimeLogDTO item = itemsArrayList.get(position);
+        TimeLogDTO item = timelogs.get(position);
         
-        //split the start time to just display the hours also avaliable item.getStartTime().substring()
-        String[] startTimes = item.getStartTime().split(" ");
-        String strTime = null;
-        if(startTimes.length > 2){
-        	strTime = startTimes[1] +" "+ startTimes[2];
-        }
-        else
-        	strTime = startTimes[0] +" "+startTimes[1];
-        String ndTime = null;
-        if(!item.getEndTime().equals("--")){     
-	        //split the end time to just display the hours 
-	        String[] endTimes = item.getEndTime().split(" ");
-	       
-	        if(endTimes.length > 2){
-	        	ndTime = endTimes[1] +" "+endTimes[2];
-	        }
-	        else
-	        	ndTime = endTimes[0] +" "+endTimes[1];
-	        
-	        EndTimeView.setText(ndTime);
-        }
-        else
-        	EndTimeView.setText(item.getEndTime());
+//        //split the start time to just display the hours also avaliable item.getStartTime().substring()
+//        String[] startTimes = item.getStartTime().split(" ");
+//        String strTime = null;
+//        if(startTimes.length > 2){
+//        	strTime = startTimes[1] +" "+ startTimes[2];
+//        }
+//        else
+//        	strTime = startTimes[0] +" "+startTimes[1];
+//        String ndTime = null;
+//        if(!item.getEndTime().equals("--")){     
+//	        //split the end time to just display the hours 
+//	        String[] endTimes = item.getEndTime().split(" ");
+//	       
+//	        if(endTimes.length > 2){
+//	        	ndTime = endTimes[1] +" "+endTimes[2];
+//	        }
+//	        else
+//	        	ndTime = endTimes[0] +" "+endTimes[1];
+//	        
+//	        EndTimeView.setText(ndTime);
+//        }
+//        else
+        String ndTime = item.getEndTime();
+        String endTime = (ndTime.equals("--")) ? ndTime : item.getEndTime().substring(11);
+        
+	    EndTimeView.setText(endTime);
         // 4. Set the text for textView
         labelView.setText(item.getDate());
-        StartTimeView.setText(strTime);
+        StartTimeView.setText(item.getStartTime().substring(11));
         
 //        ProfileDTO pf = logic.getUser(1);
  //       int id = logic.getUser(1).getCurrentCompany();

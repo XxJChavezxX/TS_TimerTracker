@@ -240,6 +240,25 @@ public static ArrayList<String> spamSevenDatesByStartDate(String Date){
 		return time;
 		
 	}
+	public static Date getDateFromTime(String time){
+		SimpleDateFormat df = new SimpleDateFormat("hh:mm");
+		Date d = null;
+		try {
+			d = df.parse(time);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+//		//get calendar set to current date and Time
+//		Calendar cal = Calendar.getInstance();
+//		cal.setTime(d);
+//		cal.add(Calendar.HOUR, 0);
+//		
+//		Date finalDate = cal.getTime();
+//        time = new SimpleDateFormat(TimeFormat).format(finalDate);
+        
+		return d;
+	}
 
 
 }

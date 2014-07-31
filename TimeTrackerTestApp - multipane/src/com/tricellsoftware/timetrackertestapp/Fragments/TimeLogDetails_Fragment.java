@@ -206,7 +206,7 @@ public class TimeLogDetails_Fragment extends Fragment {
 				//if starttime is less than endtime 
 				if(lg1 < lg2){
 					updateTimelog(newStartTime, newEndTime);
-					Toast.makeText(getActivity(), "Time was updated sucessfully!!", Toast.LENGTH_LONG).show();
+					Toast.makeText(getActivity(), "Timelog was updated successfully!", Toast.LENGTH_LONG).show();
 					RefreshCompaniesList(lv, adapter);
 					//getActivity().finish();
 				}

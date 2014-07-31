@@ -467,14 +467,6 @@ public class Companies_Fragment extends ListFragment {
 	    @Override
 		public void onPause(){
 	    	super.onPause();
-			//Mainview = getListView();
-			 
-//			if(tv != null){
-//				//tv.setVisibility(View.INVISIBLE);
-//				tv.setVisibility(View.GONE);
-//				((RelativeLayout)Mainview).removeView((View)tv);
-//				
-//			}
 	    }
 
 	    @Override
@@ -574,50 +566,7 @@ public class Companies_Fragment extends ListFragment {
 			   //launch the Company activity to add a new company
    		    	Intent CompanyScreen = new Intent(getActivity(), CompanyActivity.class);
    		    	startActivity(CompanyScreen);
-			   
-//				 // Need to check if Activity has been switched to landscape mode
-//			    // If yes, finished and go back to the start Activity
-//			    if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-//			    	//mListener.onItemSelected(String.valueOf(0));
-//			    	
-//			    	//creates an empty fragment to add a new company
-//		        	  Company_Fragment CF = new Company_Fragment(); // new company fragment
-//		        	  FragmentTransaction transaction = getFragmentManager().beginTransaction();
-//
-//
-//			         //Begin fragment transaction to show the new fragment and replace the old one 
-//		        	 transaction.setCustomAnimations(R.anim.slide_left, R.anim.slide_right);
-//		        	 transaction.replace(R.id.fragment_container, CF);
-//				     
-//		        	 transaction.commit();
-//			    	
-//			    	
-//			      //return;
-//			    }//checking for the Orientation must be before defining the content view
-//			    else{
-//			    	Intent CompanyScreen = new Intent(getActivity(), CompanyActivity.class);
-//			    	startActivity(CompanyScreen);
-//			   
-//			    }
-			   
-			   //search text box on the action bar
-//		   case R.id.action_search:
-//				LayoutInflater inflator = (LayoutInflater) this .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-//			   View v = inflator.inflate(R.layout.search_custom, null);
-//		   
-//			   //Toast.makeText(this, "Search was selected", Toast.LENGTH_LONG).show();
-//			  // actionBar.getThemedContext();
-//			   //actionBar.
-//			   actionBar.setCustomView(v);
-//			   
-//			  // actionBar.hide();
-	//	
-//				/** Get the edit text from the action view */
-//			   TextView txtSearch = (TextView) v.findViewById(R.id.editText1);
-//			   //txtSearch.setBackgroundColor(Color.WHITE);
-//			   txtSearch.setTextColor(Color.WHITE);
-//		   break;
-		    	  
+			       	  
 		   }
 		   return super.onOptionsItemSelected(item);
 		 }

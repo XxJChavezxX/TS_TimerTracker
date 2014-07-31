@@ -10,6 +10,7 @@ import java.util.List;
 
 
 
+
 import com.tricellsoftware.timetrackertestapp.DTOs.TimeLogDTO;
 import com.tricellsoftware.timetrackertestapp.businessLogic.BusinessLogic;
 import com.tricellsoftware.timetrackertestapp.database.CompanyTable;
@@ -35,16 +36,19 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.ListFragment;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 
 public class TimeLogs_Fragment extends ListFragment {
 	//ArrayAdapter<TimeLogDTO> adapter;
@@ -136,6 +140,7 @@ public class TimeLogs_Fragment extends ListFragment {
 		    
 		    registerForContextMenu(getListView());
 		    
+
 //		   
 			/**check for shared preferences, 
 			 * We passed the Timelog id from the EditTimelog Activity class and we retrieve by using the getSharedPreferences
@@ -267,16 +272,109 @@ public class TimeLogs_Fragment extends ListFragment {
 				//timelogs = logic.getAllTimeLogsByWeek(StartDate, EndDate);
 
 			
-			adapter = new CustomArrayAdapter(context, R.layout.timelog_customlist_fragment, timelogs);
-			adapter.notifyDataSetChanged();
-			
+			adapter = new CustomArrayAdapter(getActivity(), R.layout.timelog_customlist_fragment, timelogs);
 		    setListAdapter(adapter);
+		    adapter.notifyDataSetChanged();
 		    
 		    
 		    
 		    //reset id
 		   // _id = 0;
 		}
+//		@Override
+//		public void onCreateContextMenu(ContextMenu menu, View v,
+//	    		   ContextMenuInfo menuInfo) {
+//	    		   MenuInflater inflateLayout = getActivity().getMenuInflater();
+//	    		   inflateLayout.inflate(R.menu.context_menu, menu);
+//	    		   super.onCreateContextMenu(menu, v, menuInfo);
+//	    		   
+//	    } 
+//		 @Override
+//		public boolean onContextItemSelected(MenuItem item) {
+//			//Gets the position on the Item selected
+//			AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
+//			if(timelogs != null){
+//				_id = timelogs.get((int) info.id).getID();
+//			}
+//			
+//		   switch (item.getItemId()) {
+//		   case R.id.delete:
+//			   try{
+//
+//				   logic.deleteTimeLogById(_id);
+//				   if(logic.Error != null){
+//					   if(logic.Error.contains("key constraint")){
+//						   Toast.makeText(getActivity(), "This record is being used somewhere else and cannot be deleted", Toast.LENGTH_LONG).show();
+//					   }
+//					   else
+//						   Toast.makeText(getActivity(), "Unexpected Error Occurred", Toast.LENGTH_LONG).show();
+//				   }
+//				   else{
+//					   Toast.makeText(getActivity(), "Record has been deleted successfully", Toast.LENGTH_LONG).show();
+//					  
+//				   }
+//				   GetTimeLogData();
+//			    	if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){// && newCF == null){
+//						
+//						FragmentTransaction ft = getFragmentManager().beginTransaction();
+//						//check of the framelayout is present on the Activity associated with this ListFragment
+//						if(getView().findViewById(R.id.fragment_timelog_container) != null){
+//							
+//						}// However, if we're being restored from a previous state,
+//			            // then we don't need to do anything and should return or else
+//			            // we could end up with overlapping fragments.
+//	//		            if (savedInstanceState != null) {
+//	//		                return;
+//	//		            }
+//			            //Creates Company Fragment to be held in the Activity layout using the FrameLayout
+//			            nr = new NoResults_Fragment();
+//			            // In case this activity was started with special instructions from an
+//			            // Intent, pass the Intent's extras to the fragment as arguments
+//			            //cf.setArguments(getActivity().getIntent().getExtras());
+//			
+//			            //Add the fragment to the 'fragment_container' FrameLayout
+//			            //ft.setCustomAnimations(R.anim.slide_left, R.anim.slide_right);
+//			            ft.replace(R.id.fragment_timelog_container, nr).commit();
+//					
+//					 }
+//			   }
+//			   catch(Exception e){
+//					   Toast.makeText(getActivity(), "Unexpected Error Occurred", Toast.LENGTH_LONG).show();
+//			   }
+//		    break;
+//		      case R.id.view:
+//		    	  
+//		  	    if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+//		  	    	
+//			  	      newTF = new TimeLogDetails_Fragment(); // new company fragment
+//		        	  Bundle args = new Bundle();
+//		        	  args.putInt(TimeLogTable.COLUMN_ID, _id);
+//		        	  args.putString("StartDate", StartDate);
+//		        	  args.putString("EndDate", EndDate);
+//		        	  newTF.setArguments(args);
+//		        	  FragmentTransaction transaction = getFragmentManager().beginTransaction();
+//	
+//	
+//			         //Begin fragment transaction to show the new fragment and replace the old one 
+//		        	 transaction.setCustomAnimations(R.anim.slide_left, R.anim.slide_right);
+//		        	 transaction.replace(R.id.fragment_timelog_container, newTF);
+//				     
+//		        	 transaction.commit();
+//		  	    }
+//		  	    else{
+////			  	    Intent i = new Intent(getActivity(), TimeLogActivity.class);
+////				    //mCallbacks.onItemSelected(DummyContent.ITEMS.get(position).id);
+////				    //Uri CompanyUri = Uri.parse(TimeTrackerContentProvider.Content_URI + "/" + id);
+////			    	  
+////				     i.putExtra(CompanyTable.COLUMN_ID, _id);
+////
+////				    startActivity(i);
+//		  	    }
+//	
+//		   }
+//		   return super.onContextItemSelected(item);
+//		 } 
+		
 		
 		
 		//create menu options for the action bar
@@ -373,8 +471,9 @@ public class TimeLogs_Fragment extends ListFragment {
 		    	  
 		   }
 		   return super.onOptionsItemSelected(item);
-		 } 
+		 }
 		
+	
 	    @Override
 		public void onStart(){
 	    	super.onStart();

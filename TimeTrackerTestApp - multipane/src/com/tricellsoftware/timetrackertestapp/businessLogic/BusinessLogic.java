@@ -415,6 +415,7 @@ public class BusinessLogic {
 			  values.put(TimeLogTable.COLUMN_START_TIME, timelog.getStartTime().toString());
 			  values.put(TimeLogTable.COLUMN_END_TIME, timelog.getEndTime().toString());
 			  values.put(TimeLogTable.COLUMN_MINUTES, timelog.getMinutes());
+			  values.put(TimeLogTable.COLUMN_FK_COMPANYID, timelog.getCompanyId());
 			  //values.put(TimeLogTable.COLUMN_FK_STATUSID, timelog.getStatusID());
 			  rowsupdated = db.update(TimeLogTable.TIMELOG_TABLE,
 						values,
@@ -476,7 +477,7 @@ public TimeLogDTO getTimeLogbyStatus(int statusID){
 		 Close();
 		 return timelog;
 	}
-	//deletes a company by id
+	//deletes a timelog by id
 	public void deleteTimeLogById(int id){
 		Open();
 		try{
@@ -486,6 +487,7 @@ public TimeLogDTO getTimeLogbyStatus(int statusID){
 		}
 		catch(SQLiteException sql){
 			 System.err.println("Caught SQLiteException: " + sql.getMessage());
+			 Error = sql.getMessage();
 		}
 		
 		  Close();
