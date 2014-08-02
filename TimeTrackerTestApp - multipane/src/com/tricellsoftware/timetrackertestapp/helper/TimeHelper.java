@@ -54,6 +54,30 @@ public class TimeHelper {
 		return String.valueOf(minutes); //String.format("%01d:%02d", hours, minutes);//String.valueOf(hours) +":"+ String.valueOf(minutes);
 		
 	}
+	public static String getTimeDiffInSecs(String startTime, String endTime) throws ParseException{
+		
+		Date StartDateTime = new SimpleDateFormat(TimeFormat,Locale.US).parse(startTime);
+		Date EndDateTime = new SimpleDateFormat(TimeFormat,Locale.US).parse(endTime);
+		
+		if(StartDateTime.getTime() > EndDateTime.getTime()){
+			diff = StartDateTime.getTime() - EndDateTime.getTime();
+		}
+		else
+			diff = EndDateTime.getTime() - StartDateTime.getTime();	
+//		long diffSeconds = diff / 1000 % 60;
+//		long diffMinutes = diff / (60* 1000) % 60;
+//		long diffHours = diff / (60 * 60 * 1000);
+		
+		long seconds = TimeUnit.MILLISECONDS.toSeconds(diff);
+		long minutes = TimeUnit.SECONDS.toMinutes(seconds);
+		long hours = TimeUnit.MINUTES.toHours(minutes);
+		//date = new Date(hours);
+		//if(minutes >= 60)
+			//minutes = 0;
+		//return tf.format(date);
+		return String.valueOf(seconds); //String.format("%01d:%02d", hours, minutes);//String.valueOf(hours) +":"+ String.valueOf(minutes);
+		
+	}
 	public static String displayHoursandMinutes(String Minutes){
 		
 		if(Minutes == null){

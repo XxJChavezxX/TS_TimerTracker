@@ -255,10 +255,11 @@ public class Clocks_Fragment extends Fragment {
 
 	  				
 	  				try {
-	  					int mins = Integer.valueOf(TimeHelper.getTimeDiffInMinutes(timelog.getStartTime(), TimeHelper.getTime()));
-	  					int minsleft = 5 - mins;
-	  					if(mins < 1){ //if mins is less than 5 when user tries to clock out it won't update the timelog, avoiding unnecessary timelog creation
-	  						Toast.makeText(getActivity(), "Please allow 1 minute after Clocking In to Clock Out (" + String.valueOf(minsleft) +" minutes left)", Toast.LENGTH_LONG).show();
+	  					int min = Integer.valueOf(TimeHelper.getTimeDiffInMinutes(timelog.getStartTime(), TimeHelper.getTime()));
+	  					//int secsleft = 60 - secs;
+	  					if(min < 1){ //if mins is less than 5 when user tries to clock out it won't update the timelog, avoiding unnecessary timelog creation
+	  						Toast.makeText(getActivity(), "Please allow 1 minute after Clocking In to Clock Out", Toast.LENGTH_LONG).show();
+	  						//Toast.makeText(getActivity(), "Please allow 1 minute after Clocking In to Clock Out (" + String.valueOf(secsleft) +" minutes left)", Toast.LENGTH_LONG).show();
 	  					}
 	  					else{
 	  						clockedtv.setVisibility(View.GONE);

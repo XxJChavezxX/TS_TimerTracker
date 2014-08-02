@@ -55,7 +55,7 @@ public class MainTabActivity extends Activity implements ActionBar.TabListener, 
 		// Set up the action bar.
 		final ActionBar actionBar = getActionBar();
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-		actionBar.setTitle("TS Time Tracker");
+		actionBar.setTitle("Home");
 		
   		//business logic
   		logic = new BusinessLogic(this);

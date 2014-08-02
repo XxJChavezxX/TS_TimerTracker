@@ -382,6 +382,14 @@ public class TimeLogs_Fragment extends ListFragment {
 		public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 	    		   MenuInflater inflateLayout = getActivity().getMenuInflater();
 	    		   inflateLayout.inflate(R.menu.timelog_menu, menu);
+	    		   
+//	    		   if(land == false){
+//	    			   MenuItem item = menu.findItem(R.id.action_delete);
+//	    			   if(item != null){
+//	    				   item.setVisible(false);
+//	    			   }
+//	    		   }
+//	    		   
 	    		  super.onCreateOptionsMenu(menu, inflateLayout);
 	    } 
 		@Override

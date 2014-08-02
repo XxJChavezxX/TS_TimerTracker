@@ -19,7 +19,7 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:fontFamily="@style/font_family"
-        android:text="Time Tracker"
+        android:text="@string/app_name"
         android:textSize="@dimen/font_title_size" />
 
     <ImageView

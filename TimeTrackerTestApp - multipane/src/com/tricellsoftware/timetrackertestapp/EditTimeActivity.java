@@ -360,7 +360,7 @@ public class EditTimeActivity extends Activity {
 	private void validateTimes()
 	{
 		
-		if(timelog.getStartTime().equals(newStartTime) && timelog.getEndTime().equals(newEndTime) && timelog.getID() == _id){
+		if(timelog.getStartTime().equals(newStartTime) && timelog.getEndTime().equals(newEndTime) && timelog.getCompanyId() == _id){
 			//Toast.makeText(this, "Times were not updated because no change was made", Toast.LENGTH_LONG).show();
 			finish();
 		}

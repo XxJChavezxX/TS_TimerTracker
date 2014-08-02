@@ -14,21 +14,33 @@ import com.tricellsoftware.timetrackertestapp.helper.TimeHelper;
 import com.tricellsoftware.timetrackertestapp.EditTimeActivity;
 import com.tricellsoftware.timetrackertestapp.R;
 
+import android.R.menu;
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
+import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.app.TimePickerDialog.OnTimeSetListener;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -38,10 +50,15 @@ public class TimeLogDetails_Fragment extends Fragment {
 	
 	private BusinessLogic logic;
 	private TimeLogDTO timelog;
+	List<CompanyDTO> companies; //will hold the list of companies for spinner
+	List<String> CompNames;
 	
 	private int id;
 	String StartDate;
 	String EndDate;
+	
+	static String FStartDate;
+	static String FEndDate;
 	
 	private TimePicker StartPicker;
 	private TimePicker EndPicker;
@@ -53,6 +70,7 @@ public class TimeLogDetails_Fragment extends Fragment {
 	
 	String newStartTime;
 	String newEndTime;
+	private int compId;
 	
 	//action bar
     ActionBar actionBar;
@@ -71,6 +89,12 @@ public class TimeLogDetails_Fragment extends Fragment {
 	ListView lv;
 	Bundle activityextras;
 	
+    private Spinner CompSpinner;
+    private Button StartEditBtn;
+    private Button EndEditBtn;
+    private EditText Starttxt;
+    private EditText Endtxt;
+	
 	boolean land; //landscape
 	boolean sharedPrefFound; 
 	
@@ -80,6 +104,7 @@ public class TimeLogDetails_Fragment extends Fragment {
 	     
 	  
 	  // context = getActivity();
+	  	setHasOptionsMenu(true);
 	
 	     //init Business logic
 		logic = new BusinessLogic(getActivity());
@@ -94,9 +119,6 @@ public class TimeLogDetails_Fragment extends Fragment {
 //		pd = new ProgressDialog(getActivity());
 		//pd.show();
 		//pd.setMessage("Loading..");
-
-
-		
 	 }
 	
 	  @Override
@@ -118,72 +140,304 @@ public class TimeLogDetails_Fragment extends Fragment {
 	public void onActivityCreated(Bundle savedInstanceState) {
 		    super.onActivityCreated(savedInstanceState);
 		    
-		    activityextras = getActivity().getIntent().getExtras();
-		    
-		    if(land){
-			   
-				Bundle extras = getArguments(); 
-			    
-				if(extras != null){
-					id = getArguments().getInt(TimeLogTable.COLUMN_ID);
-					StartDate = extras.getString("StartDate");
-					EndDate = extras.getString("EndDate");
-	
+		    try{
 		    	
-				//business logic
-				
-				timelog = logic.getTimeLogByID(String.valueOf(id));
-				//get user by id 1
-				StartPicker = (TimePicker) getActivity().findViewById(R.id.StartTimePicker);
-				EndPicker = (TimePicker) getActivity().findViewById(R.id.EndTimePicker);
-				
-	//			tvDate = (TextView) findViewById(R.id.dateview);
-	//			tvDate.setText("Main Date: " + timelog.getDate());
-				
-				clockintv = (TextView) getActivity().findViewById(R.id.clockintv);
-				clockintv.setText("Clock In Date: " + timelog.getStartTime().substring(0,10));
-				clockouttv = (TextView) getActivity().findViewById(R.id.clockouttv);
-				clockouttv.setText("Clock Out Date: " + timelog.getEndTime().substring(0,10));
-				
-				//Set hours and minutes to the date picker
-				Calendar c = TimeHelper.setCalendar(timelog.getStartTime());
-				c.getTime();
-				StartPicker.setCurrentHour(c.get(Calendar.HOUR_OF_DAY)); // sets hour with am or pm time
-				StartPicker.setCurrentMinute(c.get(Calendar.MINUTE));
-				Calendar cl = TimeHelper.setCalendar(timelog.getEndTime());
-				cl.getTime();
-				EndPicker.setCurrentHour(cl.get(Calendar.HOUR_OF_DAY));// sets hour with am or pm time
-				EndPicker.setCurrentMinute(cl.get(Calendar.MINUTE));
-				//String srt = StartPicker.getCurrentHour().toString();
-				
-				//look for the list view realted to the Activity on the timelogs_fragment
-		    	lv = (ListView)getActivity().findViewById(android.R.id.list);
-				//StartPicker.set/
-				
-				Button SaveBttn = (Button) getActivity().findViewById(R.id.checkbttn);
-				
-				//pd.hide();
-				
-				//Listening to the button event
-				SaveBttn.setOnClickListener(new View.OnClickListener(){
-							
-					@Override
-					public void onClick(View view){
-								
-						newStartTime = TimeHelper.getTimeFromTimePicker(StartPicker, timelog.getStartTime()); //Get the starttime from timepicker
-						newEndTime = TimeHelper.getTimeFromTimePicker(EndPicker, timelog.getEndTime()); //Get the endtime from timepicker
+			    activityextras = getActivity().getIntent().getExtras();
+			    
+			    if(land){
+				   
+					Bundle extras = getArguments(); 
+				    
+					if(extras != null){
+						id = getArguments().getInt(TimeLogTable.COLUMN_ID);
+						StartDate = extras.getString("StartDate");
+						EndDate = extras.getString("EndDate");
+		
+			    	
+					//business logic
+					
+					timelog = logic.getTimeLogByID(String.valueOf(id));
+					
+					companies = logic.getAllCompanies();
+					//get user by id 1
+					StartPicker = (TimePicker) getActivity().findViewById(R.id.StartTimePicker);
+					EndPicker = (TimePicker) getActivity().findViewById(R.id.EndTimePicker);
+					
+					//Initialize buttons
+					StartEditBtn = (Button) getActivity().findViewById(R.id.starteditbttn);
+					EndEditBtn = (Button) getActivity().findViewById(R.id.endeditbttn);
+					
+					//Init Edit Texts
+					Starttxt = (EditText) getActivity().findViewById(R.id.startEditText);
+					Endtxt = (EditText) getActivity().findViewById(R.id.endEditText);
+					
+					/** Spinner set up **/
+					CompSpinner = (Spinner) getActivity().findViewById(R.id.compspinner);
+					
+		//			tvDate = (TextView) findViewById(R.id.dateview);
+		//			tvDate.setText("Main Date: " + timelog.getDate());
+					
+					clockintv = (TextView) getActivity().findViewById(R.id.clockintv);
+					clockintv.setText("Clock In Date: " + timelog.getStartTime().substring(0,10));
+					clockouttv = (TextView) getActivity().findViewById(R.id.clockouttv);
+					clockouttv.setText("Clock Out Date: " + timelog.getEndTime().substring(0,10));
+					
+					if(timelog != null){
+	
+						Starttxt.setText(timelog.getStartTime().substring(11));
+	
+						Endtxt.setText(timelog.getEndTime().substring(11));
 						
-						validateTimes();        
-								
 					}
-				});
-			
-				}
-		    }
-		    else{
-		    	 
-		    }
+					
+	//				//Set hours and minutes to the date picker
+	//				Calendar c = TimeHelper.setCalendar(timelog.getStartTime());
+	//				c.getTime();
+	//				StartPicker.setCurrentHour(c.get(Calendar.HOUR_OF_DAY)); // sets hour with am or pm time
+	//				StartPicker.setCurrentMinute(c.get(Calendar.MINUTE));
+	//				Calendar cl = TimeHelper.setCalendar(timelog.getEndTime());
+	//				cl.getTime();
+	//				EndPicker.setCurrentHour(cl.get(Calendar.HOUR_OF_DAY));// sets hour with am or pm time
+	//				EndPicker.setCurrentMinute(cl.get(Calendar.MINUTE));
+	//				//String srt = StartPicker.getCurrentHour().toString();
+					
+					//look for the list view realted to the Activity on the timelogs_fragment
+			    	lv = (ListView)getActivity().findViewById(android.R.id.list);
+					//StartPicker.set/
+					//Initialize buttons
+					StartEditBtn = (Button) getActivity().findViewById(R.id.starteditbttn);
+					EndEditBtn = (Button) getActivity().findViewById(R.id.endeditbttn);
+					
+					//Init Edit Texts
+					Starttxt = (EditText) getActivity().findViewById(R.id.startEditText);
+					Endtxt = (EditText) getActivity().findViewById(R.id.endEditText);
+					
+			    	/** Spinner set up **/
+					CompSpinner = (Spinner) getActivity().findViewById(R.id.compspinner);
+					
+					// Create an ArrayAdapter using the string array and a default spinner layout
+					ArrayAdapter<CompanyDTO> adapter = new ArrayAdapter<CompanyDTO>(getActivity(), android.R.layout.simple_spinner_item, companies);
+					// Apply the adapter to the spinner
+					CompSpinner.setAdapter(adapter);
+					int index = 0;
+					for(int i = 0; i < companies.size(); i++){
+						String compname = adapter.getItem(i).toString();
+						String dtoCompName = logic.getCompanyById(timelog.getCompanyId()).getName();
+						if(compname.equals(dtoCompName)){
+							index = i;
+							break;
+						}
+					}
+					CompSpinner.setSelection(index);
+					/*** End of Spinner***/
+					
+					Button SaveBttn = (Button) getActivity().findViewById(R.id.checkbttn);
+					//pd.hide();
+					
+					//Listening to the button event
+					SaveBttn.setOnClickListener(new View.OnClickListener(){
+								
+						@Override
+						public void onClick(View view){
+									
+							newStartTime = (FStartDate == null || FStartDate.equals("")) ? timelog.getStartTime() : FStartDate; //Get the starttime from timepicker
+							newEndTime = (FEndDate == null || FEndDate.equals("")) ? timelog.getEndTime() : FEndDate; //Get the endtime from timepicker
+							
+							FStartDate = "";
+							FEndDate ="";
+							
+							validateTimes();        
+									
+						}
+					});
+					//Listening to the spinner
+					CompSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
+	
+						@Override
+						public void onItemSelected(AdapterView<?> parent, View view,
+								int position, long id) {
+							// TODO Auto-generated method stub
+							compId = companies.get(position).getID();
+							
+							//Toast.makeText(getApplicationContext(), "CompanyId: " + String.valueOf(companyId), Toast.LENGTH_LONG).show();
+						}
+	
+						@Override
+						public void onNothingSelected(AdapterView<?> parent) {
+							// TODO Auto-generated method stub
+							
+						}
+						
+						
+					});
+					
+					//Listening to the Start Edit button
+					StartEditBtn.setOnClickListener(new View.OnClickListener() {
+						
+						@Override
+						public void onClick(View v) {
+							// TODO Auto-generated method stub		
+							//Set hours and minutes to the date picker
+							Calendar c;
+							if(FStartDate == null || FStartDate.equals("")){
+								c = TimeHelper.setCalendar(timelog.getStartTime());
+							}
+							else
+								c = TimeHelper.setCalendar(FStartDate);
+							c.getTime();
+							int hour = c.get(Calendar.HOUR_OF_DAY);
+							int minutes = c.get(Calendar.MINUTE);
+							//Init Time Picker Dialog
+							TimePickerDialog tdp = new TimePickerDialog(getActivity(), new OnTimeSetListener() {
+								
+								@Override
+								public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+									// TODO Auto-generated method stub
+				
+									String date = timelog.getStartTime();
+									//substring is used to only display the hours
+									FStartDate = TimeHelper.getTimeFromTimePicker(view, date);
+									Starttxt.setText(FStartDate.substring(11));
+								}
+							}, hour, minutes, false);
+							tdp.show();
+							
+						}
+					});
+					//Listening to the End Edit button
+					EndEditBtn.setOnClickListener(new View.OnClickListener() {
+						
+						@Override
+						public void onClick(View v) {
+							// TODO Auto-generated method stub
+							//Set Calendar with current date
+							Calendar c;
+							if(FEndDate == null || FEndDate.equals("")){
+								c = TimeHelper.setCalendar(timelog.getEndTime());
+							}
+							else
+								c = TimeHelper.setCalendar(FEndDate);
+							c.getTime();
+							int hour = c.get(Calendar.HOUR_OF_DAY);
+							int minutes = c.get(Calendar.MINUTE);
+							//Init Time Picker Dialog
+							TimePickerDialog tdp = new TimePickerDialog(getActivity(), new OnTimeSetListener() {
+								
+								@Override
+								public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+									// TODO Auto-generated method stub
+	
+									String date = timelog.getEndTime();
+									FEndDate = TimeHelper.getTimeFromTimePicker(view, date);
+									Endtxt.setText(FEndDate.substring(11));
+								}
+							}, hour, minutes, false);
+							tdp.show();
+						}
+					});
+					
+				
+					}
+			    }
+			    else{
+			    	 
+			    }
+			}
+			catch(Exception e){
+				Toast.makeText(getActivity(), "Unexpcted Error..." + e.getMessage(), Toast.LENGTH_LONG).show();
+			}
 	  }
+	//create menu options for the action bar
+			@Override
+			public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+				if(land){
+					MenuInflater inflateLayout = getActivity().getMenuInflater();
+	    		    inflateLayout.inflate(R.menu.details_menu, menu);
+	    		    super.onCreateOptionsMenu(menu, inflateLayout);
+				}
+		    } 
+			@Override
+			public boolean onOptionsItemSelected(MenuItem item) {
+				//Gets the position on the Item selected
+				//AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
+				//_id = companies.get((int) info.id).getID();
+			   switch (item.getItemId()) {
+			   case R.id.action_settings:
+			    	  Toast.makeText(getActivity(), "Settings was selected", Toast.LENGTH_LONG).show();
+			   break;
+			   case R.id.action_delete:
+				   
+					// 1. Instantiate an AlertDialog.Builder with its constructor
+					AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+
+					// 2. Chain together various setter methods to set the dialog characteristics
+					builder.setMessage("Are you sure you want to delete this record?")
+					       .setTitle("Delete");
+
+					// 3. Get the AlertDialog from create()
+					
+					builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+			           @Override
+					public void onClick(DialogInterface dialog, int _id) {
+			        	   logic.deleteTimeLogById(id);
+			        	   if(logic.Error != null){
+							   if(logic.Error.contains("key constraint")){
+								   Toast.makeText(getActivity(), "This record is being used somewhere else and cannot be deleted", Toast.LENGTH_LONG).show();
+							   }
+							   else
+								   Toast.makeText(getActivity(), "Unexpected Error Occurred", Toast.LENGTH_LONG).show();
+						   }
+						   else{
+							   Toast.makeText(getActivity(), "Record has been deleted successfully", Toast.LENGTH_LONG).show();
+							  
+						   }
+			        	   RefreshCompaniesList(lv, adapter);
+			        	   
+			        	   //*********  Removes deleted timelog *********//
+							FragmentTransaction ft = getFragmentManager().beginTransaction();
+							//check of the framelayout is present on the Activity associated with this ListFragment
+							if(getView().findViewById(R.id.fragment_timelog_container) != null){
+								return;
+							}// However, if we're being restored from a previous state,
+				            // then we don't need to do anything and should return or else
+				            // we could end up with overlapping fragments.
+//				            if (savedInstanceState != null) {
+//				                return;
+//				            }
+				            //Creates Company Fragment to be held in the Activity layout using the FrameLayout
+				            NoResults_Fragment nr = new NoResults_Fragment();
+				            // In case this activity was started with special instructions from an
+				            // Intent, pass the Intent's extras to the fragment as arguments
+				            //cf.setArguments(getActivity().getIntent().getExtras());
+				
+				            //Add the fragment to the 'fragment_container' FrameLayout
+				            ft.setCustomAnimations(R.anim.slide_left, R.anim.slide_right);
+				            ft.replace(R.id.fragment_timelog_container, nr).commit();
+			           }
+			       });
+					builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+			           @Override
+					public void onClick(DialogInterface dialog, int id) {
+			               // User cancelled the dialog
+			        	   dialog.cancel();
+			           }
+			       });
+					
+					// Create the AlertDialog
+					AlertDialog dialog = builder.create();
+
+					// show it
+					dialog.show();
+
+					 //Toast.makeText(this, "Record has been deleted successfully", Toast.LENGTH_LONG).show();
+			   break;
+			    	  
+			   }
+			   return super.onOptionsItemSelected(item);
+			 } 
+	  
+	  
+	  
 	  @Override
 	    public void onAttach(Activity activity) {
 	        super.onAttach(activity);
@@ -196,7 +450,7 @@ public class TimeLogDetails_Fragment extends Fragment {
 	  
 		private void validateTimes(){
 			
-			if(timelog.getStartTime().equals(newStartTime) && timelog.getEndTime().equals(newEndTime)){
+			if(timelog.getStartTime().equals(newStartTime) && timelog.getEndTime().equals(newEndTime) && timelog.getCompanyId() == compId){
 				//Toast.makeText(this, "Times were not updated because no change was made", Toast.LENGTH_LONG).show();
 				//getActivity().finish();
 			}
@@ -227,6 +481,8 @@ public class TimeLogDetails_Fragment extends Fragment {
 			lv.setAdapter(adapter);
 		    
 		    adapter.notifyDataSetChanged();
+		    
+		    
 		}
 		private void updateTimelog(String startTime, String endTime){
 			/**updates starttime and end time**/
@@ -234,6 +490,7 @@ public class TimeLogDetails_Fragment extends Fragment {
 			
 			try {
 				timelog.setID(id);
+				timelog.setCompanyId(compId);
 				timelog.setStartTime(newStartTime);//saves the time format as string
 				timelog.setEndTime(newEndTime);
 				timelog.setMinutes(TimeHelper.getTimeDiffInMinutes(startTime, endTime));

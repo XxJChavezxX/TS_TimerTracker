@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">TS Time Tracker</string>
+    <string name="app_name">Timesheet - Time Tracker</string>
     <string name="action_settings">Profile Settings</string>
     <string name="hello_world">Hello world!</string>
     <string name="datetxt">Date Goes Here</string>
