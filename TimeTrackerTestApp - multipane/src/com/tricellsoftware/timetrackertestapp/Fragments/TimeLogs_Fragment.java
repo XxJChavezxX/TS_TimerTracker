@@ -389,7 +389,7 @@ public class TimeLogs_Fragment extends ListFragment {
 		  super.onListItemClick(l, v, position, id);
 
 		  if(timelogs.get(position).getEndTime().equals("--")){
-				Toast.makeText(getActivity(), "Please Clock Out before trying to modify the Times", Toast.LENGTH_LONG).show();
+				Toast.makeText(getActivity(), "Please Clock Out before trying to modify a Timelog", Toast.LENGTH_LONG).show();
 			}
 		   else{
 		  
