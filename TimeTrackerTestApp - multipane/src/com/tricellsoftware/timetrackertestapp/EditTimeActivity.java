@@ -535,6 +535,7 @@ public class EditTimeActivity extends Activity {
 		
 		try {
 			timelog.setID(id);
+			timelog.setDate(StartDatetxt.getText().toString());
 			timelog.setCompanyId(_id);
 			timelog.setStartTime(newStartTime);//saves the time format as string
 			timelog.setEndTime(newEndTime);
