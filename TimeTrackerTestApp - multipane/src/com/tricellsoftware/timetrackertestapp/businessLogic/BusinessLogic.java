@@ -412,7 +412,7 @@ public class BusinessLogic {
 		int rowsupdated = 0;
 		try{
 			ContentValues values = new ContentValues();
-			  //values.put(TimeLogTable.COLUMN_DATE, timelog.getDate().toString());
+			  values.put(TimeLogTable.COLUMN_DATE, timelog.getDate().toString());
 			  values.put(TimeLogTable.COLUMN_START_TIME, timelog.getStartTime().toString());
 			  values.put(TimeLogTable.COLUMN_END_TIME, timelog.getEndTime().toString());
 			  values.put(TimeLogTable.COLUMN_MINUTES, timelog.getMinutes());
