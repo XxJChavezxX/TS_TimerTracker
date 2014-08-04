@@ -382,14 +382,6 @@ public class TimeLogs_Fragment extends ListFragment {
 		public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 	    		   MenuInflater inflateLayout = getActivity().getMenuInflater();
 	    		   inflateLayout.inflate(R.menu.timelog_menu, menu);
-	    		   
-//	    		   if(land == false){
-//	    			   MenuItem item = menu.findItem(R.id.action_delete);
-//	    			   if(item != null){
-//	    				   item.setVisible(false);
-//	    			   }
-//	    		   }
-//	    		   
 	    		  super.onCreateOptionsMenu(menu, inflateLayout);
 	    } 
 		@Override
@@ -472,6 +464,14 @@ public class TimeLogs_Fragment extends ListFragment {
 				Intent i = new Intent(getActivity(), CalendarViewActivity.class);
 				i.putExtra("selectedDate", date);
 				startActivityForResult(i, 1);
+				
+				//_id = 0;
+				
+		   break;
+		   case R.id.AddNew:
+				  
+				Intent E = new Intent(getActivity(), EditTimeActivity.class);
+				startActivityForResult(E, 1);
 				
 				//_id = 0;
 				

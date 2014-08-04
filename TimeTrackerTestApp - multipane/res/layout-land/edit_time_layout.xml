@@ -20,27 +20,10 @@
             android:id="@+id/view1"
             android:layout_width="fill_parent"
             android:layout_height="5dp"
-            android:layout_alignBottom="@+id/clockintv"
+            android:layout_alignBottom="@+id/startdateedittxt"
             android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
+            android:layout_below="@+id/textView2"
             android:background="@color/lightgrey" />
-
-        <TextView
-            android:id="@+id/clockintv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:text="Start Time"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
-
-        <Button
-            android:id="@+id/starteditbttn"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_alignBottom="@+id/startEditText"
-            android:layout_toRightOf="@+id/startEditText"
-            android:background="@drawable/edit_btn" />
 
         <Spinner
             android:id="@+id/compspinner"
@@ -59,13 +42,57 @@
             android:text="Company"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:text="Start Date"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <EditText
+            android:id="@+id/startdateedittxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/textView2"
+            android:ems="10"
+            android:inputType="date" />
+
+        <Button
+            android:id="@+id/startdateeditbtn"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_alignBottom="@+id/view1"
+            android:layout_toRightOf="@+id/startdateedittxt"
+            android:background="@drawable/edit_btn" />
+
+        <Button
+            android:id="@+id/starteditbttn"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_alignBaseline="@+id/startEditText"
+            android:layout_alignBottom="@+id/startEditText"
+            android:layout_toLeftOf="@+id/startdateeditbtn"
+            android:background="@drawable/edit_btn" />
+
+        <TextView
+            android:id="@+id/TextView02"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/starteditbttn"
+            android:layout_alignParentLeft="true"
+            android:text="Start Time"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
         <EditText
             android:id="@+id/startEditText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
             android:layout_below="@+id/view1"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="24dp"
+            android:layout_toLeftOf="@+id/starteditbttn"
             android:layout_weight="1"
             android:ems="10"
             android:inputType="time" />
@@ -96,19 +123,10 @@
             android:id="@+id/View01"
             android:layout_width="fill_parent"
             android:layout_height="match_parent"
-            android:layout_alignBottom="@+id/clockouttv"
+            android:layout_alignBottom="@+id/enddateedittxt"
             android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
+            android:layout_below="@+id/TextView01"
             android:background="@color/lightgrey" />
-
-        <TextView
-            android:id="@+id/clockouttv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:text="End Time"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <Button
             android:id="@+id/checkbttn"
@@ -118,12 +136,30 @@
             android:layout_alignParentRight="true"
             android:background="@drawable/check_bttn" />
 
+        <TextView
+            android:id="@+id/TextView01"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:text="End Date"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
         <Button
             android:id="@+id/endeditbttn"
             android:layout_width="32dp"
             android:layout_height="32dp"
+            android:layout_alignBaseline="@+id/endEditText"
             android:layout_alignBottom="@+id/endEditText"
-            android:layout_toRightOf="@+id/endEditText"
+            android:layout_alignLeft="@+id/checkbttn"
+            android:background="@drawable/edit_btn" />
+
+        <Button
+            android:id="@+id/enddateeditbtn"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_above="@+id/endEditText"
+            android:layout_toRightOf="@+id/endeditbttn"
             android:background="@drawable/edit_btn" />
 
         <EditText
@@ -132,12 +168,31 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_below="@+id/View01"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="24dp"
+            android:layout_toLeftOf="@+id/endeditbttn"
             android:ems="10"
-            android:inputType="time" >
+            android:inputType="time" />
+
+        <EditText
+            android:id="@+id/enddateedittxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/TextView01"
+            android:ems="10"
+            android:inputType="date" >
 
             <requestFocus />
         </EditText>
+
+        <TextView
+            android:id="@+id/TextView03"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/endeditbttn"
+            android:layout_alignParentLeft="true"
+            android:text="End Time"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
 
     </RelativeLayout>
 

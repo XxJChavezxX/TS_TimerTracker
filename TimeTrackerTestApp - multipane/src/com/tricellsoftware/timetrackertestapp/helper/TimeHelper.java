@@ -97,6 +97,7 @@ public class TimeHelper {
 		date = Calendar.getInstance().getTime();
 		return df.format(date);
 		
+		
 	}
 	public static int getWeekOfYear(){
 		
@@ -210,7 +211,7 @@ public class TimeHelper {
 		
 		return new DecimalFormat("#.##").format(time * rate);
 	}
-public static ArrayList<String> spamSevenDatesByStartDate(String Date){
+	public static ArrayList<String> spamSevenDatesByStartDate(String Date){
 		
 		//get calendar set to current date and Time
 		Calendar cal = Calendar.getInstance();
@@ -252,6 +253,20 @@ public static ArrayList<String> spamSevenDatesByStartDate(String Date){
 		//String[] Dates = {df2.format(StartDate), df2.format(EndDate)};
 		
 		return Dates;
+	}
+	public static String formatDate(String Date){
+		DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+		Date formattedDate = null;
+		try {
+			formattedDate = df.parse(Date);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		String date = df.format(formattedDate);
+		
+		return date;
+		
 	}
 	public static String getTimeFromTimePicker(TimePicker tp, String Date){
 		

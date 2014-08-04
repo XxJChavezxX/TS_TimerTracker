@@ -160,8 +160,8 @@ public class TimeLogDetails_Fragment extends Fragment {
 					
 					companies = logic.getAllCompanies();
 					//get user by id 1
-					StartPicker = (TimePicker) getActivity().findViewById(R.id.StartTimePicker);
-					EndPicker = (TimePicker) getActivity().findViewById(R.id.EndTimePicker);
+//					StartPicker = (TimePicker) getActivity().findViewById(R.id.StartTimePicker);
+//					EndPicker = (TimePicker) getActivity().findViewById(R.id.EndTimePicker);
 					
 					//Initialize buttons
 					StartEditBtn = (Button) getActivity().findViewById(R.id.starteditbttn);

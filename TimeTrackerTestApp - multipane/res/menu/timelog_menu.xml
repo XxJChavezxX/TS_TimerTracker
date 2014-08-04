@@ -4,5 +4,10 @@
         android:icon="@drawable/calendar_icon"
         android:title="Search by Date"
         android:showAsAction="ifRoom"></item>
+        <item android:id="@+id/AddNew" 
+          android:title="Add New"
+          android:icon="@drawable/ic_action_new"
+          android:showAsAction="always"
+         ></item>
  
 </menu>

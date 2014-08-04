@@ -367,6 +367,7 @@ public class BusinessLogic {
 			  values.put(TimeLogTable.COLUMN_FK_PROFILEID, timelog.getProfileID());
 			  values.put(TimeLogTable.COLUMN_FK_STATUSID, timelog.getStatusID());
 			  values.put(TimeLogTable.COLUMN_FK_COMPANYID, timelog.getCompanyId());
+			  values.put(TimeLogTable.COLUMN_MINUTES, timelog.getMinutes());
 			  db.insert(TimeLogTable.TIMELOG_TABLE, null, values);
 		  }
 		  catch(SQLiteException sql){
