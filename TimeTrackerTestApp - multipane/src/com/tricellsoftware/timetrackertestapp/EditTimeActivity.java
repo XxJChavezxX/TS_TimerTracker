@@ -425,6 +425,7 @@ public class EditTimeActivity extends Activity {
 	                			EndDatetxt.setText(date);
 
 	                			StartDate = date + " " + Starttxt.getText().toString();
+	                			EndDate = EndDatetxt.getText().toString()  + " " + Endtxt.getText().toString();
 	                			
 	                			
 	                        }
@@ -458,6 +459,7 @@ public class EditTimeActivity extends Activity {
 	                			EndDatetxt.setText(date);
 	                			
 	                			EndDate = date + " " + Endtxt.getText().toString();
+	                			StartDate = StartDatetxt.getText().toString() + " " + Starttxt.getText().toString();
 	                        }
 	                    }, mYear, mMonth, mDay);
 	            dpd.show();

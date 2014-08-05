@@ -468,8 +468,8 @@ public class TimeLogDetails_Fragment extends Fragment {
 					                        	StartDatetxt.setText(date);
 					                			EndDatetxt.setText(date);
 
-					                			StartDate = date + " " + Starttxt.getText().toString();
-					                			
+					                			FStartDate = date + " " + Starttxt.getText().toString();
+					                			FEndDate = EndDatetxt.getText().toString()  + " " + Endtxt.getText().toString();
 					                			
 					                        }
 					                    }, mYear, mMonth, mDay);
@@ -501,7 +501,8 @@ public class TimeLogDetails_Fragment extends Fragment {
 					                        	date = TimeHelper.formatDate(date);
 					                			EndDatetxt.setText(date);
 					                			
-					                			EndDate = date + " " + Endtxt.getText().toString();
+					                			FEndDate = date + " " + Endtxt.getText().toString();
+					                			FStartDate = StartDatetxt.getText().toString() + " " + Starttxt.getText().toString();
 					                        }
 					                    }, mYear, mMonth, mDay);
 					            dpd.show();
@@ -633,6 +634,7 @@ public class TimeLogDetails_Fragment extends Fragment {
 				if(timelog.getStartTime().equals(newStartTime) && timelog.getEndTime().equals(newEndTime) && timelog.getCompanyId() == compId){
 					//Toast.makeText(this, "Times were not updated because no change was made", Toast.LENGTH_LONG).show();
 					//getActivity().finish();
+					
 				}
 				else{
 					long lg1 = TimeHelper.getLongFromHour(newStartTime);
@@ -642,6 +644,7 @@ public class TimeLogDetails_Fragment extends Fragment {
 						updateTimelog(newStartTime, newEndTime);
 						Toast.makeText(getActivity(), "Timelog was updated successfully!", Toast.LENGTH_LONG).show();
 						RefreshCompaniesList(lv, adapter);
+						//getActivity().recreate();
 						//getActivity().finish();
 					}
 					else
