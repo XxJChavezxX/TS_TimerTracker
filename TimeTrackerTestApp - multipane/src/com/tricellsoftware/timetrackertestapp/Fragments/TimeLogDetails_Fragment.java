@@ -5,6 +5,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import com.tricellsoftware.timetrackertestapp.DTOs.CompanyDTO;
+import com.tricellsoftware.timetrackertestapp.DTOs.Status_Enum;
 import com.tricellsoftware.timetrackertestapp.DTOs.TimeLogDTO;
 import com.tricellsoftware.timetrackertestapp.businessLogic.BusinessLogic;
 import com.tricellsoftware.timetrackertestapp.database.CompanyTable;
@@ -18,6 +19,7 @@ import android.R.menu;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
@@ -38,6 +40,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
@@ -65,6 +68,7 @@ public class TimeLogDetails_Fragment extends Fragment {
 	//private TextView tvDate;
 	private TextView clockintv;
 	private TextView clockouttv;
+	int profileId = 1;
 	
 	static String TimeFormat	=	"MM/dd/yyyy hh:mm a"; //time format
 	
@@ -88,12 +92,21 @@ public class TimeLogDetails_Fragment extends Fragment {
 	List<TimeLogDTO> timelogs;
 	ListView lv;
 	Bundle activityextras;
-	
+	private TextView totalHourstv;
+	//Time layout items
     private Spinner CompSpinner;
     private Button StartEditBtn;
     private Button EndEditBtn;
     private EditText Starttxt;
     private EditText Endtxt;
+    //Date layout items
+    private EditText StartDatetxt;
+    private EditText EndDatetxt;
+    private Button StartDateEditBtn;
+    private Button EndDateEditBtn;
+    
+    String StartDateTime;
+	String EndDateTime;
 	
 	boolean land; //landscape
 	boolean sharedPrefFound; 
@@ -159,6 +172,8 @@ public class TimeLogDetails_Fragment extends Fragment {
 					timelog = logic.getTimeLogByID(String.valueOf(id));
 					
 					companies = logic.getAllCompanies();
+					
+					totalHourstv = (TextView) getView().findViewById(R.id.totalHourstxt);
 					//get user by id 1
 //					StartPicker = (TimePicker) getActivity().findViewById(R.id.StartTimePicker);
 //					EndPicker = (TimePicker) getActivity().findViewById(R.id.EndTimePicker);
@@ -177,10 +192,10 @@ public class TimeLogDetails_Fragment extends Fragment {
 		//			tvDate = (TextView) findViewById(R.id.dateview);
 		//			tvDate.setText("Main Date: " + timelog.getDate());
 					
-					clockintv = (TextView) getActivity().findViewById(R.id.clockintv);
-					clockintv.setText("Clock In Date: " + timelog.getStartTime().substring(0,10));
-					clockouttv = (TextView) getActivity().findViewById(R.id.clockouttv);
-					clockouttv.setText("Clock Out Date: " + timelog.getEndTime().substring(0,10));
+//					clockintv = (TextView) getActivity().findViewById(R.id.clockintv);
+//					clockintv.setText("Clock In Date: " + timelog.getStartTime().substring(0,10));
+//					clockouttv = (TextView) getActivity().findViewById(R.id.clockouttv);
+//					clockouttv.setText("Clock Out Date: " + timelog.getEndTime().substring(0,10));
 					
 					if(timelog != null){
 	
@@ -212,6 +227,11 @@ public class TimeLogDetails_Fragment extends Fragment {
 					Starttxt = (EditText) getActivity().findViewById(R.id.startEditText);
 					Endtxt = (EditText) getActivity().findViewById(R.id.endEditText);
 					
+					StartDatetxt = (EditText) getActivity().findViewById(R.id.startdateedittxt);
+					EndDatetxt = (EditText) getActivity().findViewById(R.id.enddateedittxt);
+					StartDateEditBtn = (Button) getActivity().findViewById(R.id.startdateeditbtn);
+					EndDateEditBtn = (Button) getActivity().findViewById(R.id.enddateeditbtn);
+					
 			    	/** Spinner set up **/
 					CompSpinner = (Spinner) getActivity().findViewById(R.id.compspinner);
 					
@@ -229,9 +249,54 @@ public class TimeLogDetails_Fragment extends Fragment {
 						}
 					}
 					CompSpinner.setSelection(index);
+					
 					/*** End of Spinner***/
 					
 					Button SaveBttn = (Button) getActivity().findViewById(R.id.checkbttn);
+					
+					
+					if(timelog != null){
+						
+//						tvDate = (TextView) findViewById(R.id.dateview);
+//						tvDate.setText("Main Date: " + timelog.getDate());
+						
+//						clockintv = (TextView) findViewById(R.id.clockintv);
+//						clockintv.setText("Clock In Date: " + timelog.getStartTime().substring(0,10));
+//						clockouttv = (TextView) findViewById(R.id.clockouttv);
+//						clockouttv.setText("Clock Out Date: " + timelog.getEndTime().substring(0,10));
+						StartDatetxt.setText(timelog.getStartTime().substring(0,10));
+						EndDatetxt.setText(timelog.getEndTime().substring(0,10));
+						
+
+						Starttxt.setText(timelog.getStartTime().substring(11));
+						Endtxt.setText(timelog.getEndTime().substring(11));
+						
+						totalHourstv.setText("Total Time: " + TimeHelper.displayHoursandMinutes(timelog.getMinutes()));
+						
+						//String srt = StartPicker.getCurrentHour().toString();
+						
+//							//Set hours and minutes to the date picker
+//							Calendar c = TimeHelper.setCalendar(timelog.getStartTime());
+//							c.getTime();
+//							StartPicker.setCurrentHour(c.get(Calendar.HOUR_OF_DAY)); // sets hour with am or pm time
+//							StartPicker.setCurrentMinute(c.get(Calendar.MINUTE));
+//							Calendar cl = TimeHelper.setCalendar(timelog.getEndTime());
+//							cl.getTime();
+//							EndPicker.setCurrentHour(cl.get(Calendar.HOUR_OF_DAY));// sets hour with am or pm time
+//							EndPicker.setCurrentMinute(cl.get(Calendar.MINUTE));
+//							//String srt = StartPicker.getCurrentHour().toString();
+						}
+						else{
+							
+							Starttxt.setText(TimeHelper.getTime().substring(11));
+							Endtxt.setText(TimeHelper.getTime().substring(11));
+							
+							StartDatetxt.setText(TimeHelper.getDate());
+							EndDatetxt.setText(TimeHelper.getDate());
+							
+							totalHourstv.setText("Total Time: N/A");
+						}
+					
 					//pd.hide();
 					
 					//Listening to the button event
@@ -239,15 +304,24 @@ public class TimeLogDetails_Fragment extends Fragment {
 								
 						@Override
 						public void onClick(View view){
-									
-							newStartTime = (FStartDate == null || FStartDate.equals("")) ? timelog.getStartTime() : FStartDate; //Get the starttime from timepicker
-							newEndTime = (FEndDate == null || FEndDate.equals("")) ? timelog.getEndTime() : FEndDate; //Get the endtime from timepicker
-							
-							FStartDate = "";
-							FEndDate ="";
-							
-							validateTimes();        
-									
+								
+							if(timelog != null){
+								newStartTime = (FStartDate == null || FStartDate.equals("")) ? timelog.getStartTime() : FStartDate; //Get the starttime from timepicker
+								newEndTime = (FEndDate == null || FEndDate.equals("")) ? timelog.getEndTime() : FEndDate; //Get the endtime from timepicker
+								
+								FStartDate = "";
+								FEndDate ="";
+								
+								validateTimes();    
+							}
+							long longDate1 = TimeHelper.getLongFromDate(StartDatetxt.getText().toString());
+							long longDate2 = TimeHelper.getLongFromDate(EndDatetxt.getText().toString());
+							if(longDate1 <= longDate2){
+								validateTimes();
+							}
+							else
+								Toast.makeText(getActivity(), "Start Date cannot be greater than End Date", Toast.LENGTH_LONG).show();
+	
 						}
 					});
 					//Listening to the spinner
@@ -293,11 +367,27 @@ public class TimeLogDetails_Fragment extends Fragment {
 								@Override
 								public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 									// TODO Auto-generated method stub
-				
-									String date = timelog.getStartTime();
+									//** Set Start Time Txt **//
+									String date = null;
+									if(timelog != null){
+										date = timelog.getStartTime();
+									}
+									else
+										date = TimeHelper.getDate();
 									//substring is used to only display the hours
 									FStartDate = TimeHelper.getTimeFromTimePicker(view, date);
 									Starttxt.setText(FStartDate.substring(11));
+									
+									//update total hours text view
+									String minutes = null;
+									try {
+										minutes = TimeHelper.getTimeDiffInMinutes(FStartDate, EndDatetxt.getText().toString()  + " " + Endtxt.getText().toString());
+									} catch (ParseException e) {
+										// TODO Auto-generated catch block
+										e.printStackTrace();
+									}
+									
+									totalHourstv.setText("Total Time: " + TimeHelper.displayHoursandMinutes(minutes));
 								}
 							}, hour, minutes, false);
 							tdp.show();
@@ -326,15 +416,98 @@ public class TimeLogDetails_Fragment extends Fragment {
 								@Override
 								public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 									// TODO Auto-generated method stub
-	
-									String date = timelog.getEndTime();
+									//** Set End Time Txt **//
+									String date = null;
+									if(timelog != null){
+										date = timelog.getEndTime();
+									}
+									else
+										date = TimeHelper.getTime();
+									
 									FEndDate = TimeHelper.getTimeFromTimePicker(view, date);
 									Endtxt.setText(FEndDate.substring(11));
+
+									
+									//update total hours text view
+									String minutes = null;
+									try {
+										minutes = TimeHelper.getTimeDiffInMinutes(FEndDate, StartDatetxt.getText().toString() + " " + Starttxt.getText().toString());
+									} catch (ParseException e) {
+										// TODO Auto-generated catch block
+										e.printStackTrace();
+									}
+									
+									totalHourstv.setText("Total Time: " + TimeHelper.displayHoursandMinutes(minutes));
 								}
 							}, hour, minutes, false);
 							tdp.show();
 						}
 					});
+					
+					 StartDateEditBtn.setOnClickListener(new View.OnClickListener() {
+							
+							@Override
+							public void onClick(View v) {
+								// TODO Auto-generated method stub
+								// Process to get Current Date
+					            final Calendar c = Calendar.getInstance();
+					            int mYear = c.get(Calendar.YEAR);
+					            int mMonth = c.get(Calendar.MONTH);
+					            int mDay = c.get(Calendar.DAY_OF_MONTH);
+					 
+					            // Launch Date Picker Dialog
+					            DatePickerDialog dpd = new DatePickerDialog(getActivity(),
+					                    new DatePickerDialog.OnDateSetListener() {
+					 
+					                        @Override
+					                        public void onDateSet(DatePicker view, int year,
+					                                int monthOfYear, int dayOfMonth) {
+					                            // Display Selected date in Edit
+					                        	String date = (monthOfYear + 1) + "/" + dayOfMonth + "/" + year;
+					                        	date = TimeHelper.formatDate(date);
+					                        	StartDatetxt.setText(date);
+					                			EndDatetxt.setText(date);
+
+					                			StartDate = date + " " + Starttxt.getText().toString();
+					                			
+					                			
+					                        }
+					                    }, mYear, mMonth, mDay);
+					            dpd.show();
+								
+							}
+						});
+						
+						EndDateEditBtn.setOnClickListener(new View.OnClickListener() {
+							
+							@Override
+							public void onClick(View v) {
+								// TODO Auto-generated method stub
+								// Process to get Current Date
+					            final Calendar c = Calendar.getInstance();
+					            int mYear = c.get(Calendar.YEAR);
+					            int mMonth = c.get(Calendar.MONTH);
+					            int mDay = c.get(Calendar.DAY_OF_MONTH);
+					 
+					            // Launch Date Picker Dialog
+					            DatePickerDialog dpd = new DatePickerDialog(getActivity(),
+					                    new DatePickerDialog.OnDateSetListener() {
+					 
+					                        @Override
+					                        public void onDateSet(DatePicker view, int year,
+					                                int monthOfYear, int dayOfMonth) {
+					                            // Display Selected date in Edit
+					                        	String date = (monthOfYear + 1) + "/" + dayOfMonth + "/" + year;
+					                        	date = TimeHelper.formatDate(date);
+					                			EndDatetxt.setText(date);
+					                			
+					                			EndDate = date + " " + Endtxt.getText().toString();
+					                        }
+					                    }, mYear, mMonth, mDay);
+					            dpd.show();
+								
+							}
+						});
 					
 				
 					}
@@ -342,11 +515,16 @@ public class TimeLogDetails_Fragment extends Fragment {
 			    else{
 			    	 
 			    }
+			    
+			    
 			}
 			catch(Exception e){
 				Toast.makeText(getActivity(), "Unexpcted Error..." + e.getMessage(), Toast.LENGTH_LONG).show();
 			}
-	  }
+	  
+		
+	}
+	  
 	//create menu options for the action bar
 			@Override
 			public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -450,23 +628,41 @@ public class TimeLogDetails_Fragment extends Fragment {
 	  
 		private void validateTimes(){
 			
-			if(timelog.getStartTime().equals(newStartTime) && timelog.getEndTime().equals(newEndTime) && timelog.getCompanyId() == compId){
-				//Toast.makeText(this, "Times were not updated because no change was made", Toast.LENGTH_LONG).show();
-				//getActivity().finish();
-			}
-			else{
-				long lg1 = TimeHelper.getLongFromHour(newStartTime);
-				long lg2 = TimeHelper.getLongFromHour(newEndTime);
-				//if starttime is less than endtime 
-				if(lg1 < lg2){
-					updateTimelog(newStartTime, newEndTime);
-					Toast.makeText(getActivity(), "Timelog was updated successfully!", Toast.LENGTH_LONG).show();
-					RefreshCompaniesList(lv, adapter);
+			/***** Updates existing timelog ******/
+			if(timelog != null){
+				if(timelog.getStartTime().equals(newStartTime) && timelog.getEndTime().equals(newEndTime) && timelog.getCompanyId() == compId){
+					//Toast.makeText(this, "Times were not updated because no change was made", Toast.LENGTH_LONG).show();
 					//getActivity().finish();
+				}
+				else{
+					long lg1 = TimeHelper.getLongFromHour(newStartTime);
+					long lg2 = TimeHelper.getLongFromHour(newEndTime);
+					//if starttime is less than endtime 
+					if(lg1 < lg2){
+						updateTimelog(newStartTime, newEndTime);
+						Toast.makeText(getActivity(), "Timelog was updated successfully!", Toast.LENGTH_LONG).show();
+						RefreshCompaniesList(lv, adapter);
+						//getActivity().finish();
+					}
+					else
+						Toast.makeText(getActivity(), "Start Time cannot be less than End Time, please try again", Toast.LENGTH_LONG).show();
+				}
+			}
+			///***** creates a new timelog ******///
+			else{
+				long lg1 = TimeHelper.getLongFromHour(StartDatetxt.getText().toString() + " " + Starttxt.getText().toString());
+				long lg2 = TimeHelper.getLongFromHour(EndDatetxt.getText().toString()  + " " + Endtxt.getText().toString());
+				
+				if(lg1 < lg2){
+					SaveNewTimeLog();
+					Toast.makeText(getActivity(), "Timelog was created successfully!", Toast.LENGTH_LONG).show();
+					
+					RefreshCompaniesList(lv, adapter);
 				}
 				else
 					Toast.makeText(getActivity(), "Start Time cannot be less than End Time, please try again", Toast.LENGTH_LONG).show();
 			}
+				
 		}
 		//Refreshes the list related to this activity located on the Timelogs Fragment 
 		private void RefreshCompaniesList(ListView lv, CustomArrayAdapter adapter){
@@ -484,12 +680,38 @@ public class TimeLogDetails_Fragment extends Fragment {
 		    
 		    
 		}
+		//saves new timelog record
+		private void SaveNewTimeLog(){
+			
+			String YearWeek = Integer.toString(TimeHelper.getWeekOfYear());
+			StartDateTime = StartDatetxt.getText().toString() + " " + Starttxt.getText().toString();
+			EndDateTime = EndDatetxt.getText().toString()  + " " + Endtxt.getText().toString();
+			
+			/**May add the week of the year to query timelogs by week **/
+			timelog = new TimeLogDTO();
+			timelog.setDate(StartDatetxt.getText().toString()); //saves the date format as string
+			timelog.setStartTime(StartDateTime);//saves the time format as string
+			timelog.setEndTime(EndDateTime);
+			timelog.setProfileID(profileId);
+			timelog.setStatusID(Status_Enum.Out.getValue());
+			try {
+				String mins = TimeHelper.getTimeDiffInMinutes(StartDateTime, EndDateTime);
+				timelog.setMinutes(mins);
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			timelog.setYearWeek(YearWeek);
+			timelog.setCompanyId(compId);
+			logic.AddNewTimeLog(timelog);
+		}
 		private void updateTimelog(String startTime, String endTime){
 			/**updates starttime and end time**/
 			timelog = new TimeLogDTO();
 			
 			try {
 				timelog.setID(id);
+				timelog.setDate(StartDatetxt.getText().toString());
 				timelog.setCompanyId(compId);
 				timelog.setStartTime(newStartTime);//saves the time format as string
 				timelog.setEndTime(newEndTime);

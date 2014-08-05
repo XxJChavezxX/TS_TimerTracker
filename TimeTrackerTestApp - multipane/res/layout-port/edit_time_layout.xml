@@ -214,6 +214,16 @@
 		            android:layout_alignParentRight="true"
 		            android:background="@drawable/check_bttn" />
 
+		        <TextView
+		            android:id="@+id/totalHourstxt"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:layout_alignParentLeft="true"
+		            android:layout_alignParentTop="true"
+                    android:fontFamily="@style/font_family"
+		            android:text="Medium Text"
+		            android:textAppearance="?android:attr/textAppearanceMedium" />
+
 		    </RelativeLayout>
 		</LinearLayout>
 

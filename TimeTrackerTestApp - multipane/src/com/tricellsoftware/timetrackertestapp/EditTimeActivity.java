@@ -56,6 +56,7 @@ public class EditTimeActivity extends Activity {
 	//private TextView tvDate;
 	private TextView clockintv;
 	private TextView clockouttv;
+	private TextView totalHourstv;
 	//Time layout items
     private Spinner CompSpinner;
     private Button StartEditBtn;
@@ -141,6 +142,8 @@ public class EditTimeActivity extends Activity {
 //		StartPicker = (TimePicker) findViewById(R.id.StartTimePicker);
 //		EndPicker = (TimePicker) findViewById(R.id.EndTimePicker);
 		
+		totalHourstv = (TextView) findViewById(R.id.totalHourstxt);
+		
 		//Initialize buttons
 		StartEditBtn = (Button) findViewById(R.id.starteditbttn);
 		EndEditBtn = (Button) findViewById(R.id.endeditbttn);
@@ -198,6 +201,8 @@ public class EditTimeActivity extends Activity {
 		Starttxt.setText(timelog.getStartTime().substring(11));
 		Endtxt.setText(timelog.getEndTime().substring(11));
 		
+		totalHourstv.setText("Total Time: " + TimeHelper.displayHoursandMinutes(timelog.getMinutes()));
+		
 		//String srt = StartPicker.getCurrentHour().toString();
 		
 //			//Set hours and minutes to the date picker
@@ -219,9 +224,25 @@ public class EditTimeActivity extends Activity {
 			StartDatetxt.setText(TimeHelper.getDate());
 			EndDatetxt.setText(TimeHelper.getDate());
 			
-			
+			totalHourstv.setText("Total Time: N/A");
 		}
 		
+		//Attemping to update the time when landspace
+		if(land){
+			StartDateTime = StartDatetxt.getText().toString() + " " + Starttxt.getText().toString();
+			EndDateTime = EndDatetxt.getText().toString()  + " " + Endtxt.getText().toString();
+			
+			//update total hours text view
+			String minutes = null;
+			try {
+				minutes = TimeHelper.getTimeDiffInMinutes(StartDateTime, EndDateTime);
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			TimeHelper.displayHoursandMinutes(minutes);
+			
+		}
 
 		
 		//StartPicker.set/
@@ -312,6 +333,17 @@ public class EditTimeActivity extends Activity {
 						//substring is used to only display the hours
 						StartDate = TimeHelper.getTimeFromTimePicker(view, date);
 						Starttxt.setText(StartDate.substring(11));
+						
+						//update total hours text view
+						String minutes = null;
+						try {
+							minutes = TimeHelper.getTimeDiffInMinutes(StartDate, EndDatetxt.getText().toString()  + " " + Endtxt.getText().toString());
+						} catch (ParseException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						
+						totalHourstv.setText("Total Time: " + TimeHelper.displayHoursandMinutes(minutes));
 					}
 				}, hour, minutes, false);
 				tdp.show();
@@ -352,6 +384,17 @@ public class EditTimeActivity extends Activity {
 						
 						EndDate = TimeHelper.getTimeFromTimePicker(view, date);
 						Endtxt.setText(EndDate.substring(11));
+						
+						//update total hours text view
+						String minutes = null;
+						try {
+							minutes = TimeHelper.getTimeDiffInMinutes(EndDate, StartDatetxt.getText().toString() + " " + Starttxt.getText().toString());
+						} catch (ParseException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						
+						totalHourstv.setText("Total Time: " + TimeHelper.displayHoursandMinutes(minutes));
 					}
 				}, hour, minutes, false);
 				tdp.show();
