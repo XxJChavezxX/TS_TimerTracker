@@ -181,7 +181,7 @@
             android:ems="10"
             android:inputType="date" >
 
-            <requestFocus />
+
         </EditText>
 
         <TextView

@@ -103,7 +103,7 @@
 			        android:ems="10"
 			        android:inputType="time" >
 
-			        <requestFocus />
+
 			    </EditText>
 
 			</RelativeLayout>
