@@ -146,6 +146,8 @@ public class TimeLogDetails_Fragment extends Fragment {
 	    View view = inflater.inflate(R.layout.timelog_details_fragment,
 	        container, false);
 	    // setHasOptionsMenu(true);
+	    
+	    
 
 	    return view;
 	  }
@@ -154,6 +156,7 @@ public class TimeLogDetails_Fragment extends Fragment {
 		    super.onActivityCreated(savedInstanceState);
 		    
 		    try{
+		
 		    	
 			    activityextras = getActivity().getIntent().getExtras();
 			    
@@ -173,7 +176,7 @@ public class TimeLogDetails_Fragment extends Fragment {
 					
 					companies = logic.getAllCompanies();
 					
-					totalHourstv = (TextView) getView().findViewById(R.id.totalHourstxt);
+					totalHourstv = (TextView) getActivity().findViewById(R.id.totalHourstxt);
 					//get user by id 1
 //					StartPicker = (TimePicker) getActivity().findViewById(R.id.StartTimePicker);
 //					EndPicker = (TimePicker) getActivity().findViewById(R.id.EndTimePicker);
@@ -217,7 +220,7 @@ public class TimeLogDetails_Fragment extends Fragment {
 	//				//String srt = StartPicker.getCurrentHour().toString();
 					
 					//look for the list view realted to the Activity on the timelogs_fragment
-			    	lv = (ListView)getActivity().findViewById(android.R.id.list);
+			    	lv = (ListView) getActivity().findViewById(android.R.id.list);
 					//StartPicker.set/
 					//Initialize buttons
 					StartEditBtn = (Button) getActivity().findViewById(R.id.starteditbttn);
@@ -388,6 +391,9 @@ public class TimeLogDetails_Fragment extends Fragment {
 									}
 									
 									totalHourstv.setText("Total Time: " + TimeHelper.displayHoursandMinutes(minutes));
+									
+									//clear static values
+									
 								}
 							}, hour, minutes, false);
 							tdp.show();
@@ -526,94 +532,94 @@ public class TimeLogDetails_Fragment extends Fragment {
 		
 	}
 	  
-	//create menu options for the action bar
-			@Override
-			public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-				if(land){
-					MenuInflater inflateLayout = getActivity().getMenuInflater();
-	    		    inflateLayout.inflate(R.menu.details_menu, menu);
-	    		    super.onCreateOptionsMenu(menu, inflateLayout);
-				}
-		    } 
-			@Override
-			public boolean onOptionsItemSelected(MenuItem item) {
-				//Gets the position on the Item selected
-				//AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
-				//_id = companies.get((int) info.id).getID();
-			   switch (item.getItemId()) {
-			   case R.id.action_settings:
-			    	  Toast.makeText(getActivity(), "Settings was selected", Toast.LENGTH_LONG).show();
-			   break;
-			   case R.id.action_delete:
-				   
-					// 1. Instantiate an AlertDialog.Builder with its constructor
-					AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-
-					// 2. Chain together various setter methods to set the dialog characteristics
-					builder.setMessage("Are you sure you want to delete this record?")
-					       .setTitle("Delete");
-
-					// 3. Get the AlertDialog from create()
-					
-					builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
-			           @Override
-					public void onClick(DialogInterface dialog, int _id) {
-			        	   logic.deleteTimeLogById(id);
-			        	   if(logic.Error != null){
-							   if(logic.Error.contains("key constraint")){
-								   Toast.makeText(getActivity(), "This record is being used somewhere else and cannot be deleted", Toast.LENGTH_LONG).show();
-							   }
-							   else
-								   Toast.makeText(getActivity(), "Unexpected Error Occurred", Toast.LENGTH_LONG).show();
-						   }
-						   else{
-							   Toast.makeText(getActivity(), "Record has been deleted successfully", Toast.LENGTH_LONG).show();
-							  
-						   }
-			        	   RefreshCompaniesList(lv, adapter);
-			        	   
-			        	   //*********  Removes deleted timelog *********//
-							FragmentTransaction ft = getFragmentManager().beginTransaction();
-							//check of the framelayout is present on the Activity associated with this ListFragment
-							if(getView().findViewById(R.id.fragment_timelog_container) != null){
-								return;
-							}// However, if we're being restored from a previous state,
-				            // then we don't need to do anything and should return or else
-				            // we could end up with overlapping fragments.
-//				            if (savedInstanceState != null) {
-//				                return;
-//				            }
-				            //Creates Company Fragment to be held in the Activity layout using the FrameLayout
-				            NoResults_Fragment nr = new NoResults_Fragment();
-				            // In case this activity was started with special instructions from an
-				            // Intent, pass the Intent's extras to the fragment as arguments
-				            //cf.setArguments(getActivity().getIntent().getExtras());
-				
-				            //Add the fragment to the 'fragment_container' FrameLayout
-				            ft.setCustomAnimations(R.anim.slide_left, R.anim.slide_right);
-				            ft.replace(R.id.fragment_timelog_container, nr).commit();
-			           }
-			       });
-					builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
-			           @Override
-					public void onClick(DialogInterface dialog, int id) {
-			               // User cancelled the dialog
-			        	   dialog.cancel();
-			           }
-			       });
-					
-					// Create the AlertDialog
-					AlertDialog dialog = builder.create();
-
-					// show it
-					dialog.show();
-
-					 //Toast.makeText(this, "Record has been deleted successfully", Toast.LENGTH_LONG).show();
-			   break;
-			    	  
-			   }
-			   return super.onOptionsItemSelected(item);
-			 } 
+//	//create menu options for the action bar
+//			@Override
+//			public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+//				if(land){
+//					MenuInflater inflateLayout = getActivity().getMenuInflater();
+//	    		    inflateLayout.inflate(R.menu.details_menu, menu);
+//	    		    super.onCreateOptionsMenu(menu, inflateLayout);
+//				}
+//		    } 
+//			@Override
+//			public boolean onOptionsItemSelected(MenuItem item) {
+//				//Gets the position on the Item selected
+//				//AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
+//				//_id = companies.get((int) info.id).getID();
+//			   switch (item.getItemId()) {
+//			   case R.id.action_settings:
+//			    	  Toast.makeText(getActivity(), "Settings was selected", Toast.LENGTH_LONG).show();
+//			   break;
+////			   case R.id.action_delete:
+////				   
+////					// 1. Instantiate an AlertDialog.Builder with its constructor
+////					AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+////
+////					// 2. Chain together various setter methods to set the dialog characteristics
+////					builder.setMessage("Are you sure you want to delete this record?")
+////					       .setTitle("Delete");
+////
+////					// 3. Get the AlertDialog from create()
+////					
+////					builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+////			           @Override
+////					public void onClick(DialogInterface dialog, int _id) {
+////			        	   logic.deleteTimeLogById(id);
+////			        	   if(logic.Error != null){
+////							   if(logic.Error.contains("key constraint")){
+////								   Toast.makeText(getActivity(), "This record is being used somewhere else and cannot be deleted", Toast.LENGTH_LONG).show();
+////							   }
+////							   else
+////								   Toast.makeText(getActivity(), "Unexpected Error Occurred", Toast.LENGTH_LONG).show();
+////						   }
+////						   else{
+////							   Toast.makeText(getActivity(), "Record has been deleted successfully", Toast.LENGTH_LONG).show();
+////							   RefreshCompaniesList(lv, adapter);
+////						   }
+////			        	  
+////			        	   
+////			        	   //*********  Removes deleted timelog *********//
+////							FragmentTransaction ft = getFragmentManager().beginTransaction();
+////							//check of the framelayout is present on the Activity associated with this ListFragment
+////							if(getView().findViewById(R.id.fragment_timelog_container) != null){
+////								return;
+////							}// However, if we're being restored from a previous state,
+////				            // then we don't need to do anything and should return or else
+////				            // we could end up with overlapping fragments.
+//////				            if (savedInstanceState != null) {
+//////				                return;
+//////				            }
+////				            //Creates Company Fragment to be held in the Activity layout using the FrameLayout
+////				            NoResults_Fragment nr = new NoResults_Fragment();
+////				            // In case this activity was started with special instructions from an
+////				            // Intent, pass the Intent's extras to the fragment as arguments
+////				            //cf.setArguments(getActivity().getIntent().getExtras());
+////				
+////				            //Add the fragment to the 'fragment_container' FrameLayout
+////				            ft.setCustomAnimations(R.anim.slide_left, R.anim.slide_right);
+////				            ft.replace(R.id.fragment_timelog_container, nr).commit();
+////			           }
+////			       });
+////					builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+////			           @Override
+////					public void onClick(DialogInterface dialog, int id) {
+////			               // User cancelled the dialog
+////			        	   dialog.cancel();
+////			           }
+////			       });
+////					
+////					// Create the AlertDialog
+////					AlertDialog dialog = builder.create();
+////
+////					// show it
+////					dialog.show();
+////
+////					 //Toast.makeText(this, "Record has been deleted successfully", Toast.LENGTH_LONG).show();
+////			   break;
+//			    	  
+//			   }
+//			   return super.onOptionsItemSelected(item);
+//			 } 
 	  
 	  
 	  

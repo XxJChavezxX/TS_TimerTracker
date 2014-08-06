@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+		
+<LinearLayout  xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
@@ -13,22 +14,35 @@
         android:id="@+id/textView1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:fontFamily="@style/font_family"
+        android:textSize="@dimen/font_size"
         android:text="Company"
-        android:textSize="@dimen/font_title_size"
-        android:fontFamily="@style/font_family" />
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <Spinner
         android:id="@+id/compspinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:scaleX="1.3"
-        android:scaleY="1.3"
-        android:layout_marginBottom="65dp" />
+        android:fontFamily="@style/font_family"
+        android:textSize="@dimen/font_size"
+        android:scaleX="1.5"
+        android:scaleY="1.5"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_marginBottom="10dp" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@style/font_family"
+        android:text="Start Date"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textSize="@dimen/font_size" />
 
 		<LinearLayout
 		    android:layout_width="match_parent"
 		    android:layout_height="0dp"
-		    android:layout_weight="0.7"
+		    android:layout_weight="1"
 		    android:background="@android:color/white" >
 
 <!-- 	            android:paddingBottom="@dimen/activity_vertical_margin" -->
@@ -42,50 +56,80 @@
 			    android:layout_height="wrap_content"
 			    android:background="@android:color/white" >
 
-	            <View
-	                android:id="@+id/view1"
-	                android:layout_width="fill_parent"
-	                android:layout_height="5dp"
-	                android:layout_alignBottom="@+id/clockintv"
-	                android:layout_alignParentRight="true"
-	                android:layout_alignParentTop="true"
-	                android:background="@color/lightgrey" />
+			    <View
+			        android:id="@+id/view1"
+			        android:layout_width="fill_parent"
+			        android:layout_height="5dp"
+			        android:layout_alignBottom="@+id/startdateedittxt"
+			        android:layout_alignParentRight="true"
+			        android:layout_alignParentTop="true"
+			        android:background="@color/lightgrey" />
 
-	            <TextView
-	                android:id="@+id/clockintv"
-	                android:layout_width="wrap_content"
-	                android:layout_height="wrap_content"
-	                android:layout_alignParentTop="true"
-	                android:layout_centerHorizontal="true"
-	                android:text="Start Time"
-	                 android:textSize="@dimen/font_title_size"
-           android:fontFamily="@style/font_family" />
+			    <EditText
+			        android:id="@+id/startdateedittxt"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:layout_alignParentLeft="true"
+			        android:fontFamily="@style/font_family"
+                    android:textSize="@dimen/font_size"
+			        android:layout_alignParentTop="true"
+			        android:layout_alignRight="@+id/starteditbttn"
+			        android:ems="10"
+			        android:inputType="date" />
+
+			    <Button
+			        android:id="@+id/starteditbttn"
+			        android:layout_width="32dp"
+			        android:layout_height="32dp"
+			        android:layout_alignBottom="@+id/startEditText"
+			        android:layout_toRightOf="@+id/startEditText"
+			        android:background="@drawable/edit_btn" />
+
+			    <Button
+			        android:id="@+id/startdateeditbtn"
+			        android:layout_width="32dp"
+			        android:layout_height="32dp"
+			        android:layout_alignBottom="@+id/view1"
+			        android:layout_toRightOf="@+id/startdateedittxt"
+			        android:background="@drawable/edit_btn" />
+
+			    <TextView
+			        android:id="@+id/TextView02"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:layout_alignParentLeft="true"
+			        android:layout_below="@+id/view1"
+			        android:fontFamily="@style/font_family"
+                    android:textSize="@dimen/font_size"
+			        android:text="Start Time"
+			        android:textAppearance="?android:attr/textAppearanceMedium" />
 
 			    <EditText
 			        android:id="@+id/startEditText"
 			        android:layout_width="wrap_content"
 			        android:layout_height="wrap_content"
 			        android:layout_alignParentLeft="true"
-			        android:layout_below="@+id/view1"
-			        android:layout_toLeftOf="@+id/starteditbttn"
+			        android:layout_below="@+id/TextView02"
 			        android:ems="10"
 			        android:inputType="time"
-	                android:textSize="@dimen/font_title_size"
-        			android:fontFamily="@style/font_family" >
+			        android:fontFamily="@style/font_family"
+                    android:textSize="@dimen/font_size" >
 
 			        <requestFocus />
 			    </EditText>
 
-			    <Button
-			        android:id="@+id/starteditbttn"
-			        android:layout_width="64dp"
-			        android:layout_height="64dp"
-			        android:layout_alignParentRight="true"
-			        android:layout_below="@+id/view1"
-			        android:background="@drawable/edit_btn" />
 			</RelativeLayout>
 
         </LinearLayout>
+
+		<TextView
+		    android:id="@+id/TextView01"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:text="End Date"
+		    android:textAppearance="?android:attr/textAppearanceMedium"
+		    android:fontFamily="@style/font_family"
+             android:textSize="@dimen/font_size" />
 
 		<View
 		    android:id="@+id/View02"
@@ -96,7 +140,7 @@
 		<LinearLayout
 		    android:layout_width="match_parent"
 		    android:layout_height="0dp"
-		    android:layout_weight="0.7"
+		    android:layout_weight="1"
 		    android:background="@android:color/white" >
 
 <!-- 	            android:paddingBottom="@dimen/activity_vertical_margin" -->
@@ -114,40 +158,61 @@
 			        android:id="@+id/View01"
 			        android:layout_width="fill_parent"
 			        android:layout_height="5dp"
-			        android:layout_alignBottom="@+id/clockouttv"
+			        android:layout_alignBottom="@+id/enddateedittxt"
 			        android:layout_alignParentRight="true"
 			        android:layout_alignParentTop="true"
 			        android:background="@color/lightgrey" />
 
-		            <TextView
-		                android:id="@+id/clockouttv"
-		                android:layout_width="wrap_content"
-		                android:layout_height="wrap_content"
-		                android:layout_alignParentTop="true"
-		                android:layout_centerHorizontal="true"
-		                android:text="End Time"
-		                 android:textSize="@dimen/font_title_size"
-           android:fontFamily="@style/font_family" />
-
-			    <EditText
-			        android:id="@+id/endEditText"
-			        android:layout_width="wrap_content"
-			        android:layout_height="wrap_content"
-			        android:layout_alignParentLeft="true"
-			        android:layout_below="@+id/View01"
-			        android:layout_toLeftOf="@+id/endeditbttn"
-			        android:ems="10"
-			        android:inputType="time"
-	                android:textSize="@dimen/font_title_size"
-       				android:fontFamily="@style/font_family" />
+     		        <EditText
+     		            android:id="@+id/enddateedittxt"
+     		            android:layout_width="wrap_content"
+     		            android:layout_height="wrap_content"
+     		            android:layout_alignParentLeft="true"
+     		            android:layout_alignParentTop="true"
+     		            android:layout_alignRight="@+id/endeditbttn"
+     		            android:ems="10"
+     		            android:inputType="date"
+   		                android:fontFamily="@style/font_family"
+        				android:textSize="@dimen/font_size" />
 
      		        <Button
      		            android:id="@+id/endeditbttn"
-     		            android:layout_width="64dp"
-     		            android:layout_height="64dp"
-     		            android:layout_alignParentRight="true"
-     		            android:layout_below="@+id/View01"
+     		            android:layout_width="32dp"
+     		            android:layout_height="32dp"
+     		            android:layout_alignBaseline="@+id/endEditText"
+     		            android:layout_alignBottom="@+id/endEditText"
+     		            android:layout_toRightOf="@+id/endEditText"
+     		            android:background="@drawable/edit_btn"
+     		            android:fontFamily="@style/font_family"
+        				android:textSize="@dimen/font_size" />
+
+     		        <Button
+     		            android:id="@+id/enddateeditbtn"
+     		            android:layout_width="32dp"
+     		            android:layout_height="32dp"
+     		            android:layout_alignParentTop="true"
+     		            android:layout_toRightOf="@+id/enddateedittxt"
      		            android:background="@drawable/edit_btn" />
+
+     		        <EditText
+     		            android:id="@+id/endEditText"
+     		            android:layout_width="wrap_content"
+     		            android:layout_height="wrap_content"
+     		            android:layout_alignParentLeft="true"
+     		            android:layout_below="@+id/TextView03"
+     		            android:ems="10"
+     		            android:inputType="time" />
+
+     		        <TextView
+     		            android:id="@+id/TextView03"
+     		            android:layout_width="wrap_content"
+     		            android:layout_height="wrap_content"
+     		            android:layout_alignParentLeft="true"
+     		            android:layout_below="@+id/View01"
+     		            android:text="End Time"
+     		            android:textAppearance="?android:attr/textAppearanceMedium"
+     		            android:fontFamily="@style/font_family"
+        				android:textSize="@dimen/font_size" />
 
 			</RelativeLayout>
 
@@ -163,7 +228,7 @@
 		    <RelativeLayout
 		        android:layout_width="match_parent"
 		        android:layout_height="wrap_content"
-		        android:layout_weight="1.35" >
+		        android:layout_weight="0.67" >
 
 		        <Button
 		            android:id="@+id/checkbttn"
@@ -172,6 +237,17 @@
 		            android:layout_alignParentBottom="true"
 		            android:layout_alignParentRight="true"
 		            android:background="@drawable/check_bttn" />
+
+		        <TextView
+		            android:id="@+id/totalHourstxt"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:layout_alignParentLeft="true"
+	                android:fontFamily="@style/font_family"
+                    android:textSize="@dimen/font_size"
+		            android:layout_alignParentTop="true"
+		            android:text="Medium Text"
+		            android:textAppearance="?android:attr/textAppearanceLarge" />
 
 		    </RelativeLayout>
 		</LinearLayout>

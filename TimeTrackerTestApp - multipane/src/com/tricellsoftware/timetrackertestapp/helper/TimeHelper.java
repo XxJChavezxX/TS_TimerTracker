@@ -91,7 +91,40 @@ public class TimeHelper {
 		
 		return String.format("%01d:%02d", hours, minutes);
 	}
-	
+	public static String displayHoursandMinutesSeconds(long millis){
+		
+//		if(Minutes == null){
+//			return "--";
+//		}
+		long secs = TimeUnit.MILLISECONDS.toSeconds(millis);
+		long minutes = TimeUnit.SECONDS.toMinutes(secs);
+		long hours = TimeUnit.MINUTES.toHours(minutes);
+		
+		if(minutes >= 60){
+			minutes = minutes - (hours * 60);
+		}
+		
+		return String.format("%01d:%02d:%02d", hours, minutes, secs);
+	}
+	public static String displayHoursandMinutesSeconds2(long millis){
+		
+//		if(Minutes == null){
+//			return "--";
+//		}
+		
+		int secs = (int) (millis / 1000);
+		int minutes = secs / 60;
+		//long hours = minutes / 60;
+		secs = secs % 60;
+		int hour = minutes / 60;
+		
+		
+//		if(minutes >= 60){
+//			minutes = minutes - (hours * 60);
+//		}
+		
+		return String.format("%02d:%02d:%02d", hour, minutes, secs);
+	}
 	public static String getDate(){
 		df = new SimpleDateFormat(dateformat, Locale.US);
 		date = Calendar.getInstance().getTime();

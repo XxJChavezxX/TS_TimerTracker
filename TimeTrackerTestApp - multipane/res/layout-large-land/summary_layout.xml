@@ -27,7 +27,7 @@
             android:paddingLeft="20dp"
             android:text="Company"
             android:textStyle="bold"
-            android:textSize="@dimen/font_title_size"
+            android:textSize="@dimen/font_size"
             android:fontFamily="@style/font_family"/>
 
         <TextView
@@ -38,7 +38,7 @@
             android:paddingLeft="40dp"
             android:text="Rate"
             android:textStyle="bold"
-            android:textSize="@dimen/font_title_size"
+            android:textSize="@dimen/font_size"
             android:fontFamily="@style/font_family"/>
     </TableRow>
 
@@ -84,7 +84,7 @@
             android:paddingLeft="20dp"
             android:text="Start Time"
             android:textStyle="bold"
-            android:textSize="@dimen/font_title_size"
+            android:textSize="@dimen/font_size"
             android:fontFamily="@style/font_family" />
 
         <TextView
@@ -95,7 +95,7 @@
             android:paddingLeft="40dp"
             android:text="End Date"
             android:textStyle="bold"
-            android:textSize="@dimen/font_title_size"
+            android:textSize="@dimen/font_size"
             android:fontFamily="@style/font_family" />
     </TableRow>
 
@@ -140,7 +140,7 @@
             android:paddingLeft="20dp"
             android:text="Total Hours"
             android:textStyle="bold"
-           android:textSize="@dimen/font_title_size"
+           android:textSize="@dimen/font_size"
            android:fontFamily="@style/font_family" />
 
         <TextView
@@ -151,7 +151,7 @@
             android:paddingLeft="40dp"
             android:text="Estimated Pay"
             android:textStyle="bold"
-           android:textSize="@dimen/font_title_size"
+           android:textSize="@dimen/font_size"
            android:fontFamily="@style/font_family" />
     </TableRow>
 

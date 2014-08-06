@@ -96,7 +96,6 @@
             android:layout_weight="1"
             android:ems="10"
             android:inputType="time" />
-
     </RelativeLayout>
 
     <View
@@ -199,11 +198,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:fontFamily="@style/font_family"
             android:layout_alignTop="@+id/checkbttn"
+            android:fontFamily="@style/font_family"
             android:text="Medium Text"
             android:textAppearance="?android:attr/textAppearanceMedium" />
-
     </RelativeLayout>
 
 </LinearLayout>

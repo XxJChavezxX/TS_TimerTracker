@@ -139,7 +139,8 @@ public class Companies_Fragment extends ListFragment {
 			land = true;
 			
 		}
-		if((getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_LARGE){
+		if((getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_LARGE || 
+				(getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_XLARGE){
 			largeScreen = true;
 		}
 	   
@@ -470,8 +471,7 @@ public class Companies_Fragment extends ListFragment {
 	    }
 
 	    @Override
-		public void onCreateContextMenu(ContextMenu menu, View v,
-	    		   ContextMenuInfo menuInfo) {
+		public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
 	    		   MenuInflater inflateLayout = getActivity().getMenuInflater();
 	    		   inflateLayout.inflate(R.menu.context_menu, menu);
 	    		   super.onCreateContextMenu(menu, v, menuInfo);

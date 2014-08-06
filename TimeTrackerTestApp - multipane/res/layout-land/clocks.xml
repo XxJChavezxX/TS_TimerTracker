@@ -98,8 +98,8 @@
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:text="Medium Text"
-            android:textColor="@color/white"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/white" />
 
     </RelativeLayout>
 

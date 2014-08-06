@@ -26,6 +26,8 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.SystemClock;
 import android.support.v4.app.NotificationCompat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -48,6 +50,7 @@ public class Clocks_Fragment extends Fragment {
 	TextView Name;
 	TextView Status;
 	TextView clockedtv;
+	TextView Timertv;
 	
 	Date date; //time entry for the timelog
 	int ClockType;
@@ -60,6 +63,11 @@ public class Clocks_Fragment extends Fragment {
 	SimpleDateFormat tf;
 	
 	String startTime = "";
+	
+	//Timer Variables
+	long startTimerTime = 0;
+	long prevTime = 0;
+	long TotalTime = 0;
 	
 	private int id;
 
@@ -133,6 +141,31 @@ public class Clocks_Fragment extends Fragment {
 	  		Status = (TextView)getView().findViewById(R.id.textStatus);
 	  		clockedtv = (TextView)getView().findViewById(R.id.clockedtimetv);
 	  		
+	
+//	  		Timertv = (TextView)getView().findViewById(R.id.timer); //Re add the timer textview if implemented
+//	  		Timertv.setVisibility(View.GONE);
+	  		
+	  		
+//	  		//*******  Set up Timer    *******//
+//	  		
+//	  		final Handler timerHandler = new Handler();
+//	  		final Runnable timerRunnable = new Runnable(){
+//
+//				@Override
+//				public void run() {
+//					// TODO Auto-generated method stub
+//					long millis = SystemClock.uptimeMillis() - startTimerTime;
+//					TotalTime = prevTime + millis;
+//					
+//					String time = TimeHelper.displayHoursandMinutesSeconds2(millis);
+//					
+//					Timertv.setText("Total Time: " + time);
+//					
+//					timerHandler.postDelayed(this, 0);
+//				}
+//	  			
+//	  		};
+	  		
 	  		if(id > 0){
 	  			Name.setText("Welcome " + profile.getFirstName());
 	  			
@@ -183,7 +216,12 @@ public class Clocks_Fragment extends Fragment {
 	  					Toast.makeText(getActivity(), "You must add a Company/Project before clocking in", Toast.LENGTH_LONG).show();
 	  					return;
 	  				}
-
+	  				//***** Start Timer *****//
+//	  				//startTimer(startTimerTime, timerHandler, timerRunnable);
+//	  				startTimerTime = SystemClock.uptimeMillis();
+//	  				//startTimer = Long.parseLong(TimeHelper.getTime());
+//	  				timerHandler.postDelayed(timerRunnable, 0);
+	  				
 	  			
 	  				//SaveNewItem();
 	  				view.setBackgroundResource(R.drawable.clockin_default);
@@ -262,6 +300,12 @@ public class Clocks_Fragment extends Fragment {
 	  						//Toast.makeText(getActivity(), "Please allow 1 minute after Clocking In to Clock Out (" + String.valueOf(secsleft) +" minutes left)", Toast.LENGTH_LONG).show();
 	  					}
 	  					else{
+	  						
+	  		  				//*********** Stop Timer ***********//
+	  		  				//stopTimer(timerHandler, timerRunnable);
+//	  						prevTime += startTimerTime;
+//	  		  				timerHandler.removeCallbacks(timerRunnable);
+	  						
 	  						clockedtv.setVisibility(View.GONE);
 	  						profile.setStatusID(Status_Enum.Off.getValue());
 	  						ClockType = Status_Enum.Out.getValue();
@@ -311,6 +355,15 @@ public class Clocks_Fragment extends Fragment {
 	  				}//updates the current timelog 
 	  			}
 	  		});
+	  		
+	  	
+	  		
+	  		
+	  		
+	  		
+	  		
+	  		//*******  End of Timer    *******//
+	  		
 //	  		timeSheetBttn.setOnClickListener(new View.OnClickListener() {
 //	  			
 //	  			@Override
@@ -324,6 +377,16 @@ public class Clocks_Fragment extends Fragment {
 //	  			}
 //	  		});
 	}
+//	private void startTimer(long startTimerTime, Handler timerHandler, Runnable timerRunnable){
+//		
+//			startTimerTime = SystemClock.uptimeMillis();
+//			//startTimer = Long.parseLong(TimeHelper.getTime());
+//			timerHandler.postDelayed(timerRunnable, 0);
+//	}
+//	private void stopTimer(Handler timerHandler, Runnable timerRunnable){
+//		
+//		timerHandler.removeCallbacks(timerRunnable);
+//	}
 	//saves new timelog record
 	private void SaveNewTimeLog(){
 		
