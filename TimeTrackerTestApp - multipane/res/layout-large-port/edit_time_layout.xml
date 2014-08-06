@@ -113,7 +113,6 @@
 			        android:fontFamily="@style/font_family"
                     android:textSize="@dimen/font_size" >
 
-			        <requestFocus />
 			    </EditText>
 
 			</RelativeLayout>

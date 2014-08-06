@@ -169,8 +169,6 @@
             android:fontFamily="@style/font_family"
             android:inputType="date"
             android:textSize="@dimen/font_size" >
-
-            <requestFocus />
         </EditText>
 
         <TextView
