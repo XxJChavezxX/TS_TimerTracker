@@ -382,15 +382,7 @@ public class TimeLogDetails_Fragment extends Fragment {
 									Starttxt.setText(FStartDate.substring(11));
 									
 									//update total hours text view
-									String minutes = null;
-									try {
-										minutes = TimeHelper.getTimeDiffInMinutes(FStartDate, EndDatetxt.getText().toString()  + " " + Endtxt.getText().toString());
-									} catch (ParseException e) {
-										// TODO Auto-generated catch block
-										e.printStackTrace();
-									}
-									
-									totalHourstv.setText("Total Time: " + TimeHelper.displayHoursandMinutes(minutes));
+									displayTotalWorkedTime();
 									
 									//clear static values
 									
@@ -435,15 +427,7 @@ public class TimeLogDetails_Fragment extends Fragment {
 
 									
 									//update total hours text view
-									String minutes = null;
-									try {
-										minutes = TimeHelper.getTimeDiffInMinutes(FEndDate, StartDatetxt.getText().toString() + " " + Starttxt.getText().toString());
-									} catch (ParseException e) {
-										// TODO Auto-generated catch block
-										e.printStackTrace();
-									}
-									
-									totalHourstv.setText("Total Time: " + TimeHelper.displayHoursandMinutes(minutes));
+									displayTotalWorkedTime();
 								}
 							}, hour, minutes, false);
 							tdp.show();
@@ -477,6 +461,8 @@ public class TimeLogDetails_Fragment extends Fragment {
 					                			FStartDate = date + " " + Starttxt.getText().toString();
 					                			FEndDate = EndDatetxt.getText().toString()  + " " + Endtxt.getText().toString();
 					                			
+					                			displayTotalWorkedTime();
+					                			
 					                        }
 					                    }, mYear, mMonth, mDay);
 					            dpd.show();
@@ -509,6 +495,8 @@ public class TimeLogDetails_Fragment extends Fragment {
 					                			
 					                			FEndDate = date + " " + Endtxt.getText().toString();
 					                			FStartDate = StartDatetxt.getText().toString() + " " + Starttxt.getText().toString();
+					                			
+					                			displayTotalWorkedTime();
 					                        }
 					                    }, mYear, mMonth, mDay);
 					            dpd.show();
@@ -733,6 +721,19 @@ public class TimeLogDetails_Fragment extends Fragment {
 			//timelog.setStatusID(ClockType);
 			//timelog.setYearWeek(YearWeek);
 			logic.updateTimeLogbyID(timelog);
+		}
+		private void displayTotalWorkedTime(){
+			// update total hours text view 
+			//update total hours text view
+			String minutes = null;
+			try {
+				minutes = TimeHelper.getTimeDiffInMinutes(StartDatetxt.getText().toString() + " " + Starttxt.getText().toString(), FEndDate);
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			totalHourstv.setText("Total Time: " + TimeHelper.displayHoursandMinutes(minutes));
 		}
 
 }

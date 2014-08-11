@@ -36,10 +36,14 @@ public class TimeHelper {
 		Date EndDateTime = new SimpleDateFormat(TimeFormat,Locale.US).parse(endTime);
 		
 		if(StartDateTime.getTime() > EndDateTime.getTime()){
-			diff = StartDateTime.getTime() - EndDateTime.getTime();
+			//diff = StartDateTime.getTime() - EndDateTime.getTime();
+			diff = 0;
+			
 		}
-		else
+		else {
 			diff = EndDateTime.getTime() - StartDateTime.getTime();	
+		    
+		}
 //		long diffSeconds = diff / 1000 % 60;
 //		long diffMinutes = diff / (60* 1000) % 60;
 //		long diffHours = diff / (60 * 60 * 1000);

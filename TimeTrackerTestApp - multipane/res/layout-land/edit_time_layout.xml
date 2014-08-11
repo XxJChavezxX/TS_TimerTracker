@@ -57,16 +57,9 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_below="@+id/textView2"
+            android:layout_toLeftOf="@+id/startdateeditbtn"
             android:ems="10"
             android:inputType="date" />
-
-        <Button
-            android:id="@+id/startdateeditbtn"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_alignBottom="@+id/view1"
-            android:layout_toRightOf="@+id/startdateedittxt"
-            android:background="@drawable/edit_btn" />
 
         <Button
             android:id="@+id/starteditbttn"
@@ -90,12 +83,22 @@
             android:id="@+id/startEditText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
             android:layout_below="@+id/view1"
             android:layout_marginTop="24dp"
             android:layout_toLeftOf="@+id/starteditbttn"
             android:layout_weight="1"
             android:ems="10"
             android:inputType="time" />
+
+        <Button
+            android:id="@+id/startdateeditbtn"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_above="@+id/startEditText"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/edit_btn" />
+
     </RelativeLayout>
 
     <View
@@ -178,9 +181,9 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_below="@+id/TextView01"
+            android:layout_toLeftOf="@+id/enddateeditbtn"
             android:ems="10"
             android:inputType="date" >
-
 
         </EditText>
 

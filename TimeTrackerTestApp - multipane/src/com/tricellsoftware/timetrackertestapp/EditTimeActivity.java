@@ -356,23 +356,7 @@ public class EditTimeActivity extends Activity {
 										view, date);
 								Starttxt.setText(StartDate.substring(11));
 
-								// update total hours text view
-								String minutes = null;
-								try {
-									minutes = TimeHelper.getTimeDiffInMinutes(
-											StartDate, EndDatetxt.getText()
-													.toString()
-													+ " "
-													+ Endtxt.getText()
-															.toString());
-								} catch (ParseException e) {
-									// TODO Auto-generated catch block
-									e.printStackTrace();
-								}
-
-								totalHourstv.setText("Total Time: "
-										+ TimeHelper
-												.displayHoursandMinutes(minutes));
+								displayTotalWorkedTime();
 							}
 						}, hour, minutes, false);
 				tdp.show();
@@ -416,24 +400,10 @@ public class EditTimeActivity extends Activity {
 								EndDate = TimeHelper.getTimeFromTimePicker(
 										view, date);
 								Endtxt.setText(EndDate.substring(11));
+								
+								displayTotalWorkedTime();
 
-								// update total hours text view
-								String minutes = null;
-								try {
-									minutes = TimeHelper.getTimeDiffInMinutes(
-											EndDate, StartDatetxt.getText()
-													.toString()
-													+ " "
-													+ Starttxt.getText()
-															.toString());
-								} catch (ParseException e) {
-									// TODO Auto-generated catch block
-									e.printStackTrace();
-								}
 
-								totalHourstv.setText("Total Time: "
-										+ TimeHelper
-												.displayHoursandMinutes(minutes));
 							}
 						}, hour, minutes, false);
 				tdp.show();
@@ -469,6 +439,8 @@ public class EditTimeActivity extends Activity {
 										+ Starttxt.getText().toString();
 								EndDate = EndDatetxt.getText().toString() + " "
 										+ Endtxt.getText().toString();
+								
+								displayTotalWorkedTime();
 
 							}
 						}, mYear, mMonth, mDay);
@@ -506,6 +478,8 @@ public class EditTimeActivity extends Activity {
 										+ Endtxt.getText().toString();
 								StartDate = StartDatetxt.getText().toString()
 										+ " " + Starttxt.getText().toString();
+								
+								displayTotalWorkedTime();
 							}
 						}, mYear, mMonth, mDay);
 				dpd.show();
@@ -702,6 +676,21 @@ public class EditTimeActivity extends Activity {
 		timelog.setYearWeek(YearWeek);
 		timelog.setCompanyId(_id);
 		logic.AddNewTimeLog(timelog);
+	}
+	private void displayTotalWorkedTime(){
+		// update total hours text view 
+		String minutes = null;
+		try {
+			minutes = TimeHelper.getTimeDiffInMinutes(StartDatetxt.getText()
+							.toString() + " " + Starttxt.getText().toString(), EndDate);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		totalHourstv.setText("Total Time: "
+				+ TimeHelper
+						.displayHoursandMinutes(minutes));
 	}
 
 }

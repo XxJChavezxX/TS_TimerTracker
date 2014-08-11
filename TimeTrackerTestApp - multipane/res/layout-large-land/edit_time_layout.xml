@@ -62,19 +62,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
+            android:layout_alignRight="@+id/starteditbttn"
             android:layout_below="@+id/textView2"
             android:ems="10"
             android:fontFamily="@style/font_family"
             android:inputType="date"
             android:textSize="@dimen/font_size" />
-
-        <Button
-            android:id="@+id/startdateeditbtn"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_alignBottom="@+id/view1"
-            android:layout_toRightOf="@+id/startdateedittxt"
-            android:background="@drawable/edit_btn" />
 
         <Button
             android:id="@+id/starteditbttn"
@@ -100,6 +93,7 @@
             android:id="@+id/startEditText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
             android:layout_below="@+id/view1"
             android:layout_marginTop="141dp"
             android:layout_toLeftOf="@+id/starteditbttn"
@@ -108,6 +102,14 @@
             android:fontFamily="@style/font_family"
             android:inputType="time"
             android:textSize="@dimen/font_size" />
+
+        <Button
+            android:id="@+id/startdateeditbtn"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_above="@+id/startEditText"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/edit_btn" />
 
     </RelativeLayout>
 
@@ -164,11 +166,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
+            android:layout_alignRight="@+id/endeditbttn"
             android:layout_below="@+id/TextView01"
             android:ems="10"
             android:fontFamily="@style/font_family"
             android:inputType="date"
             android:textSize="@dimen/font_size" >
+
         </EditText>
 
         <TextView
@@ -181,15 +185,6 @@
             android:text="Medium Text"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textSize="@dimen/font_size" />
-
-        <Button
-            android:id="@+id/enddateeditbtn"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_alignBaseline="@+id/enddateedittxt"
-            android:layout_alignBottom="@+id/enddateedittxt"
-            android:layout_toRightOf="@+id/enddateedittxt"
-            android:background="@drawable/edit_btn" />
 
         <TextView
             android:id="@+id/TextView03"
@@ -207,6 +202,7 @@
             android:id="@+id/endEditText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
             android:layout_below="@+id/TextView03"
             android:layout_marginTop="16dp"
             android:layout_toLeftOf="@+id/endeditbttn"
@@ -221,6 +217,14 @@
             android:layout_height="32dp"
             android:layout_alignBottom="@+id/endEditText"
             android:layout_toLeftOf="@+id/enddateeditbtn"
+            android:background="@drawable/edit_btn" />
+
+        <Button
+            android:id="@+id/enddateeditbtn"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_above="@+id/TextView03"
+            android:layout_alignParentRight="true"
             android:background="@drawable/edit_btn" />
 
     </RelativeLayout>
