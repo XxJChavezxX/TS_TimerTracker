@@ -174,6 +174,12 @@ public class EditTimeActivity extends Activity {
 		// layout
 		ArrayAdapter<CompanyDTO> adapter = new ArrayAdapter<CompanyDTO>(this,
 				android.R.layout.simple_spinner_item, companies);
+		if( adapter.getCount() == 0){
+			Toast.makeText(EditTimeActivity.this,
+					"Please Add a Company/Project before creating timelogs",
+					Toast.LENGTH_LONG).show();
+			this.finish();
+		}
 		// Apply the adapter to the spinner
 		CompSpinner.setAdapter(adapter);
 		int index = 0;

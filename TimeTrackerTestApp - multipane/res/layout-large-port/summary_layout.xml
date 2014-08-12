@@ -171,47 +171,65 @@
         android:layout_height="match_parent"
         android:background="@color/white" >
 
-        <Button
-            android:id="@+id/timelogsbtn"
-            android:layout_width="96dp"
-            android:layout_height="96dp"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="77dp"
-            android:background="@drawable/timelogs_bttn" />
-
-        <TextView
-            android:id="@+id/textView12"
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/textView11"
-            android:layout_alignBottom="@+id/textView11"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentTop="true" >
+
+            <TextView
+                android:id="@+id/textView11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/timelogsbtn"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="55dp"
+                android:fontFamily="@style/font_family"
+                android:text="Time Logs"
+                android:textSize="@dimen/font_title_size" />
+
+            <Button
+                android:id="@+id/timelogsbtn"
+                android:layout_width="96dp"
+                android:layout_height="96dp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/timelogs_bttn"
+                android:scaleX="1.5"
+                android:scaleY="1.5" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="75dp"
-            android:fontFamily="@style/font_family"
-            android:text="Email Excel File"
-            android:textSize="@dimen/font_size"
-            android:textStyle="bold" />
+            android:layout_alignParentTop="true" >
 
-        <Button
-            android:id="@+id/exportbtn"
-            android:layout_width="96dp"
-            android:layout_height="96dp"
-            android:layout_above="@+id/textView11"
-            android:layout_alignLeft="@+id/textView12"
-            android:background="@drawable/file_bttn" />
+            <Button
+                android:id="@+id/exportbtn"
+                android:layout_width="96dp"
+                android:layout_height="96dp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/file_bttn"
+                android:scaleX="1.5"
+                android:scaleY="1.5" />
 
-        <TextView
-            android:id="@+id/textView11"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/timelogsbtn"
-            android:layout_below="@+id/timelogsbtn"
-            android:layout_marginTop="27dp"
-            android:fontFamily="@style/font_family"
-            android:text="Time Logs"
-            android:textSize="@dimen/font_size"
-            android:textStyle="bold" />
+            <TextView
+                android:id="@+id/textView12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/exportbtn"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="42dp"
+                android:fontFamily="@style/font_family"
+                android:text="Email Excel File"
+                android:textSize="@dimen/font_title_size" />
+
+        </RelativeLayout>
+
     </RelativeLayout>
 
         <!--

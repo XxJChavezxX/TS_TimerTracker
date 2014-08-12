@@ -21,8 +21,11 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 public class MainTabActivity extends Activity implements ActionBar.TabListener, Companies_Fragment.OnItemSelectedListener {
 	
@@ -121,7 +124,7 @@ public class MainTabActivity extends Activity implements ActionBar.TabListener, 
 				.setTabListener(this));
 				//.setIcon(R.drawable.companytab));
 		
-		
+		//setTabsMaxWidth();
 		
 		
 	}
@@ -199,6 +202,21 @@ public class MainTabActivity extends Activity implements ActionBar.TabListener, 
 			
 		return null;
 	}
+//	private void setTabsMaxWidth() {
+//		   DisplayMetrics displaymetrics = new DisplayMetrics();
+//		   getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
+//		   int screenWidth = displaymetrics.widthPixels;
+//		   final ActionBar actionBar = getActionBar();
+//		   final View tabView = actionBar.getTabAt(0).getCustomView();
+//		   final View tabContainerView = (View) tabView.getParent();
+//		   final int tabPadding = tabContainerView.getPaddingLeft() + tabContainerView.getPaddingRight();
+//		   final int tabs = actionBar.getTabCount();
+//		   for(int i=0 ; i < tabs ; i++) {
+//		      View tab = actionBar.getTabAt(0).getCustomView();
+//		      TextView text1 = (TextView) tab.findViewById(R.id.textView1);
+//		      text1.setMaxWidth(screenWidth/tabs-tabPadding-1);
+//		  }
+//		}
 	
 
 }

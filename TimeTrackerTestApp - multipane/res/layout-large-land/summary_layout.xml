@@ -204,19 +204,6 @@
     android:layout_weight="2"
     android:background="@color/white" >
 
-    <TextView
-        android:id="@+id/textView11"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/timelogsbtn"
-        android:layout_below="@+id/timelogsbtn"
-        android:layout_marginTop="17dp"
-        android:text="Time Logs"
-        android:textStyle="bold"
-        android:textSize="@dimen/font_size"
-       
-        android:fontFamily="@style/font_family" />
-
     <View
         android:id="@+id/view1"
         android:layout_width="1dp"
@@ -226,35 +213,45 @@
         android:background="@android:color/darker_gray"
         android:orientation="vertical" />
 
-    <Button
-        android:id="@+id/exportbtn"
-        android:layout_width="96dp"
-        android:layout_height="96dp"
-        android:layout_alignBaseline="@+id/timelogsbtn"
-        android:layout_alignBottom="@+id/timelogsbtn"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="106dp"
-        android:background="@drawable/file_bttn" />
-
     <TextView
         android:id="@+id/textView12"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/textView11"
         android:layout_alignBottom="@+id/textView11"
-        android:layout_alignLeft="@+id/exportbtn"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="59dp"
         android:fontFamily="@style/font_family"
         android:text="Email Excel File"
-        android:textSize="@dimen/font_size"
-        android:textStyle="bold" />
+        android:textSize="@dimen/font_size" />
+
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/timelogsbtn"
+        android:layout_marginRight="96dp"
+        android:layout_marginTop="24dp"
+        android:layout_toLeftOf="@+id/textView12"
+        android:fontFamily="@style/font_family"
+        android:text="Time Logs"
+        android:textSize="@dimen/font_size" />
+
+    <Button
+        android:id="@+id/exportbtn"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:layout_above="@+id/textView11"
+        android:layout_alignRight="@+id/textView12"
+        android:layout_marginRight="22dp"
+        android:background="@drawable/file_bttn" />
 
     <Button
         android:id="@+id/timelogsbtn"
         android:layout_width="96dp"
         android:layout_height="96dp"
-        android:layout_alignParentLeft="true"
+        android:layout_alignLeft="@+id/textView11"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="89dp"
         android:background="@drawable/timelogs_bttn" />
 
 </RelativeLayout>
