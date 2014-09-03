@@ -27,6 +27,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -229,9 +230,19 @@ public class TimeLogDetails_Fragment extends Fragment {
 					//Init Edit Texts
 					Starttxt = (EditText) getActivity().findViewById(R.id.startEditText);
 					Endtxt = (EditText) getActivity().findViewById(R.id.endEditText);
-					
+					// Init Edit Texts
+					Starttxt.setEnabled(false);
+					Endtxt.setEnabled(false);
+					Starttxt.setTextColor(Color.BLACK);
+					Endtxt.setTextColor(Color.BLACK);
+
 					StartDatetxt = (EditText) getActivity().findViewById(R.id.startdateedittxt);
-					EndDatetxt = (EditText) getActivity().findViewById(R.id.enddateedittxt);
+					EndDatetxt = (EditText) getActivity().findViewById(R.id.enddateedittxt);	
+					StartDatetxt.setEnabled(false);
+					EndDatetxt.setEnabled(false);
+					StartDatetxt.setTextColor(Color.BLACK);
+					EndDatetxt.setTextColor(Color.BLACK);
+					
 					StartDateEditBtn = (Button) getActivity().findViewById(R.id.startdateeditbtn);
 					EndDateEditBtn = (Button) getActivity().findViewById(R.id.enddateeditbtn);
 					
@@ -376,7 +387,7 @@ public class TimeLogDetails_Fragment extends Fragment {
 										date = timelog.getStartTime();
 									}
 									else
-										date = TimeHelper.getDate();
+										date = TimeHelper.getDateAndTime();
 									//substring is used to only display the hours
 									FStartDate = TimeHelper.getTimeFromTimePicker(view, date);
 									Starttxt.setText(FStartDate.substring(11));
@@ -420,7 +431,7 @@ public class TimeLogDetails_Fragment extends Fragment {
 										date = timelog.getEndTime();
 									}
 									else
-										date = TimeHelper.getTime();
+										date = TimeHelper.getDateAndTime();
 									
 									FEndDate = TimeHelper.getTimeFromTimePicker(view, date);
 									Endtxt.setText(FEndDate.substring(11));
@@ -727,7 +738,8 @@ public class TimeLogDetails_Fragment extends Fragment {
 			//update total hours text view
 			String minutes = null;
 			try {
-				minutes = TimeHelper.getTimeDiffInMinutes(StartDatetxt.getText().toString() + " " + Starttxt.getText().toString(), FEndDate);
+				minutes = TimeHelper.getTimeDiffInMinutes(StartDatetxt.getText().toString() + " " + Starttxt.getText().toString(), 
+						EndDatetxt.getText().toString()  + " " + Endtxt.getText().toString());
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

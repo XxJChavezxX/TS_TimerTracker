@@ -15,6 +15,7 @@ import com.tricellsoftware.timetrackertestapp.Fragments.Company_Fragment;
 import com.tricellsoftware.timetrackertestapp.Fragments.Companies_Fragment.OnItemSelectedListener;
 import com.tricellsoftware.timetrackertestapp.businessLogic.BusinessLogic;
 import com.tricellsoftware.timetrackertestapp.database.CompanyTable;
+import com.tricellsoftware.timetrackertestapp.database.ProfileTable;
 
 import android.app.ActionBar;
 import android.app.Activity;
@@ -230,7 +231,16 @@ public class CompanyActivity extends FragmentActivity implements Companies_Fragm
 				
 				//companyUri = getContentResolver().insert(TimeTrackerContentProvider.Content_URI, Values);
 				Toast.makeText(this, "New Company/Project: " + tempCompany.getName() + " has been added successfully", Toast.LENGTH_LONG).show();
+				
+//				if(logic.getAllCompanies().size() > 0){
+//			         Intent i = new Intent(this, MainTabActivity.class);
+//	                i.putExtra(ProfileTable.COLUMN_ID, 1);
+//	                startActivity(i);
+//				}
+				
 				finish();
+				
+				
 			}
 			else
 				Toast.makeText(this, "Company Name already Exists, please choose a different one", Toast.LENGTH_LONG).show();

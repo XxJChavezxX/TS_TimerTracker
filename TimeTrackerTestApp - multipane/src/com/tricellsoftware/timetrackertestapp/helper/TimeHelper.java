@@ -136,6 +136,13 @@ public class TimeHelper {
 		
 		
 	}
+	public static String getDateAndTime(){
+		df = new SimpleDateFormat(TimeFormat, Locale.US);
+		date = Calendar.getInstance().getTime();
+		return df.format(date);
+		
+		
+	}
 	public static int getWeekOfYear(){
 		
 		Calendar cl = new GregorianCalendar();

@@ -13,6 +13,7 @@ import com.tricellsoftware.timetrackertestapp.database.CompanyTable;
 import com.tricellsoftware.timetrackertestapp.database.TimeLogTable;
 import com.tricellsoftware.timetrackertestapp.helper.TimeHelper;
 
+import android.R.color;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -23,6 +24,7 @@ import android.app.TimePickerDialog.OnTimeSetListener;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -161,9 +163,15 @@ public class EditTimeActivity extends Activity {
 		Endtxt = (EditText) findViewById(R.id.endEditText);
 		Starttxt.setEnabled(false);
 		Endtxt.setEnabled(false);
-
+		Starttxt.setTextColor(Color.BLACK);
+		Endtxt.setTextColor(Color.BLACK);
 		StartDatetxt = (EditText) findViewById(R.id.startdateedittxt);
 		EndDatetxt = (EditText) findViewById(R.id.enddateedittxt);
+		StartDatetxt.setEnabled(false);
+		EndDatetxt.setEnabled(false);
+		StartDatetxt.setTextColor(Color.BLACK);
+		EndDatetxt.setTextColor(Color.BLACK);
+
 		// StartDatetxt.setEnabled(false);
 		// EndDatetxt.setEnabled(false);
 
@@ -356,10 +364,9 @@ public class EditTimeActivity extends Activity {
 								if (timelog != null) {
 									date = timelog.getStartTime();
 								} else
-									date = TimeHelper.getDate();
+									date = TimeHelper.getDateAndTime();
 								// substring is used to only display the hours
-								StartDate = TimeHelper.getTimeFromTimePicker(
-										view, date);
+								StartDate = TimeHelper.getTimeFromTimePicker(view, date);
 								Starttxt.setText(StartDate.substring(11));
 
 								displayTotalWorkedTime();
@@ -401,10 +408,9 @@ public class EditTimeActivity extends Activity {
 								if (timelog != null) {
 									date = timelog.getEndTime();
 								} else
-									date = TimeHelper.getTime();
+									date = TimeHelper.getDateAndTime();
 
-								EndDate = TimeHelper.getTimeFromTimePicker(
-										view, date);
+								EndDate = TimeHelper.getTimeFromTimePicker(view, date);
 								Endtxt.setText(EndDate.substring(11));
 								
 								displayTotalWorkedTime();
@@ -687,8 +693,8 @@ public class EditTimeActivity extends Activity {
 		// update total hours text view 
 		String minutes = null;
 		try {
-			minutes = TimeHelper.getTimeDiffInMinutes(StartDatetxt.getText()
-							.toString() + " " + Starttxt.getText().toString(), EndDate);
+			minutes = TimeHelper.getTimeDiffInMinutes(StartDatetxt.getText().toString() + " " + Starttxt.getText().toString(), 
+					EndDatetxt.getText().toString() + " " + Endtxt.getText().toString());
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
