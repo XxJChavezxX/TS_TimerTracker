@@ -20,6 +20,7 @@
             android:layout_weight="2"
             android:layout_height="wrap_content"
             android:paddingLeft="10dp"
+            android:paddingRight="0dp"
             android:text="Company"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
@@ -29,6 +30,7 @@
             android:layout_weight="2"
             android:layout_height="wrap_content"
             android:paddingLeft="0dp"
+            android:paddingRight="0dp"
             android:text="Rate"
             android:textAppearance="?android:attr/textAppearanceLarge" />
     </TableRow>
@@ -45,6 +47,7 @@
             android:layout_weight="2"
             android:layout_height="wrap_content"
             android:paddingLeft="20dp"
+            android:paddingRight="0dp"
             android:text="Small Text"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
@@ -54,6 +57,7 @@
             android:layout_weight="2"
             android:layout_height="wrap_content"
             android:paddingLeft="10dp"
+            android:paddingRight="0dp"
             android:text="Small Text"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
@@ -71,6 +75,7 @@
             android:layout_weight="2"
             android:layout_height="wrap_content"
             android:paddingLeft="10dp"
+            android:paddingRight="0dp"
             android:text="Start Time"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -80,6 +85,7 @@
             android:layout_weight="2"
             android:layout_height="wrap_content"
             android:paddingLeft="0dp"
+            android:paddingRight="0dp"
             android:text="End Date"
             android:textAppearance="?android:attr/textAppearanceMedium" />
     </TableRow>
@@ -96,6 +102,7 @@
             android:layout_weight="2"
             android:layout_height="wrap_content"
             android:paddingLeft="20dp"
+            android:paddingRight="0dp"
             android:text="Small Text"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
@@ -105,6 +112,7 @@
             android:layout_weight="2"
             android:layout_height="wrap_content"
             android:paddingLeft="10dp"
+            android:paddingRight="0dp"
             android:text="Small Text"
             android:textAppearance="?android:attr/textAppearanceSmall" />
     </TableRow>
@@ -121,6 +129,7 @@
             android:layout_weight="2"
             android:layout_height="wrap_content"
             android:paddingLeft="10dp"
+            android:paddingRight="0dp"
             android:text="Total Hours"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -130,6 +139,7 @@
             android:layout_weight="2"
             android:layout_height="wrap_content"
             android:paddingLeft="0dp"
+            android:paddingRight="0dp"
             android:text="Estimated Pay"
             android:textAppearance="?android:attr/textAppearanceMedium" />
     </TableRow>
@@ -146,6 +156,7 @@
             android:layout_weight="2"
             android:layout_height="wrap_content"
             android:paddingLeft="20dp"
+            android:paddingRight="0dp"
             android:text="Small Text"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
@@ -155,6 +166,7 @@
             android:layout_weight="2"
             android:layout_height="wrap_content"
             android:paddingLeft="10dp"
+            android:paddingRight="0dp"
             android:text="Small Text"
             android:textAppearance="?android:attr/textAppearanceSmall" />
     </TableRow>
@@ -203,7 +215,7 @@
             android:layout_alignBottom="@+id/textView11"
             android:layout_alignParentRight="true"
             android:layout_marginRight="31dp"
-            android:text="Email Excel File"
+            android:text="@string/timesheetbtn_text"
             android:textAppearance="?android:attr/textAppearanceSmall" />
     </RelativeLayout>
         <!--
