@@ -31,5 +31,6 @@
     <string name="timelog_id">TimeLogID</string>
     <string name="company_id">CompanyID</string>
     <string name="timesheetbtn_text">Email Timesheet</string>
+    <string name="appVersion">11.0</string>
 
 </resources>
