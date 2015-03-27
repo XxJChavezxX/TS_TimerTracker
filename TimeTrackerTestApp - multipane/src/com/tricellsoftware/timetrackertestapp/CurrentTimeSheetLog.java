@@ -178,10 +178,10 @@ public class CurrentTimeSheetLog extends Activity {
 		int TotalMinutes = 0;
 		for(TimeLogDTO log: timelogs){
 			int minutes;
-			if(log.getMinutes() == null)
+			if(log.getMilliseconds() == null)
 				minutes = 0;//Integer.parseInt(log.getMinutes())
 			else{
-				minutes =  Integer.parseInt(log.getMinutes());
+				minutes =  Integer.parseInt(log.getMilliseconds());
 			}
 			
 			TotalMinutes = TotalMinutes + minutes;

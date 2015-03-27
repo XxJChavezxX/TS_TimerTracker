@@ -2,6 +2,7 @@ package com.tricellsoftware.timetrackertestapp;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import android.app.ActionBar;
 import android.app.Activity;
@@ -15,6 +16,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
 
 
 
@@ -204,18 +206,25 @@ public class SummaryActivity extends Activity {
 		//txtCompany.setTextSize(20);
 		
 		timelogs = logic.getAllTimeLogsByWeek(StartDate.substring(4), EndDate.substring(4)); //logic.getAllTimeLogsByWeek("03/03/2014", "03/09/2014");
-		int TotalMinutes = 0;
+		int TotalMilis = 0;
 		for(TimeLogDTO log: timelogs){
 			int minutes;
-			if(log.getMinutes() == null)
+			if(log.getMilliseconds() == null)
 				minutes = 0;//Integer.parseInt(log.getMinutes())
 			else{
-				minutes =  Integer.parseInt(log.getMinutes());
+				minutes =  Integer.parseInt(log.getMilliseconds());
 			}
 			
-			TotalMinutes = TotalMinutes + minutes;
+			TotalMilis = TotalMilis + minutes;
 		}
-		totalHours.setText(TimeHelper.displayHoursandMinutes(Integer.toString(TotalMinutes)));
+		
+		if(TotalMilis == 0){
+			totalHours.setText("N/A");
+		}
+		else
+			totalHours.setText(TimeHelper.displayHoursandMinutesSeconds((long)TotalMilis));
+		//get total minutes from Milis
+		long TotalMinutes = TimeUnit.MILLISECONDS.toMinutes(TotalMilis);
 		//Calculate amount paid
 		String amountPaid = TimeHelper.calculatepay(TotalMinutes, (float)Company.getRate());
 		if(amountPaid.equals("0")){

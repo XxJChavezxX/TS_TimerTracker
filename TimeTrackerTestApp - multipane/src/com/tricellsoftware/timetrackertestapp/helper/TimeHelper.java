@@ -22,8 +22,8 @@ public class TimeHelper {
 	
 	static SimpleDateFormat tf;
 	String time;
-	static String TimeFormat2	=	"hh:mm a"; //time format
-	static String TimeFormat	=	"MM/dd/yyyy hh:mm a"; //time format
+	static String TimeFormat2	=	"hh:mm:ss a"; //time format
+	static String TimeFormat	=	"MM/dd/yyyy hh:mm:ss a"; //time format
 	
 	
 	static int WeekOfYear;
@@ -51,11 +51,42 @@ public class TimeHelper {
 		long seconds = TimeUnit.MILLISECONDS.toSeconds(diff);
 		long minutes = TimeUnit.SECONDS.toMinutes(seconds);
 		long hours = TimeUnit.MINUTES.toHours(minutes);
+
 		//date = new Date(hours);
 		//if(minutes >= 60)
 			//minutes = 0;
 		//return tf.format(date);
 		return String.valueOf(minutes); //String.format("%01d:%02d", hours, minutes);//String.valueOf(hours) +":"+ String.valueOf(minutes);
+		
+	}
+	public static String getTimeDiffInMillis(String startTime, String endTime) throws ParseException{
+		
+		Date StartDateTime = new SimpleDateFormat(TimeFormat,Locale.US).parse(startTime);
+		Date EndDateTime = new SimpleDateFormat(TimeFormat,Locale.US).parse(endTime);
+		
+		if(StartDateTime.getTime() > EndDateTime.getTime()){
+			//diff = StartDateTime.getTime() - EndDateTime.getTime();
+			diff = 0;
+			
+		}
+		else {
+			diff = EndDateTime.getTime() - StartDateTime.getTime();	
+		    
+		}
+//		long diffSeconds = diff / 1000 % 60;
+//		long diffMinutes = diff / (60* 1000) % 60;
+//		long diffHours = diff / (60 * 60 * 1000);
+		
+		long seconds = TimeUnit.MILLISECONDS.toSeconds(diff);
+		long minutes = TimeUnit.SECONDS.toMinutes(seconds);
+		long hours = TimeUnit.MINUTES.toHours(minutes);
+		//variable will hold the milisecinds
+		long millis = diff;
+		//date = new Date(hours);
+		//if(minutes >= 60)
+			//minutes = 0;
+		//return tf.format(date);
+		return String.valueOf(millis); //String.format("%01d:%02d", hours, minutes);//String.valueOf(hours) +":"+ String.valueOf(minutes);
 		
 	}
 	public static String getTimeDiffInSecs(String startTime, String endTime) throws ParseException{
@@ -89,13 +120,15 @@ public class TimeHelper {
 		}
 		long minutes = Integer.parseInt(Minutes);
 		long hours = TimeUnit.MINUTES.toHours(minutes);
+		long seconds = TimeUnit.MINUTES.toSeconds(minutes);
 		if(minutes >= 60){
 			minutes = minutes - (hours * 60);
 		}
+		seconds = seconds % 60;
 		
-		return String.format("%01d:%02d", hours, minutes);
+		return String.format("%01d:%02d:%02d", hours, minutes, seconds);
 	}
-	public static String displayHoursandMinutesSeconds(long millis){
+	public static String displayHoursandMinutesSecondSecondMethod(long millis){
 		
 //		if(Minutes == null){
 //			return "--";
@@ -108,24 +141,21 @@ public class TimeHelper {
 			minutes = minutes - (hours * 60);
 		}
 		
-		return String.format("%01d:%02d:%02d", hours, minutes, secs);
+		return String.format("%02d:%02d:%02d", hours, minutes, secs);
 	}
-	public static String displayHoursandMinutesSeconds2(long millis){
+	public static String displayHoursandMinutesSeconds(long millis){
 		
-//		if(Minutes == null){
-//			return "--";
-//		}
-		
+		if(millis <= 0){
+			return "--";
+		}
 		int secs = (int) (millis / 1000);
 		int minutes = secs / 60;
 		//long hours = minutes / 60;
-		secs = secs % 60;
+
 		int hour = minutes / 60;
-		
-		
-//		if(minutes >= 60){
-//			minutes = minutes - (hours * 60);
-//		}
+		secs = secs % 60;
+		minutes = minutes % 60;
+	
 		
 		return String.format("%02d:%02d:%02d", hour, minutes, secs);
 	}
@@ -317,6 +347,8 @@ public class TimeHelper {
 		Calendar cal = setCalendar(Date);
 		cal.set(Calendar.HOUR_OF_DAY, tp.getCurrentHour());
 		cal.set(Calendar.MINUTE, tp.getCurrentMinute());
+		cal.set(Calendar.SECOND, 0);
+		//cal.set(Calendar.SECOND, tp.getcur());
 		Date date = cal.getTime();
         String time = new SimpleDateFormat(TimeFormat).format(date);
         

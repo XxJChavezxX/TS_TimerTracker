@@ -203,7 +203,7 @@ public class ClocksActivity extends Activity {
 		timelog.setEndTime(TimeHelper.getTime());
 		String TotalMinutes = TimeHelper.getTimeDiffInMinutes(timelog.getStartTime(),timelog.getEndTime());
 		timelog.setStatusID(ClockType);
-		timelog.setMinutes(TotalMinutes);
+		timelog.setMilliseconds(TotalMinutes);
 		logic.updateTimeLogStatusID(timelog, Status_Enum.In.getValue());
 	}
 

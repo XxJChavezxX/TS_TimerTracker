@@ -148,23 +148,23 @@ public class Clocks_Fragment extends Fragment {
 	  		
 //	  		//*******  Set up Timer    *******//
 	  		
-	  		final Handler timerHandler = new Handler();
-	  		final Runnable timerRunnable = new Runnable(){
-
-				@Override
-				public void run() {
-					// TODO Auto-generated method stub
-					long millis = SystemClock.uptimeMillis() - startTimerTime;
-					TotalTime = prevTime + millis;
-					
-					String time = TimeHelper.displayHoursandMinutesSeconds2(millis);
-					
-					Timertv.setText("Total Time: " + time);
-					
-					timerHandler.postDelayed(this, 0);
-				}
-	  			
-	  		};
+//	  		final Handler timerHandler = new Handler();
+//	  		final Runnable timerRunnable = new Runnable(){
+//
+//				@Override
+//				public void run() {
+//					// TODO Auto-generated method stub
+//					long millis = SystemClock.uptimeMillis() - startTimerTime;
+//					TotalTime = prevTime + millis;
+//					
+//					String time = TimeHelper.displayHoursandMinutesSeconds(millis);
+//					
+//					Timertv.setText("Total Time: " + time);
+//					
+//					timerHandler.postDelayed(this, 0);
+//				}
+//	  			
+//	  		};
 	  		
 	  		if(id > 0){
 	  			Name.setText("Welcome " + profile.getFirstName());
@@ -217,11 +217,11 @@ public class Clocks_Fragment extends Fragment {
 	  					return;
 	  				}
 	  				//***** Start Timer *****//
-	  				Timertv.setVisibility(View.VISIBLE);
-	  				//startTimer(startTimerTime, timerHandler, timerRunnable);
-	  				startTimerTime = SystemClock.uptimeMillis();
-	  				//startTimer = Long.parseLong(TimeHelper.getTime());
-	  				timerHandler.postDelayed(timerRunnable, 0);
+//	  				Timertv.setVisibility(View.VISIBLE);
+//	  				//startTimer(startTimerTime, timerHandler, timerRunnable);
+//	  				startTimerTime = SystemClock.uptimeMillis();
+//	  				//startTimer = Long.parseLong(TimeHelper.getTime());
+//	  				timerHandler.postDelayed(timerRunnable, 0);
 	  				
 	  			
 	  				//SaveNewItem();
@@ -302,11 +302,11 @@ public class Clocks_Fragment extends Fragment {
 	  					}
 	  					else{
 	  						
-	  		  				//*********** Stop Timer ***********//
-	  						Timertv.setVisibility(View.GONE);
-	  		  				//stopTimer(timerHandler, timerRunnable);
-	  						prevTime += startTimerTime;
-	  		  				timerHandler.removeCallbacks(timerRunnable);
+//	  		  				//*********** Stop Timer ***********//
+//	  						Timertv.setVisibility(View.GONE);
+//	  		  				//stopTimer(timerHandler, timerRunnable);
+//	  						prevTime += startTimerTime;
+//	  		  				timerHandler.removeCallbacks(timerRunnable);
 	  						
 	  						clockedtv.setVisibility(View.GONE);
 	  						profile.setStatusID(Status_Enum.Off.getValue());
@@ -410,9 +410,9 @@ public class Clocks_Fragment extends Fragment {
 	private void UpdateTimeLog() throws ParseException{
 		
 		timelog.setEndTime(TimeHelper.getTime());
-		String TotalMinutes = TimeHelper.getTimeDiffInMinutes(timelog.getStartTime(),timelog.getEndTime());
+		String TotalMillis = TimeHelper.getTimeDiffInMillis(timelog.getStartTime(),timelog.getEndTime());
 		timelog.setStatusID(ClockType);
-		timelog.setMinutes(TotalMinutes);
+		timelog.setMilliseconds(TotalMillis);
 		logic.updateTimeLogStatusID(timelog, Status_Enum.In.getValue());
 	}
 
