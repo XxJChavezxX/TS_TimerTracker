@@ -6,7 +6,7 @@ public class TimeLogDTO {
 	private String DateTime;
 	private String StartTime;
 	private String EndTime;
-	private String Minutes;
+	private String Milliseconds;
 	private String YearWeek;
 	//private Date endTime;
 	private int profileId;
@@ -32,8 +32,8 @@ public class TimeLogDTO {
 	public void setEndTime(String time){
 		this.EndTime = time;
 	}
-	public void setMinutes(String Minutes){
-		this.Minutes = Minutes;
+	public void setMilliseconds(String Milliseconds){
+		this.Milliseconds = Milliseconds;
 	}
 	public void setStatusID(int statusId){
 		this.statusId = statusId;
@@ -50,8 +50,8 @@ public class TimeLogDTO {
 	public String getEndTime(){
 		return EndTime;
 	}
-	public String getMinutes(){
-		return Minutes;
+	public String getMilliseconds(){
+		return Milliseconds;
 	}
 	public int getStatusID(){
 		return statusId;
@@ -69,12 +69,12 @@ public class TimeLogDTO {
 	}
 	
 	
-	public TimeLogDTO(int id, String DateTime, String StartTime, String EndTime, String Minutes, String YearWeek, int profileId, int statusId){
+	public TimeLogDTO(int id, String DateTime, String StartTime, String EndTime, String Milliseconds, String YearWeek, int profileId, int statusId){
 		this.id = id;
 		this.DateTime = DateTime;
 		this.StartTime = StartTime;
 		this.EndTime = EndTime;
-		this.Minutes = Minutes;
+		this.Milliseconds = Milliseconds;
 		//this.endTime = endTime;
 		this.profileId = profileId;
 		this.statusId = statusId;

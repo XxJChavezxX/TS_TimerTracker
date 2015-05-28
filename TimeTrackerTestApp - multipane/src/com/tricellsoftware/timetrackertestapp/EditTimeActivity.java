@@ -222,8 +222,7 @@ public class EditTimeActivity extends Activity {
 			Starttxt.setText(timelog.getStartTime().substring(11));
 			Endtxt.setText(timelog.getEndTime().substring(11));
 
-			totalHourstv.setText("Total Time: "
-					+ TimeHelper.displayHoursandMinutes(timelog.getMinutes()));
+			totalHourstv.setText("Total Time: " + TimeHelper.displayHoursandMinutesSeconds(Long.valueOf(timelog.getMilliseconds())));
 
 			// String srt = StartPicker.getCurrentHour().toString();
 
@@ -258,15 +257,15 @@ public class EditTimeActivity extends Activity {
 					+ Endtxt.getText().toString();
 
 			// update total hours text view
-			String minutes = null;
+			String millis = null;
 			try {
-				minutes = TimeHelper.getTimeDiffInMinutes(StartDateTime,
+				millis = TimeHelper.getTimeDiffInMillis(StartDateTime,
 						EndDateTime);
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			TimeHelper.displayHoursandMinutes(minutes);
+			TimeHelper.displayHoursandMinutesSeconds(Long.valueOf(millis));
 
 		}
 
@@ -648,7 +647,7 @@ public class EditTimeActivity extends Activity {
 			timelog.setStartTime(newStartTime);// saves the time format as
 												// string
 			timelog.setEndTime(newEndTime);
-			timelog.setMinutes(TimeHelper.getTimeDiffInMinutes(startTime,
+			timelog.setMilliseconds(TimeHelper.getTimeDiffInMillis(startTime,
 					endTime));
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
@@ -678,9 +677,9 @@ public class EditTimeActivity extends Activity {
 		timelog.setProfileID(profileId);
 		timelog.setStatusID(Status_Enum.Out.getValue());
 		try {
-			String mins = TimeHelper.getTimeDiffInMinutes(StartDateTime,
+			String millis = TimeHelper.getTimeDiffInMillis(StartDateTime,
 					EndDateTime);
-			timelog.setMinutes(mins);
+			timelog.setMilliseconds(millis);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -691,9 +690,9 @@ public class EditTimeActivity extends Activity {
 	}
 	private void displayTotalWorkedTime(){
 		// update total hours text view 
-		String minutes = null;
+		String millis = null;
 		try {
-			minutes = TimeHelper.getTimeDiffInMinutes(StartDatetxt.getText().toString() + " " + Starttxt.getText().toString(), 
+			millis = TimeHelper.getTimeDiffInMillis(StartDatetxt.getText().toString() + " " + Starttxt.getText().toString(), 
 					EndDatetxt.getText().toString() + " " + Endtxt.getText().toString());
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
@@ -702,7 +701,7 @@ public class EditTimeActivity extends Activity {
 
 		totalHourstv.setText("Total Time: "
 				+ TimeHelper
-						.displayHoursandMinutes(minutes));
+						.displayHoursandMinutesSeconds(Long.valueOf(millis)));
 	}
 
 }

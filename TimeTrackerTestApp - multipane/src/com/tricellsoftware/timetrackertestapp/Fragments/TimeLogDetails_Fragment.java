@@ -285,7 +285,7 @@ public class TimeLogDetails_Fragment extends Fragment {
 						Starttxt.setText(timelog.getStartTime().substring(11));
 						Endtxt.setText(timelog.getEndTime().substring(11));
 						
-						totalHourstv.setText("Total Time: " + TimeHelper.displayHoursandMinutes(timelog.getMinutes()));
+						totalHourstv.setText("Total Time: " + TimeHelper.displayHoursandMinutesSeconds(Long.valueOf(timelog.getMilliseconds())));
 						
 						//String srt = StartPicker.getCurrentHour().toString();
 						
@@ -703,8 +703,8 @@ public class TimeLogDetails_Fragment extends Fragment {
 			timelog.setProfileID(profileId);
 			timelog.setStatusID(Status_Enum.Out.getValue());
 			try {
-				String mins = TimeHelper.getTimeDiffInMinutes(StartDateTime, EndDateTime);
-				timelog.setMinutes(mins);
+				String mins = TimeHelper.getTimeDiffInMillis(StartDateTime, EndDateTime);
+				timelog.setMilliseconds(mins);
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -723,7 +723,7 @@ public class TimeLogDetails_Fragment extends Fragment {
 				timelog.setCompanyId(compId);
 				timelog.setStartTime(newStartTime);//saves the time format as string
 				timelog.setEndTime(newEndTime);
-				timelog.setMinutes(TimeHelper.getTimeDiffInMinutes(startTime, endTime));
+				timelog.setMilliseconds(TimeHelper.getTimeDiffInMillis(startTime, endTime));
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -735,17 +735,18 @@ public class TimeLogDetails_Fragment extends Fragment {
 		}
 		private void displayTotalWorkedTime(){
 			// update total hours text view 
-			//update total hours text view
-			String minutes = null;
+			String millis = null;
 			try {
-				minutes = TimeHelper.getTimeDiffInMinutes(StartDatetxt.getText().toString() + " " + Starttxt.getText().toString(), 
-						EndDatetxt.getText().toString()  + " " + Endtxt.getText().toString());
+				millis = TimeHelper.getTimeDiffInMillis(StartDatetxt.getText().toString() + " " + Starttxt.getText().toString(), 
+						EndDatetxt.getText().toString() + " " + Endtxt.getText().toString());
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
-			totalHourstv.setText("Total Time: " + TimeHelper.displayHoursandMinutes(minutes));
+
+			totalHourstv.setText("Total Time: "
+					+ TimeHelper
+							.displayHoursandMinutesSeconds(Long.valueOf(millis)));
 		}
 
 }

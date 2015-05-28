@@ -337,7 +337,7 @@ public class BusinessLogic {
 				timelog.setDate(cursor.getString(cursor.getColumnIndexOrThrow(TimeLogTable.COLUMN_DATE)));
 				timelog.setStartTime(cursor.getString(cursor.getColumnIndexOrThrow(TimeLogTable.COLUMN_START_TIME)));
 				timelog.setEndTime(cursor.getString(cursor.getColumnIndexOrThrow(TimeLogTable.COLUMN_END_TIME)));
-				timelog.setMinutes(cursor.getString(cursor.getColumnIndexOrThrow(TimeLogTable.COLUMN_MINUTES)));
+				timelog.setMilliseconds(cursor.getString(cursor.getColumnIndexOrThrow(TimeLogTable.COLUMN_MINUTES)));
 				timelog.setYearWeek(cursor.getString(cursor.getColumnIndexOrThrow(TimeLogTable.COLUMN_YEARWEEK)));
 				timelog.setProfileID(cursor.getInt(cursor.getColumnIndexOrThrow( TimeLogTable.COLUMN_FK_PROFILEID)));
 				timelog.setStatusID(cursor.getInt(cursor.getColumnIndexOrThrow(TimeLogTable.COLUMN_FK_STATUSID)));
@@ -367,7 +367,7 @@ public class BusinessLogic {
 			  values.put(TimeLogTable.COLUMN_FK_PROFILEID, timelog.getProfileID());
 			  values.put(TimeLogTable.COLUMN_FK_STATUSID, timelog.getStatusID());
 			  values.put(TimeLogTable.COLUMN_FK_COMPANYID, timelog.getCompanyId());
-			  values.put(TimeLogTable.COLUMN_MINUTES, timelog.getMinutes());
+			  values.put(TimeLogTable.COLUMN_MINUTES, timelog.getMilliseconds());
 			  db.insert(TimeLogTable.TIMELOG_TABLE, null, values);
 		  }
 		  catch(SQLiteException sql){
@@ -386,7 +386,7 @@ public class BusinessLogic {
 			  //values.put(TimeLogTable.COLUMN_DATE, timelog.getDate().toString());
 			  //values.put(TimeLogTable.COLUMN_START_TIME, timelog.getStartTime().toString());
 			  values.put(TimeLogTable.COLUMN_END_TIME, timelog.getEndTime().toString());
-			  values.put(TimeLogTable.COLUMN_MINUTES, timelog.getMinutes());
+			  values.put(TimeLogTable.COLUMN_MINUTES, timelog.getMilliseconds());
 			  values.put(TimeLogTable.COLUMN_FK_STATUSID, timelog.getStatusID());
 			  rowsupdated = db.update(TimeLogTable.TIMELOG_TABLE,
 						values,
@@ -415,7 +415,7 @@ public class BusinessLogic {
 			  values.put(TimeLogTable.COLUMN_DATE, timelog.getDate().toString());
 			  values.put(TimeLogTable.COLUMN_START_TIME, timelog.getStartTime().toString());
 			  values.put(TimeLogTable.COLUMN_END_TIME, timelog.getEndTime().toString());
-			  values.put(TimeLogTable.COLUMN_MINUTES, timelog.getMinutes());
+			  values.put(TimeLogTable.COLUMN_MINUTES, timelog.getMilliseconds());
 			  values.put(TimeLogTable.COLUMN_FK_COMPANYID, timelog.getCompanyId());
 			  //values.put(TimeLogTable.COLUMN_FK_STATUSID, timelog.getStatusID());
 			  rowsupdated = db.update(TimeLogTable.TIMELOG_TABLE,
@@ -463,7 +463,7 @@ public TimeLogDTO getTimeLogbyStatus(int statusID){
 			     timelog.setDate(Date);
 			     timelog.setStartTime(StartTime);
 			     timelog.setEndTime(EndTime);
-			     timelog.setMinutes(Minutes);
+			     timelog.setMilliseconds(Minutes);
 			     timelog.setStatusID(FKStatusID);
 			     timelog.setProfileID(FKProfileID);
 			     timelog.setYearWeek(YearWeek);
@@ -512,7 +512,7 @@ public TimeLogDTO getTimeLogbyStatus(int statusID){
 				timelog.setDate(cursor.getString(cursor.getColumnIndexOrThrow(TimeLogTable.COLUMN_DATE)));
 				timelog.setStartTime(cursor.getString(cursor.getColumnIndexOrThrow(TimeLogTable.COLUMN_START_TIME)));
 				timelog.setEndTime(cursor.getString(cursor.getColumnIndexOrThrow(TimeLogTable.COLUMN_END_TIME)));
-				timelog.setMinutes(cursor.getString(cursor.getColumnIndexOrThrow(TimeLogTable.COLUMN_MINUTES)));
+				timelog.setMilliseconds(cursor.getString(cursor.getColumnIndexOrThrow(TimeLogTable.COLUMN_MINUTES)));
 				timelog.setYearWeek(cursor.getString(cursor.getColumnIndexOrThrow(TimeLogTable.COLUMN_YEARWEEK)));
 				timelog.setProfileID(cursor.getInt(cursor.getColumnIndexOrThrow( TimeLogTable.COLUMN_FK_PROFILEID)));
 				timelog.setStatusID(cursor.getInt(cursor.getColumnIndexOrThrow(TimeLogTable.COLUMN_FK_STATUSID)));
@@ -549,7 +549,7 @@ public TimeLogDTO getTimeLogbyStatus(int statusID){
 				timelog.setDate(cursor.getString(cursor.getColumnIndexOrThrow(TimeLogTable.COLUMN_DATE)));
 				timelog.setStartTime(cursor.getString(cursor.getColumnIndexOrThrow(TimeLogTable.COLUMN_START_TIME)));
 				timelog.setEndTime(cursor.getString(cursor.getColumnIndexOrThrow(TimeLogTable.COLUMN_END_TIME)));
-				timelog.setMinutes(cursor.getString(cursor.getColumnIndexOrThrow(TimeLogTable.COLUMN_MINUTES)));
+				timelog.setMilliseconds(cursor.getString(cursor.getColumnIndexOrThrow(TimeLogTable.COLUMN_MINUTES)));
 				timelog.setYearWeek(cursor.getString(cursor.getColumnIndexOrThrow(TimeLogTable.COLUMN_YEARWEEK)));
 				timelog.setProfileID(cursor.getInt(cursor.getColumnIndexOrThrow( TimeLogTable.COLUMN_FK_PROFILEID)));
 				timelog.setStatusID(cursor.getInt(cursor.getColumnIndexOrThrow(TimeLogTable.COLUMN_FK_STATUSID)));
@@ -589,7 +589,7 @@ public TimeLogDTO getTimeLogbyStatus(int statusID){
 				timelog.setDate(cursor.getString(cursor.getColumnIndexOrThrow(TimeLogTable.COLUMN_DATE)));
 				timelog.setStartTime(cursor.getString(cursor.getColumnIndexOrThrow(TimeLogTable.COLUMN_START_TIME)));
 				timelog.setEndTime(cursor.getString(cursor.getColumnIndexOrThrow(TimeLogTable.COLUMN_END_TIME)));
-				timelog.setMinutes(cursor.getString(cursor.getColumnIndexOrThrow(TimeLogTable.COLUMN_MINUTES)));
+				timelog.setMilliseconds(cursor.getString(cursor.getColumnIndexOrThrow(TimeLogTable.COLUMN_MINUTES)));
 				timelog.setYearWeek(cursor.getString(cursor.getColumnIndexOrThrow(TimeLogTable.COLUMN_YEARWEEK)));
 				timelog.setProfileID(cursor.getInt(cursor.getColumnIndexOrThrow( TimeLogTable.COLUMN_FK_PROFILEID)));
 				timelog.setStatusID(cursor.getInt(cursor.getColumnIndexOrThrow(TimeLogTable.COLUMN_FK_STATUSID)));
@@ -625,7 +625,7 @@ public TimeLogDTO getTimeLogbyStatus(int statusID){
 				timelog.setDate(cursor.getString(cursor.getColumnIndexOrThrow(TimeLogTable.COLUMN_DATE)));
 				timelog.setStartTime(cursor.getString(cursor.getColumnIndexOrThrow(TimeLogTable.COLUMN_START_TIME)));
 				timelog.setEndTime(cursor.getString(cursor.getColumnIndexOrThrow(TimeLogTable.COLUMN_END_TIME)));
-				timelog.setMinutes(cursor.getString(cursor.getColumnIndexOrThrow(TimeLogTable.COLUMN_MINUTES)));
+				timelog.setMilliseconds(cursor.getString(cursor.getColumnIndexOrThrow(TimeLogTable.COLUMN_MINUTES)));
 				timelog.setYearWeek(cursor.getString(cursor.getColumnIndexOrThrow(TimeLogTable.COLUMN_YEARWEEK)));
 				timelog.setProfileID(cursor.getInt(cursor.getColumnIndexOrThrow( TimeLogTable.COLUMN_FK_PROFILEID)));
 				timelog.setStatusID(cursor.getInt(cursor.getColumnIndexOrThrow(TimeLogTable.COLUMN_FK_STATUSID)));
@@ -667,7 +667,7 @@ public TimeLogDTO getTimeLogbyStatus(int statusID){
 				timelog.setDate(cursor.getString(cursor.getColumnIndexOrThrow(TimeLogTable.COLUMN_DATE)));
 				timelog.setStartTime(cursor.getString(cursor.getColumnIndexOrThrow(TimeLogTable.COLUMN_START_TIME)));
 				timelog.setEndTime(cursor.getString(cursor.getColumnIndexOrThrow(TimeLogTable.COLUMN_END_TIME)));
-				timelog.setMinutes(cursor.getString(cursor.getColumnIndexOrThrow(TimeLogTable.COLUMN_MINUTES)));
+				timelog.setMilliseconds(cursor.getString(cursor.getColumnIndexOrThrow(TimeLogTable.COLUMN_MINUTES)));
 				timelog.setProfileID(cursor.getInt(cursor.getColumnIndexOrThrow( TimeLogTable.COLUMN_FK_PROFILEID)));
 				timelog.setStatusID(cursor.getInt(cursor.getColumnIndexOrThrow(TimeLogTable.COLUMN_FK_STATUSID)));
 				timelog.setCompanyId(cursor.getInt(cursor.getColumnIndexOrThrow(TimeLogTable.COLUMN_FK_COMPANYID)));
@@ -710,7 +710,7 @@ public TimeLogDTO getTimeLogbyStatus(int statusID){
 				timelog.setDate(cursor.getString(cursor.getColumnIndexOrThrow(TimeLogTable.COLUMN_DATE)));
 				timelog.setStartTime(cursor.getString(cursor.getColumnIndexOrThrow(TimeLogTable.COLUMN_START_TIME)));
 				timelog.setEndTime(cursor.getString(cursor.getColumnIndexOrThrow(TimeLogTable.COLUMN_END_TIME)));
-				timelog.setMinutes(cursor.getString(cursor.getColumnIndexOrThrow(TimeLogTable.COLUMN_MINUTES)));
+				timelog.setMilliseconds(cursor.getString(cursor.getColumnIndexOrThrow(TimeLogTable.COLUMN_MINUTES)));
 				timelog.setProfileID(cursor.getInt(cursor.getColumnIndexOrThrow( TimeLogTable.COLUMN_FK_PROFILEID)));
 				timelog.setStatusID(cursor.getInt(cursor.getColumnIndexOrThrow(TimeLogTable.COLUMN_FK_STATUSID)));
 				timelog.setCompanyId(cursor.getInt(cursor.getColumnIndexOrThrow(TimeLogTable.COLUMN_FK_COMPANYID)));

@@ -142,12 +142,12 @@ public class Clocks_Fragment extends Fragment {
 	  		clockedtv = (TextView)getView().findViewById(R.id.clockedtimetv);
 	  		
 	
-//	  		Timertv = (TextView)getView().findViewById(R.id.timer); //Re add the timer textview if implemented
-//	  		Timertv.setVisibility(View.GONE);
+	  		Timertv = (TextView)getView().findViewById(R.id.lblTimer); //Re add the timer textview if implemented
+	  		//Timertv.setVisibility(View.GONE);
 	  		
 	  		
 //	  		//*******  Set up Timer    *******//
-//	  		
+	  		
 //	  		final Handler timerHandler = new Handler();
 //	  		final Runnable timerRunnable = new Runnable(){
 //
@@ -157,7 +157,7 @@ public class Clocks_Fragment extends Fragment {
 //					long millis = SystemClock.uptimeMillis() - startTimerTime;
 //					TotalTime = prevTime + millis;
 //					
-//					String time = TimeHelper.displayHoursandMinutesSeconds2(millis);
+//					String time = TimeHelper.displayHoursandMinutesSeconds(millis);
 //					
 //					Timertv.setText("Total Time: " + time);
 //					
@@ -217,6 +217,7 @@ public class Clocks_Fragment extends Fragment {
 	  					return;
 	  				}
 	  				//***** Start Timer *****//
+//	  				Timertv.setVisibility(View.VISIBLE);
 //	  				//startTimer(startTimerTime, timerHandler, timerRunnable);
 //	  				startTimerTime = SystemClock.uptimeMillis();
 //	  				//startTimer = Long.parseLong(TimeHelper.getTime());
@@ -301,8 +302,9 @@ public class Clocks_Fragment extends Fragment {
 	  					}
 	  					else{
 	  						
-	  		  				//*********** Stop Timer ***********//
-	  		  				//stopTimer(timerHandler, timerRunnable);
+//	  		  				//*********** Stop Timer ***********//
+//	  						Timertv.setVisibility(View.GONE);
+//	  		  				//stopTimer(timerHandler, timerRunnable);
 //	  						prevTime += startTimerTime;
 //	  		  				timerHandler.removeCallbacks(timerRunnable);
 	  						
@@ -408,9 +410,9 @@ public class Clocks_Fragment extends Fragment {
 	private void UpdateTimeLog() throws ParseException{
 		
 		timelog.setEndTime(TimeHelper.getTime());
-		String TotalMinutes = TimeHelper.getTimeDiffInMinutes(timelog.getStartTime(),timelog.getEndTime());
+		String TotalMillis = TimeHelper.getTimeDiffInMillis(timelog.getStartTime(),timelog.getEndTime());
 		timelog.setStatusID(ClockType);
-		timelog.setMinutes(TotalMinutes);
+		timelog.setMilliseconds(TotalMillis);
 		logic.updateTimeLogStatusID(timelog, Status_Enum.In.getValue());
 	}
 

@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.tricellsoftware.timetrackertestapp"
     android:versionCode="13"
-    android:versionName="10.8">
+    android:versionName="@string/appVersion">
 
     <uses-sdk
         android:minSdkVersion="14"

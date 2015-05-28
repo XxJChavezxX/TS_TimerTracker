@@ -94,8 +94,13 @@ public class CustomArrayAdapter extends ArrayAdapter<TimeLogDTO>{
  //       int id = logic.getUser(1).getCurrentCompany();
         CompanyDTO cp = logic.getCompanyById(item.getCompanyId());
         CompanTv.setText("Company: " + cp.getName());
+        long Millis;
+        if(item.getMilliseconds() != null){
+        	Millis = Integer.valueOf(item.getMilliseconds());
+        }
+        else { Millis = 0; }
         
-        HoursView.setText(TimeHelper.displayHoursandMinutes(item.getMinutes()));
+        HoursView.setText(TimeHelper.displayHoursandMinutesSeconds(Millis));
         if(item.getStatusID() == Status_Enum.In.getValue()){
         	 valueView.setText("Last Status: "+ Status_Enum.In.toString());
         }

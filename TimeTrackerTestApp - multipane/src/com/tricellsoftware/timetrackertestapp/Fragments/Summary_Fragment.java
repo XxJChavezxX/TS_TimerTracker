@@ -4,6 +4,7 @@ package com.tricellsoftware.timetrackertestapp.Fragments;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import com.tricellsoftware.timetrackertestapp.DTOs.CompanyDTO;
 import com.tricellsoftware.timetrackertestapp.DTOs.ProfileDTO;
@@ -254,22 +255,25 @@ public class Summary_Fragment extends Fragment {
 		//txtCompany.setTextSize(20);
 		
 		timelogs = logic.getAllTimeLogsByWeek(StartDate.substring(4), EndDate.substring(4), String.valueOf(Company.getID())); //logic.getAllTimeLogsByWeek("03/03/2014", "03/09/2014");
-		int TotalMinutes = 0;
+		int TotalMilis = 0;
 		for(TimeLogDTO log: timelogs){
 			int minutes;
-			if(log.getMinutes() == null)
+			if(log.getMilliseconds() == null)
 				minutes = 0;//Integer.parseInt(log.getMinutes())
 			else{
-				minutes =  Integer.parseInt(log.getMinutes());
+				minutes =  Integer.parseInt(log.getMilliseconds());
 			}
 			
-			TotalMinutes = TotalMinutes + minutes;
+			TotalMilis = TotalMilis + minutes;
 		}
-		if(TotalMinutes == 0){
+		
+		if(TotalMilis == 0){
 			totalHours.setText("N/A");
 		}
 		else
-			totalHours.setText(TimeHelper.displayHoursandMinutes(Integer.toString(TotalMinutes)));
+			totalHours.setText(TimeHelper.displayHoursandMinutesSeconds((long)TotalMilis));
+		//get total minutes from Milis
+		long TotalMinutes = TimeUnit.MILLISECONDS.toMinutes(TotalMilis);
 		//Calculate amount paid
 		String amountPaid = TimeHelper.calculatepay(TotalMinutes, (float)Company.getRate());
 		if(amountPaid.equals("0")){

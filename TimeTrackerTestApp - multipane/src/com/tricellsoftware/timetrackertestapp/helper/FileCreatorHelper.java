@@ -121,11 +121,11 @@ public class FileCreatorHelper {
 		        
 	            //Add the created Cells to the sheet
 	            int height = 400;
-	            int width = 20;
+	            int width = 25;
 	            int width2 = 15;
 	    		//spans 7 days out of the week
-    			int breakTime = 0;
-    			int totalTime = 0;
+    			long breakTime = 0;
+    			long totalTime = 0;
 	            int totalHours = 0;
 				String endTime = null;
 				String startTime = null;
@@ -175,11 +175,11 @@ public class FileCreatorHelper {
 		    						nextlogEndTime = timelogs.get(j+1).getEndTime(); //stores next log end time, should be "--", which is expected
 		    						if(!endTime.equals(empty))
 		    						{
-		    							breakTime = breakTime + Integer.parseInt(TimeHelper.getTimeDiffInMinutes(endTime, startTime));
+		    							breakTime = breakTime + Integer.parseInt(TimeHelper.getTimeDiffInMillis(endTime, startTime));
 		    						}
 		    						
 		    					}
-			    				mins = Integer.parseInt(timelogs.get(j).getMinutes());
+			    				mins = Integer.parseInt(timelogs.get(j).getMilliseconds());
 			    				totalTime = totalTime + mins;
 							} catch (NumberFormatException e) {
 								// TODO Auto-generated catch block
@@ -195,8 +195,8 @@ public class FileCreatorHelper {
 	    					Totallbl = new Label(row, 6, empty, fontCellformat2);
 	    				}
 	    				else{
-	    					Breakslbl = new Label(row, 4, TimeHelper.displayHoursandMinutes(String.valueOf(breakTime)), fontCellformat2);
-	    					Totallbl = new Label(row, 6, TimeHelper.displayHoursandMinutes(String.valueOf(totalTime)), fontCellformat2);
+	    					Breakslbl = new Label(row, 4, TimeHelper.displayHoursandMinutesSeconds(breakTime), fontCellformat2);
+	    					Totallbl = new Label(row, 6, TimeHelper.displayHoursandMinutesSeconds(totalTime), fontCellformat2);
 	    				}
 	    				
 	    				
@@ -213,7 +213,7 @@ public class FileCreatorHelper {
 	    					mins = 0;
 	    				}
 	    				else
-	    					mins = Integer.parseInt(timelogs.get(0).getMinutes());
+	    					mins = Integer.parseInt(timelogs.get(0).getMilliseconds());
 	    				
 	    				totalTime = totalTime + mins;
 	    				breakTime = 0;
@@ -226,7 +226,7 @@ public class FileCreatorHelper {
 	    					Totallbl = new Label(row, 6, empty, fontCellformat2);
 	    				}
 	    				else
-	    					Totallbl = new Label(row, 6, TimeHelper.displayHoursandMinutes(String.valueOf(totalTime)), fontCellformat2);
+	    					Totallbl = new Label(row, 6, TimeHelper.displayHoursandMinutesSeconds(totalTime), fontCellformat2);
 	    				
 	    			}
 
@@ -246,7 +246,7 @@ public class FileCreatorHelper {
 		            sheet.setColumnView(row, width);
 		            
 		            //add up total hours
-		            totalHours = totalHours + totalTime;
+		            totalHours = (int) (totalHours + totalTime);
 	    		}
 	    	    /** predefined Rows and Columns **/
 	    		//get calendar set to current date and Time
@@ -266,7 +266,7 @@ public class FileCreatorHelper {
 	   		    Label lbl = new Label(8, 0, "Total Hours",fontCellformat);
 		        sheet.setColumnView(8, width);
 		        sheet.addCell(lbl);
-		        Label lbl2 = new Label(8, 6, TimeHelper.displayHoursandMinutes(String.valueOf(totalHours)), fontCellformat3);
+		        Label lbl2 = new Label(8, 6, TimeHelper.displayHoursandMinutesSeconds(totalHours), fontCellformat3);
 	    		sheet.addCell(lbl2);
 		        //sheet.setColumnView(8, width);
    
