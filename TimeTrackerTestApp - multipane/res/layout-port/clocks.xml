@@ -38,6 +38,7 @@
                 android:layout_alignBaseline="@+id/dateview"
                 android:layout_alignBottom="@+id/dateview"
                 android:layout_alignParentLeft="true"
+                android:fontFamily="@style/font_family"
                 android:text="@string/datetxt"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
@@ -47,6 +48,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignBaseline="@+id/dateview"
                 android:layout_alignBottom="@+id/dateview"
+                android:fontFamily="@style/font_family"
                 android:layout_alignParentRight="true"
                 android:text="Status: "
                 android:textAppearance="?android:attr/textAppearanceSmall" />
@@ -55,6 +57,7 @@
                 android:id="@+id/dateview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@style/font_family"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
                 android:text="@string/wtxt"
@@ -85,6 +88,7 @@
                 android:layout_alignBaseline="@+id/txtDatelog"
                 android:layout_alignBottom="@+id/txtDatelog"
                 android:layout_alignRight="@+id/clockoutbttn"
+                android:fontFamily="@style/font_family"
                 android:text="@string/clockout"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
@@ -93,6 +97,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignLeft="@+id/clockinbttn"
+                android:fontFamily="@style/font_family"
                 android:layout_below="@+id/clockinbttn"
                 android:layout_marginTop="17dp"
                 android:text="@string/clockin"
@@ -130,20 +135,20 @@
         android:padding="5dp">
 
         <TextView
-            android:id="@+id/textView1"
+            android:id="@+id/latestClock"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:fontFamily="@style/font_family"
-            android:text="Last Clock"
+            android:text="Latest Clock: "
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <View
             android:id="@+id/View01"
             android:layout_width="fill_parent"
             android:layout_height="2dp"
-            android:layout_below="@+id/textView1"
+            android:layout_below="@+id/latestClock"
             android:layout_centerHorizontal="true"
             android:background="@color/lightergray" />
 
@@ -151,7 +156,7 @@
             android:orientation="vertical"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:layout_below="@+id/textView1">
+            android:layout_below="@+id/latestClock">
 
             <RelativeLayout
                 android:layout_width="fill_parent"
@@ -162,8 +167,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="Start Date"
+                    android:textSize="@dimen/font_size"
+                    android:fontFamily="@style/font_family"
+                    android:text="Start Time"
                     android:id="@+id/textView"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true" />
@@ -171,8 +177,9 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="End Date"
+                    android:textSize="@dimen/font_size"
+                    android:fontFamily="@style/font_family"
+                    android:text="End Time"
                     android:id="@+id/textView3"
                     android:layout_alignTop="@+id/textView"
                     android:layout_alignParentRight="true"
@@ -187,16 +194,18 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="Start Time"
+                    android:textSize="@dimen/font_size"
+                    android:fontFamily="@style/font_family"
+                    android:text="Company"
                     android:id="@+id/textView4"
                     android:layout_alignTop="@+id/textView9" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="End Time"
+                    android:textSize="@dimen/font_size"
+                    android:fontFamily="@style/font_family"
+                    android:text="Hours"
                     android:id="@+id/textView9"
                     android:layout_alignParentTop="true"
                     android:layout_alignParentRight="true"

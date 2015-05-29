@@ -76,7 +76,7 @@
             android:layout_height="wrap_content"
             android:paddingLeft="10dp"
             android:paddingRight="0dp"
-            android:text="Start Time"
+            android:text="Start Date"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
