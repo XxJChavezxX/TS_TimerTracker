@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CompanyRatesActivity"
+    tools:listitem="@android:layout/simple_list_item_1" >
+
+    <ListView
+        android:id="@android:id/list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:choiceMode="singleChoice"
+        android:listSelector="@android:color/darker_gray"
+        android:layout_weight="0" >
+    </ListView>
+
+    <TextView
+        android:id="@+id/nofoundtv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView" />
+
+</RelativeLayout><!-- From: file:/C:/Users/chave/Desktop/ASTimeTracker/app/src/main/res/layout-port/company_rates_fragment.xml -->

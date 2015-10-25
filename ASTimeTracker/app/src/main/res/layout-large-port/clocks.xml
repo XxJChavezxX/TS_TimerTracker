@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".ClocksActivity" >
+
+    <TextView
+        android:id="@+id/dateview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:fontFamily="@style/font_family"
+        android:text="@string/wtxt"
+        android:textSize="@dimen/font_size" />
+
+    <View
+        android:id="@+id/view1"
+        android:layout_width="fill_parent"
+        android:layout_height="2dp"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/dateview"
+        android:background="@android:color/darker_gray" />
+
+    <TextView
+        android:id="@+id/vDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/view1"
+        android:fontFamily="@style/font_family"
+        android:text="@string/datetxt"
+        android:textSize="@dimen/font_size" />
+
+    <TextView
+        android:id="@+id/textStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/view1"
+        android:fontFamily="@style/font_family"
+        android:text="Status: "
+        android:textSize="@dimen/font_size" />
+
+    <!-- <RelativeLayout -->
+    <!-- android:layout_width="wrap_content" -->
+    <!-- android:layout_height="wrap_content" -->
+    <!-- android:layout_alignLeft="@+id/vDate" -->
+    <!-- android:layout_alignParentBottom="true" -->
+    <!-- android:layout_alignRight="@+id/textStatus" -->
+    <!-- android:layout_below="@+id/txtStatus" -->
+    <!-- android:layout_marginBottom="17dp" > -->
+
+
+    <!-- <TextView -->
+    <!-- android:id="@+id/txt" -->
+    <!-- android:layout_width="wrap_content" -->
+    <!-- android:layout_height="wrap_content" -->
+    <!-- android:layout_below="@+id/timesheetbttn" -->
+    <!-- android:layout_centerHorizontal="true" -->
+    <!-- android:layout_marginTop="14dp" -->
+    <!-- android:text="@string/timesheettxt" -->
+    <!-- android:textSize="@dimen/font_size" -->
+    <!-- android:fontFamily="@style/font_family" /> -->
+
+
+    <!-- <Button -->
+    <!-- android:id="@+id/timesheetbttn" -->
+    <!-- android:layout_width="92dp" -->
+    <!-- android:layout_height="92dp" -->
+    <!-- android:layout_alignParentTop="true" -->
+    <!-- android:layout_centerHorizontal="true" -->
+    <!-- android:layout_marginTop="126dp" -->
+    <!-- android:background="@drawable/timesheet_bttn" /> -->
+
+
+    <!-- </RelativeLayout> -->
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="234dp" >
+
+        <TextView
+            android:id="@+id/clockedtimetv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="318dp"
+            android:text="Medium Text"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/white" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/relativeLayout1"
+        android:layout_alignLeft="@+id/view1"
+        android:layout_alignRight="@+id/view1"
+        android:layout_below="@+id/dateview" >
+
+        <TextView
+            android:id="@+id/txtStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/clockoutbttn"
+            android:layout_below="@+id/clockoutbttn"
+            android:layout_marginTop="48dp"
+            android:fontFamily="@style/font_family"
+            android:text="@string/clockout"
+            android:textSize="@dimen/font_size" />
+
+        <TextView
+            android:id="@+id/txtDatelog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/txtStatus"
+            android:layout_alignBottom="@+id/txtStatus"
+            android:layout_alignRight="@+id/clockinbttn"
+            android:fontFamily="@style/font_family"
+            android:text="@string/clockin"
+            android:textSize="@dimen/font_size" />
+
+        <Button
+            android:id="@+id/clockinbttn"
+            android:layout_width="128dp"
+            android:layout_height="128dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="84dp"
+            android:background="@drawable/clock_in_bttn"
+            android:scaleX="1.5"
+            android:scaleY="1.5" />
+
+        <Button
+            android:id="@+id/clockoutbttn"
+            android:layout_width="128dp"
+            android:layout_height="128dp"
+            android:layout_alignBaseline="@+id/clockinbttn"
+            android:layout_alignBottom="@+id/clockinbttn"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="85dp"
+            android:background="@drawable/clock_out_bttn"
+            android:scaleX="1.5"
+            android:scaleY="1.5" />
+
+    </RelativeLayout>
+
+</RelativeLayout>
