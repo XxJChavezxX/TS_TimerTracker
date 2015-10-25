@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android" >
-    <item android:drawable="@drawable/hourlyrates_pressed"
-        android:state_pressed="true"></item>
-    <item android:drawable="@drawable/hourlyrates_default"
-        android:state_focused="true"></item>
-    <item android:drawable="@drawable/hourlyrates_default"></item>
-</selector><!-- From: file:/C:/Users/chave/Desktop/ASTimeTracker/app/src/main/res/drawable-xhdpi/hourly_rate_bttn.xml -->

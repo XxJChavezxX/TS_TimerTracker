@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item android:drawable="@drawable/edit_icon"
+        android:state_pressed="true"></item>
+    <item android:drawable="@drawable/edit_icon"></item>
+</selector>
+<!-- From: file:/C:/Users/chave/Desktop/TimeTracker/app/src/main/res/drawable-hdpi/edit_btn.xml -->

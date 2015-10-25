@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <fragment
+        android:id="@+id/companies_Fragment"
+        android:name="com.tricellsoftware.timetrackertestapp.Fragments.Companies_Fragment"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1.5"
+        tools:layout="@layout/company_rates_fragment" />
+
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="2" >
+    </FrameLayout>
+
+</LinearLayout><!-- From: file:/C:/Users/chave/Desktop/TimeTracker/app/src/main/res/layout-large-land/company_main_layout.xml -->

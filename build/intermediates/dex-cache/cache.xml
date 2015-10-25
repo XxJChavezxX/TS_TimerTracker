@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="C:\Users\chave\Desktop\TimeTracker\app\libs\android-support-v13.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="f5fa2183e286730a81f3076f19022539902a24f3">
+        <dex dex="C:\Users\chave\Desktop\TimeTracker\app\build\intermediates\pre-dexed\debug\android-support-v13-fb6e2eb475a536463fa2a86aa0126bc79dbacb39.jar" />
+    </item>
+    <item
+        jar="C:\Users\chave\Desktop\TimeTracker\app\libs\android-support-v7-mediarouter.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="848a5cefb56c52db3734d9844fb27de203e2c284">
+        <dex dex="C:\Users\chave\Desktop\TimeTracker\app\build\intermediates\pre-dexed\debug\android-support-v7-mediarouter-129a1415f9b20360675f0f1c7b2e685731449ec4.jar" />
+    </item>
+    <item
+        jar="C:\Users\chave\Desktop\TimeTracker\app\libs\jxl.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="7faf62e0697f7a88954622dfe8c8de33ed142ac7">
+        <dex dex="C:\Users\chave\Desktop\TimeTracker\app\build\intermediates\pre-dexed\debug\jxl-65ede4d087739bacbc227924bd3c6441fce02cbb.jar" />
+    </item>
+    <item
+        jar="C:\Users\chave\Desktop\TimeTracker\app\build\intermediates\exploded-aar\com.android.support\gridlayout-v7\19.1.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="af4cc326e6cd92f88db12298767e521743aedd36">
+        <dex dex="C:\Users\chave\Desktop\TimeTracker\app\build\intermediates\pre-dexed\debug\classes-7fb7d42251a9560353f60d6fc4f13959b7469902.jar" />
+    </item>
+    <item
+        jar="C:\Users\chave\Desktop\TimeTracker\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\19.1.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="3499ceba05ca1f6037c6a2fad73df8f636224a28">
+        <dex dex="C:\Users\chave\Desktop\TimeTracker\app\build\intermediates\pre-dexed\debug\classes-b106226da7b8df7b21c8961c9fad41f9fe2fa747.jar" />
+    </item>
+
+</items>
